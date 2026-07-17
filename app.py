@@ -85,7 +85,7 @@ if st.button(t["button"]):
 
     if question:
 
-        result = search_question(question)
+        result = search_question(question, language)
 
         if result:
 
