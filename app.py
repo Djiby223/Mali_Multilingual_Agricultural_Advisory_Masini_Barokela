@@ -82,10 +82,27 @@ crop = st.selectbox(t["crop"], list(ADVICE.keys()))
 question = st.text_area(t["question"])
 
 if st.button(t["button"]):
-    st.success(ADVICE[crop][language])
 
     if question:
-        st.info(f"Question received: {question}")
+
+        result = search_question(question)
+
+        if result:
+
+            if language == "English":
+                st.success(result["english"]["answer"])
+
+            elif language == "Français":
+                st.success(result["french"]["answer"])
+
+            else:
+                st.success(result["bambara"]["answer"])
+
+        else:
+            st.warning("No matching answer found.")
+
+    else:
+        st.warning("Please enter a question.")
 
 st.divider()
 st.caption("Version 2.0 - Multilingual support and crop-specific recommendations.")
