@@ -1,3 +1,4 @@
+crop = st.selectbox(t["crop"], list(ADVICE.keys()))
 crop = st.selectbox(
     t["crop"],
     [
