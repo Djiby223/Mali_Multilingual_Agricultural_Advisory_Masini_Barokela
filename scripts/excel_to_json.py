@@ -1,51 +1,29 @@
-"""
-Masini Barokɛla
-Excel → JSON Converter (Version 1)
-
-Reads the Master Knowledge Base Excel workbook and converts
-every row into a JSON object.
-
-The script automatically detects the workbook columns so it
-works even if the column names change slightly.
-
-Author: Masini Barokɛla Project
-"""
-
 import json
 from pathlib import Path
-
 import pandas as pd
-
-
-# ---------------------------------------------------------
-# Project paths
-# ---------------------------------------------------------
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 EXCEL_FILE = PROJECT_ROOT / "data" / "Masini_Barokela_Master_Knowledge_Base.xlsx"
-
 OUTPUT_FILE = PROJECT_ROOT / "data" / "masini_barokela.json"
 
+print("=" * 60)
+print("Masini Barokɛla Excel → JSON Converter")
+print("=" * 60)
 
-# ---------------------------------------------------------
-# Read workbook
-# ---------------------------------------------------------
-
-print("Reading workbook...")
+print(f"Project root : {PROJECT_ROOT}")
+print(f"Excel file   : {EXCEL_FILE}")
+print(f"Exists?      : {EXCEL_FILE.exists()}")
 
 df = pd.read_excel(
     EXCEL_FILE,
-    engine="openpyxl",
-    sheet_name=0
+    engine="openpyxl"
 )
-print("Reading workbook...")
-print(f"Workbook path: {EXCEL_FILE}")
-print(f"File exists: {EXCEL_FILE.exists()}")
 
-print("Workbook opened successfully.") 
-
-print(f"Found {len(df)} records.\n")
+print("Workbook opened successfully!")
+print(f"Rows    : {len(df)}")
+print(f"Columns : {len(df.columns)}")
+print(df.columns.tolist())
 
 print("Workbook columns:")
 
