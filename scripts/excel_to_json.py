@@ -9,7 +9,7 @@ import pandas as pd
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-EXCEL_FILE = PROJECT_ROOT / "data" / "Masini_Barokela_Master_Knowledge_Base.xlsx"
+EXCEL_FILE = PROJECT_ROOT / "data" / "Masini_Barokela_Master_Knowledge_Base_v2.xlsx"
 
 JSON_FILE = PROJECT_ROOT / "data" / "masini_barokela.json"
 
