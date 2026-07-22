@@ -34,7 +34,11 @@ OUTPUT_FILE = PROJECT_ROOT / "data" / "masini_barokela.json"
 
 print("Reading workbook...")
 
-df = pd.read_excel(EXCEL_FILE)
+df = pd.read_excel(
+    EXCEL_FILE,
+    engine="openpyxl",
+    sheet_name=0
+)
 
 print(f"Found {len(df)} records.\n")
 
