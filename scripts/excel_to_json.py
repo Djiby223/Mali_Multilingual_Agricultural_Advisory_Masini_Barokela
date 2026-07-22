@@ -39,7 +39,12 @@ df = pd.read_excel(
     engine="openpyxl",
     sheet_name=0
 )
+print("Reading workbook...")
 
+print(f"Workbook path: {EXCEL_FILE}")
+print(f"File exists: {EXCEL_FILE.exists()}")
+
+print("Workbook opened successfully.")
 print(f"Found {len(df)} records.\n")
 
 print("Workbook columns:")
