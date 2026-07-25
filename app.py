@@ -83,26 +83,36 @@ question = st.text_area(t["question"])
 
 if st.button(t["button"]):
 
-    if question:
+    if not question.strip():
+
+        st.warning("Please enter a question.")
+
+    else:
 
         result = search_question(question, language)
 
         if result:
 
             if language == "English":
-                st.success(result["english"]["answer"])
+                answer = result["english"]["answer"]
 
             elif language == "Français":
-                st.success(result["french"]["answer"])
+                answer = result["french"]["answer"]
 
             else:
-                st.success(result["bambara"]["answer"])
+                answer = result["bambara"]["answer"]
+
+            st.success(answer)
 
         else:
-            st.warning("No matching answer found.")
 
-    else:
-        st.warning("Please enter a question.")
+            if language == "English":
+                st.error("Sorry, I couldn't find an answer.")
 
-st.divider()
-st.caption("Version 2.0 - Multilingual support and crop-specific recommendations.")
+            elif language == "Français":
+                st.error("Désolé, je n'ai pas trouvé de réponse.")
+
+            else:
+                st.error("A hakɛ to, n ma se ka i ka jaabi sɔrɔ.")
+
+        
