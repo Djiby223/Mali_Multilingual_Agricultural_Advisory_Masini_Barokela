@@ -57,25 +57,34 @@ def search_question(user_question, language):
     best_match = None
     highest_score = 0
 
-    for record in data:
+  for record in data:
 
-        if language == "English":
-            question = record["english"]["question"]
+    if language == "English":
+        question = record["english"]["question"]
 
-        elif language == "Français":
-            question = record["french"]["question"]
+    elif language == "Français":
+        question = record["french"]["question"]
 
-        else:
-            question = record["bambara"]["question"]
+    else:
+        question = record["bambara"]["question"]
 
-        question_words = normalize(question)
+    question_words = normalize(question)
 
-        score = len(user_words & question_words)
+    common_words = user_words & question_words
 
-        if score > highest_score:
+    score = len(common_words)
 
-            highest_score = score
-            best_match = record
+    # Bonus if the beginning of the question matches
+    if question.lower().startswith(user_question.lower()[:10]):
+        score += 2
+
+    # Bonus if both questions contain the same number of important words
+    if len(user_words) == len(question_words):
+        score += 1
+
+    if score > highest_score:
+        highest_score = score
+        best_match = record
 
     if highest_score >= 2:
         return best_match
