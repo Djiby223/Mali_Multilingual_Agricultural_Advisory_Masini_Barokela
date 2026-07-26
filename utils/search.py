@@ -82,10 +82,6 @@ def search_question(user_question, language):
     if len(user_words) == len(question_words):
         score += 1
 
-        print("--------------------------------")
-print(question)
-print("Score:", score)
-
     if score > highest_score:
         highest_score = score
         best_match = record
