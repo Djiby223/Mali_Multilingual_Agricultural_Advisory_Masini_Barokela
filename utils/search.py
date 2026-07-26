@@ -5,8 +5,6 @@ Multilingual Search Engine
 
 from utils.loader import load_knowledge_base
 
-from utils.loader import load_knowledge_base
-
 from rapidfuzz import fuzz
 
 # Common words to ignore
@@ -72,9 +70,18 @@ def search_question(user_question, language):
 
     question_words = normalize(question)
 
-    common_words = user_words & question_words
+  common_words = user_words & question_words
 
-    score = len(common_words)
+keyword_score = len(common_words)
+
+# Compare the full sentences
+similarity_score = fuzz.token_set_ratio(
+    user_question,
+    question
+)
+
+# Combine both scores
+score = keyword_score * 10 + similarity_score
 
     # Bonus if the beginning of the question matches
     if question.lower().startswith(user_question.lower()[:10]):
