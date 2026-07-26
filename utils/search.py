@@ -95,7 +95,7 @@ score = keyword_score * 10 + similarity_score
         highest_score = score
         best_match = record
 
-    if highest_score >= 2:
-        return best_match
+    if highest_score >= 70:
+    return best_match
 
-    return None
+return None
