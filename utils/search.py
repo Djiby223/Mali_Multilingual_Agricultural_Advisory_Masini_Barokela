@@ -7,6 +7,8 @@ from utils.loader import load_knowledge_base
 
 from utils.loader import load_knowledge_base
 
+from rapidfuzz import fuzz
+
 # Common words to ignore
 STOP_WORDS = {
 
