@@ -6,39 +6,46 @@ Multilingual Search Engine
 from utils.loader import load_knowledge_base
 
 
+def normalize(text):
+    """
+    Convert text into a set of lowercase words.
+    """
+
+    words = text.lower().replace("?", "").replace(",", "").split()
+
+    return set(words)
+
+
 def search_question(user_question, language):
-    """
-    Search the knowledge base using the selected language.
-
-    Parameters
-    ----------
-    user_question : str
-        Question entered by the user.
-
-    language : str
-        English, Français or Bamanankan
-
-    Returns
-    -------
-    dict | None
-    """
 
     data = load_knowledge_base()
 
-    user_question = user_question.lower().strip()
+    user_words = normalize(user_question)
+
+    best_match = None
+    highest_score = 0
 
     for record in data:
 
         if language == "English":
-            question = record["english"]["question"].lower()
+            question = record["english"]["question"]
 
         elif language == "Français":
-            question = record["french"]["question"].lower()
+            question = record["french"]["question"]
 
         else:
-            question = record["bambara"]["question"].lower()
+            question = record["bambara"]["question"]
 
-        if user_question in question:
-            return record
+        question_words = normalize(question)
+
+        score = len(user_words & question_words)
+
+        if score > highest_score:
+
+            highest_score = score
+            best_match = record
+
+    if highest_score >= 2:
+        return best_match
 
     return None
