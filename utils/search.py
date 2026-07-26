@@ -29,10 +29,21 @@ STOP_WORDS = {
 
 def normalize(text):
     """
-    Convert text into a set of lowercase words.
+    Normalize text for better searching.
     """
 
-    words = text.lower().replace("?", "").replace(",", "").split()
+    text = text.lower()
+
+    for ch in ".,?!:;()[]{}\"'":
+        text = text.replace(ch, " ")
+
+    words = []
+
+    for word in text.split():
+
+        if word not in STOP_WORDS:
+
+            words.append(word)
 
     return set(words)
 
