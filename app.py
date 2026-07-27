@@ -96,9 +96,9 @@ if st.button(t["button"]):
 
         result, score = search_question(question, language)
         
-        if result:
-
-            if is_greeting(question):
+                 if result:
+                    
+                       if is_greeting(question):
 
     st.success(
         "Hello! 👋\n\nWelcome to Masini Barokɛla.\n\nI answer agricultural questions."
