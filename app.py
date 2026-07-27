@@ -1,5 +1,10 @@
 from utils.search import search_question
 
+from utils.classifier import (
+    is_greeting,
+    is_agriculture_question,
+)
+
 import streamlit as st
 
 st.set_page_config(page_title="Masini Barokela", page_icon="🌾")
