@@ -1,101 +1,47 @@
 """
 Masini Barokɛla
 Multilingual Search Engine
+Version 4.1
 """
-
-from utils.loader import load_knowledge_base
 
 from rapidfuzz import fuzz
 
-# Common words to ignore
-STOP_WORDS = {
+from utils.loader import load_knowledge_base
 
-    # English
-    "the", "is", "are", "a", "an", "to", "of",
-    "for", "on", "in", "at", "by", "what",
-    "when", "where", "how", "why", "can",
-    "should", "do", "does", "i", "my",
 
-    # French
-    "le", "la", "les", "de", "du", "des",
-    "un", "une", "et", "pour", "dans",
-    "comment", "quand", "où", "est",
-    "je", "mon", "ma", "mes",
-
-    # Bambara
-    "ye", "ka", "ni", "la", "be",
-    "ani", "i", "aw", "n", "o"
-}
-
-def normalize(text):
-    """
-    Normalize text for better searching.
-    """
-
-    text = text.lower()
-
-    for ch in ".,?!:;()[]{}\"'":
-        text = text.replace(ch, " ")
-
-    words = []
-
-    for word in text.split():
-
-        if word not in STOP_WORDS:
-
-            words.append(word)
-
-    return set(words)
+MIN_SCORE = 70
 
 
 def search_question(user_question, language):
 
     data = load_knowledge_base()
 
-    user_words = normalize(user_question)
+    user_question = user_question.lower().strip()
 
-    best_match = None
-    highest_score = 0
+    best_record = None
+    best_score = 0
 
-  for record in data:
+    for record in data:
 
-    if language == "English":
-        question = record["english"]["question"]
+        if language == "English":
+            question = record["english"]["question"]
 
-    elif language == "Français":
-        question = record["french"]["question"]
+        elif language == "Français":
+            question = record["french"]["question"]
 
-    else:
-        question = record["bambara"]["question"]
+        else:
+            question = record["bambara"]["question"]
 
-    question_words = normalize(question)
+        score = fuzz.WRatio(
+            user_question,
+            question.lower()
+        )
 
-  common_words = user_words & question_words
+        if score > best_score:
+            best_score = score
+            best_record = record
 
-keyword_score = len(common_words)
+    if best_score >= MIN_SCORE:
+        return best_record, best_score
 
-# Compare the full sentences
-similarity_score = fuzz.token_set_ratio(
-    user_question,
-    question
-)
-
-# Combine both scores
-score = keyword_score * 10 + similarity_score
-
-    # Bonus if the beginning of the question matches
-    if question.lower().startswith(user_question.lower()[:10]):
-        score += 2
-
-    # Bonus if both questions contain the same number of important words
-    if len(user_words) == len(question_words):
-        score += 1
-
-    if score > highest_score:
-        highest_score = score
-        best_match = record
-
-    if highest_score >= 70:
-    return best_match
-
-return None
+    return None, best_score
