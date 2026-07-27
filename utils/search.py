@@ -21,7 +21,7 @@ def search_question(user_question, language):
     best_record = None
     best_score = 0
 
-    for record in data:
+      for record in data:
 
         if language == "English":
             question = record["english"]["question"]
@@ -32,10 +32,21 @@ def search_question(user_question, language):
         else:
             question = record["bambara"]["question"]
 
-        score = fuzz.WRatio(
-            user_question,
-            question.lower()
-        )
+        question = question.lower()
+
+        # Ignore very short questions
+        if len(user_question.split()) < 2:
+            continue
+
+        score = fuzz.WRatio(user_question, question)
+
+        # Bonus if every word exists
+        user_words = set(user_question.split())
+        question_words = set(question.split())
+
+        overlap = len(user_words & question_words)
+
+        score += overlap * 5
 
         if score > best_score:
             best_score = score
