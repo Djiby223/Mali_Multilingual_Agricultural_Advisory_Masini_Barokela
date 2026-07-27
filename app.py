@@ -98,6 +98,24 @@ if st.button(t["button"]):
         
         if result:
 
+            if is_greeting(question):
+
+    st.success(
+        "Hello! 👋\n\nWelcome to Masini Barokɛla.\n\nI answer agricultural questions."
+    )
+
+elif not is_agriculture_question(question):
+
+    st.warning(
+        "Sorry, I specialize in agriculture.\n\nPlease ask a farming question."
+    )
+
+else:
+
+    result, score = search_question(question, language)
+
+    # keep the rest of your existing code here
+
             st.success(f"Match confidence: {score:.0f}%")
 
             if language == "English":
