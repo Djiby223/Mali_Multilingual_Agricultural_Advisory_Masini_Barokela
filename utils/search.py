@@ -5,9 +5,7 @@ Version 4.1
 """
 
 from rapidfuzz import fuzz
-
 from utils.loader import load_knowledge_base
-
 
 MIN_SCORE = 70
 
@@ -21,7 +19,7 @@ def search_question(user_question, language):
     best_record = None
     best_score = 0
 
-      for record in data:
+    for record in data:
 
         if language == "English":
             question = record["english"]["question"]
@@ -45,7 +43,6 @@ def search_question(user_question, language):
         question_words = set(question.split())
 
         overlap = len(user_words & question_words)
-
         score += overlap * 5
 
         if score > best_score:
