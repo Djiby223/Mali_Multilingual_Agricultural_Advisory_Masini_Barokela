@@ -94,15 +94,32 @@ if st.button(t["button"]):
 
     else:
 
-        result, score = search_question(question, language)
-        
-        if result:
-                    
+        # Greeting
         if is_greeting(question):
 
-          st.success(
-        "Hello! 👋\n\nWelcome to Masini Barokɛla.\n\nI answer agricultural questions."
-    )
+            st.success(
+                "Hello! 👋\n\nWelcome to Masini Barokɛla.\n\nI answer agricultural questions."
+            )
+
+        # Non-agricultural question
+        elif not is_agriculture_question(question):
+
+            st.warning(
+                "Sorry, I specialize in agriculture.\n\nPlease ask a farming question."
+            )
+
+        # Search knowledge base
+        else:
+
+            result, score = search_question(question, language)
+
+            if result:
+
+                st.success(result)
+
+            else:
+
+                st.info("I couldn't find an answer yet.") 
 
 elif not is_agriculture_question(question):
 
