@@ -18,6 +18,12 @@ language = st.sidebar.selectbox(
 )
 
 # ---------------------------
+# Conversation History
+# ---------------------------
+
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+# ---------------------------
 # Translations
 # ---------------------------
 TEXT = {
