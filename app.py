@@ -92,46 +92,23 @@ if st.button(t["button"]):
 
         st.warning("Please enter a question.")
 
+    elif is_greeting(question):
+
+        st.success(
+            "Hello! 👋\n\nWelcome to Masini Barokɛla.\n\nI answer agricultural questions."
+        )
+
+    elif not is_agriculture_question(question):
+
+        st.warning(
+            "Sorry, I specialize in agriculture.\n\nPlease ask a farming question."
+        )
+
     else:
 
-        # Greeting
-        if is_greeting(question):
+        result, score = search_question(question, language)
 
-            st.success(
-                "Hello! 👋\n\nWelcome to Masini Barokɛla.\n\nI answer agricultural questions."
-            )
-
-        # Non-agricultural question
-        elif not is_agriculture_question(question):
-
-            st.warning(
-                "Sorry, I specialize in agriculture.\n\nPlease ask a farming question."
-            )
-
-        # Search knowledge base
-        else:
-
-            result, score = search_question(question, language)
-
-            if result:
-
-                st.success(result)
-
-            else:
-
-                st.info("I couldn't find an answer yet.") 
-
-elif not is_agriculture_question(question):
-
-    st.warning(
-        "Sorry, I specialize in agriculture.\n\nPlease ask a farming question."
-    )
-
-else:
-
-    result, score = search_question(question, language)
-
-    # keep the rest of your existing code here
+        if result:
 
             st.success(f"Match confidence: {score:.0f}%")
 
@@ -156,5 +133,3 @@ else:
 
             else:
                 st.error("A hakɛ to, n ma se ka i ka jaabi sɔrɔ.")
-
-        
