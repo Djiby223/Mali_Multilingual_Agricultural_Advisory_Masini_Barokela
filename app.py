@@ -100,13 +100,15 @@ if st.button(t["button"]):
 
     if not question.strip():
 
-        st.warning("Please enter a question.")
+        st.warning(t["messages"]["enter_question"])
 
     elif is_greeting(question):
 
-        st.success(
-            "Hello! 👋\n\nWelcome to Masini Barokɛla.\n\nI answer agricultural questions."
-        )
+        st.success(t["messages"]["welcome"])
+
+    elif not is_agriculture_question(question):
+
+        st.warning(t["messages"]["non_agriculture"])
 
     else:
 
@@ -114,7 +116,9 @@ if st.button(t["button"]):
 
         if result:
 
-            st.success(f"Match confidence: {score:.0f}%")
+            st.success(
+                f"{t['messages']['confidence']}: {score:.0f}%"
+            )
 
             if language == "English":
                 answer = result["english"]["answer"]
@@ -133,21 +137,13 @@ if st.button(t["button"]):
                 "score": score,
                 "language": language,
                 "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
+            }
 
             st.session_state.chat_history.append(chat_entry)
 
             save_conversation(chat_entry)
 
-    else:
-
-        if language == "English":
-            st.error("Sorry, I couldn't find an answer.")
-
-        elif language == "Français":
-            st.error("Désolé, je n'ai pas trouvé de réponse.")
-
         else:
-            st.error("A hakɛ to, n ma se ka jaabi sɔrɔ.")
-    
+
+            st.error(t["messages"]["no_answer"])
     
