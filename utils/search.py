@@ -44,6 +44,7 @@ def search_question(user_question, language):
 
         overlap = len(user_words & question_words)
         score += overlap * 5
+        score = min(score, 100)
 
         if score > best_score:
             best_score = score
