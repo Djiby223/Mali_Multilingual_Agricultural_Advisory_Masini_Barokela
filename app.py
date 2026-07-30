@@ -116,9 +116,7 @@ if st.button(t["button"]):
 
         if result:
 
-            st.success(
-                f"{t['messages']['confidence']}: {score:.0f}%"
-            )
+            st.success(f"Match confidence: {score:.0f}%")
 
             if language == "English":
                 answer = result["english"]["answer"]
@@ -145,5 +143,5 @@ if st.button(t["button"]):
 
         else:
 
-            st.error(t["messages"]["no_answer"])
+            st.error("Sorry, I couldn't find an answer.")
     
