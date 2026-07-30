@@ -108,41 +108,46 @@ if st.button(t["button"]):
             "Hello! 👋\n\nWelcome to Masini Barokɛla.\n\nI answer agricultural questions."
         )
 
-    elif not is_agriculture_question(question):
+    else:
 
-        st.warning(
-            "Sorry, I specialize in agriculture.\n\nPlease ask a farming question."
-        )
+    result, score = search_question(question, language)
+
+    if result:
+
+        st.success(f"Match confidence: {score:.0f}%")
+
+        if language == "English":
+            answer = result["english"]["answer"]
+
+        elif language == "Français":
+            answer = result["french"]["answer"]
+
+        else:
+            answer = result["bambara"]["answer"]
+
+        st.info(answer)
+
+        chat_entry = {
+            "question": question,
+            "answer": answer,
+            "score": score,
+            "language": language,
+            "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+
+        st.session_state.chat_history.append(chat_entry)
+
+        save_conversation(chat_entry)
 
     else:
 
-        result, score = search_question(question, language)
+        if language == "English":
+            st.error("Sorry, I couldn't find an answer.")
 
-if result:
+        elif language == "Français":
+            st.error("Désolé, je n'ai pas trouvé de réponse.")
 
-    st.success(f"Match confidence: {score:.0f}%")
-
-    if language == "English":
-        answer = result["english"]["answer"]
-
-    elif language == "Français":
-        answer = result["french"]["answer"]
-
-    else:
-        answer = result["bambara"]["answer"]
-
-    st.info(answer)
-
-    chat_entry = {
-        "question": question,
-        "answer": answer,
-        "score": score,
-        "language": language,
-        "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    }
-
-    st.session_state.chat_history.append(chat_entry)
-
-    save_conversation(chat_entry)
+        else:
+            st.error("A hakɛ to, n ma se ka jaabi sɔrɔ.")
     
     
