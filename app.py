@@ -154,7 +154,6 @@ if st.button(t["button"]):
     "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 })
             
-
 save_conversation(
     st.session_state.chat_history[-1]
 )
