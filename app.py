@@ -120,40 +120,29 @@ if st.button(t["button"]):
 
         if result:
 
-            st.success(f"Match confidence: {score:.0f}%")
+    st.success(f"Match confidence: {score:.0f}%")
 
-            if language == "English":
-                answer = result["english"]["answer"]
+    if language == "English":
+        answer = result["english"]["answer"]
 
-            elif language == "Français":
-                answer = result["french"]["answer"]
+    elif language == "Français":
+        answer = result["french"]["answer"]
 
-            else:
-                answer = result["bambara"]["answer"]
+    else:
+        answer = result["bambara"]["answer"]
 
-            st.success(answer)
+    st.info(answer)
 
-        else:
+    chat_entry = {
+        "question": question,
+        "answer": answer,
+        "score": score,
+        "language": language,
+        "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
 
-            if language == "English":
-                st.error("Sorry, I couldn't find an answer.")
+    st.session_state.chat_history.append(chat_entry)
 
-            elif language == "Français":
-                st.error("Désolé, je n'ai pas trouvé de réponse.")
-
-            else:
-                st.error("A hakɛ to, n ma se ka i ka jaabi sɔrɔ.")
-
-            st.info(answer)
-
-chat_entry = {
-    "question": question,
-    "answer": answer,
-    "score": score,
-    "language": language,
-    "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-}
-
-st.session_state.chat_history.append(chat_entry)
-
-save_conversation(chat_entry)
+    save_conversation(chat_entry)
+    
+    
