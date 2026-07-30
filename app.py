@@ -146,14 +146,14 @@ if st.button(t["button"]):
 
             st.info(answer)
 
-            st.session_state.chat_history.append({
+chat_entry = {
     "question": question,
     "answer": answer,
     "score": score,
     "language": language,
     "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-})
-            
-save_conversation(
-    st.session_state.chat_history[-1]
-)
+}
+
+st.session_state.chat_history.append(chat_entry)
+
+save_conversation(chat_entry)
