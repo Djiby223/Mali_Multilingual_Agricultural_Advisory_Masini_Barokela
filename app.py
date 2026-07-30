@@ -110,34 +110,34 @@ if st.button(t["button"]):
 
     else:
 
-    result, score = search_question(question, language)
+        result, score = search_question(question, language)
 
-    if result:
+        if result:
 
-        st.success(f"Match confidence: {score:.0f}%")
+            st.success(f"Match confidence: {score:.0f}%")
 
-        if language == "English":
-            answer = result["english"]["answer"]
+            if language == "English":
+                answer = result["english"]["answer"]
 
-        elif language == "Français":
-            answer = result["french"]["answer"]
+            elif language == "Français":
+                answer = result["french"]["answer"]
 
-        else:
-            answer = result["bambara"]["answer"]
+            else:
+                answer = result["bambara"]["answer"]
 
-        st.info(answer)
+            st.info(answer)
 
-        chat_entry = {
-            "question": question,
-            "answer": answer,
-            "score": score,
-            "language": language,
-            "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            chat_entry = {
+                "question": question,
+                "answer": answer,
+                "score": score,
+                "language": language,
+                "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
 
-        st.session_state.chat_history.append(chat_entry)
+            st.session_state.chat_history.append(chat_entry)
 
-        save_conversation(chat_entry)
+            save_conversation(chat_entry)
 
     else:
 
