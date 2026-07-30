@@ -7,6 +7,8 @@ from utils.classifier import (
 
 from datetime import datetime
 
+from utils.history import save_conversation
+
 import streamlit as st
 
 st.set_page_config(page_title="Masini Barokela", page_icon="🌾")
