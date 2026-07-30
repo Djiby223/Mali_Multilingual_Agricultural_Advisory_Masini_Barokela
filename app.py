@@ -143,10 +143,11 @@ if st.button(t["button"]):
                 st.error("A hakɛ to, n ma se ka i ka jaabi sɔrɔ.")
 
             st.info(answer)
-                
-        st.session_state.chat_history.append({
-            "question": question,
-            "answer": answer,
-            "score": score,
-            "language": language
+            
+      st.session_state.chat_history.append({
+         "question": question,
+         "answer": answer,
+         "score": score,
+         "language": language,
+         "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 })
