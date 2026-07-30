@@ -118,7 +118,7 @@ if st.button(t["button"]):
 
         result, score = search_question(question, language)
 
-        if result:
+if result:
 
     st.success(f"Match confidence: {score:.0f}%")
 
