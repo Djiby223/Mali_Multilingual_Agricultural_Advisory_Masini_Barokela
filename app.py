@@ -5,6 +5,8 @@ from utils.classifier import (
     is_agriculture_question,
 )
 
+from datetime import datetime
+
 import streamlit as st
 
 st.set_page_config(page_title="Masini Barokela", page_icon="🌾")
