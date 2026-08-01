@@ -163,6 +163,19 @@ if st.button(t["button"]):
 
                st.write(f"**Question:** {question}")
 
+            if language == "English":
+               matched_question = result["english"]["question"]
+
+            elif language == "Français":
+               matched_question = result["french"]["question"]
+
+            else:
+               matched_question = result["bambara"]["question"]
+
+            st.write("**Matched Question:**")
+
+            st.code(matched_question)
+
             st.session_state.chat_history.append(chat_entry)
 
             save_conversation(chat_entry)
