@@ -123,6 +123,10 @@ if st.button(t["button"]):
 
     else:
 
+        start_time = time.perf_counter()
+
+        elapsed_ms = (time.perf_counter() - start_time) * 1000
+        
         result, score = search_question(question, language)
 
         if result:
