@@ -1,3 +1,4 @@
+from utils import intent
 from utils.search import search_question
 
 from utils.classifier import (
@@ -145,6 +146,22 @@ if st.button(t["button"]):
                 "language": language,
                 "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
+
+            if developer_mode:
+
+               st.divider()
+
+               st.subheader("🛠 Developer Information")
+
+               st.write(f"**Language:** {language}")
+
+               st.write(f"**Intent:** {intent}")
+
+               st.write(f"**Crop:** {crop}")
+
+               st.write(f"**Confidence:** {score:.1f}%")
+
+               st.write(f"**Question:** {question}")
 
             st.session_state.chat_history.append(chat_entry)
 
