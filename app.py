@@ -139,7 +139,7 @@ if st.button(t["button"]):
 
             st.session_state.chat_history.append(chat_entry)
 
-            raise Exception("I reached save_conversation()")
+            save_conversation(chat_entry)
         
         else:
 
