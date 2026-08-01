@@ -54,5 +54,12 @@
         "score": 140.0,
         "language": "English",
         "time": "2026-07-30 22:09:33"
+    },
+    {
+        "question": "How should I irrigate maize?",
+        "answer": "Recommended spacing depends on the variety, but 75 cm between rows and 25 cm between plants is common.",
+        "score": 95.5,
+        "language": "English",
+        "time": "2026-08-01 01:54:49"
     }
 ]
