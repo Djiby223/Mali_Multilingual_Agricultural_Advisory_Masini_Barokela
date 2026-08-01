@@ -10,6 +10,8 @@ HISTORY_FILE = LOGS_DIR / "conversations.json"
 
 def save_conversation(chat):
 
+    print("Saving conversation:", chat["question"])
+    
     LOGS_DIR.mkdir(exist_ok=True)
 
     history = []
