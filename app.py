@@ -22,6 +22,15 @@ language = st.sidebar.selectbox(
 )
 
 # ---------------------------
+# Developer Mode
+# ---------------------------
+
+developer_mode = st.sidebar.checkbox(
+    "🛠 Developer Mode",
+    value=False
+)
+
+# ---------------------------
 # Conversation History
 # ---------------------------
 
