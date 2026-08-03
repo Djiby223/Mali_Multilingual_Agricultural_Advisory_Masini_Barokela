@@ -126,7 +126,7 @@ if st.button(t["button"]):
         start_time = time.perf_counter()
 
         elapsed_ms = (time.perf_counter() - start_time) * 1000
-        
+
         result, score = search_question(question, language)
 
         if result:
@@ -152,21 +152,20 @@ if st.button(t["button"]):
                 "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             }
 
-            if developer_mode:
+        if developer_mode:
 
-               st.divider()
+            st.divider()
+            st.subheader("🛠 Developer Mode")
 
-               st.subheader("🛠 Developer Information")
+            st.markdown(f"""
+        **Language:** {language}
 
-               st.write(f"**Language:** {language}")
+        **Crop:** {crop}
 
-               st.write(f"**Intent:** {intent}")
+        **Confidence:** {score:.1f}%
 
-               st.write(f"**Crop:** {crop}")
-
-               st.write(f"**Confidence:** {score:.1f}%")
-
-               st.write(f"**Question:** {question}")
+        **Search Time:** {elapsed_ms:.2f} ms
+        """)
 
             if language == "English":
                matched_question = result["english"]["question"]
