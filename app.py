@@ -1,5 +1,7 @@
 import time
-from utils import intent
+
+from utils.intent import detect_intent
+
 from utils.search import search_question
 
 from utils.classifier import (
