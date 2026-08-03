@@ -2,9 +2,6 @@ import time
 
 from utils.intent import detect_intent
 
-
-intent = detect_intent(question)
-
 from utils.search import search_question
 
 from utils.classifier import (
@@ -127,6 +124,8 @@ if st.button(t["button"]):
         st.warning(t["messages"]["non_agriculture"])
 
     else:
+
+        intent = detect_intent(question)
 
         start_time = time.perf_counter()
 
