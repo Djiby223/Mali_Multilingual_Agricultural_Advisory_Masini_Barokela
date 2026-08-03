@@ -15,6 +15,8 @@ from utils.history import save_conversation
 
 import streamlit as st
 
+intent = detect_intent(question)
+
 st.set_page_config(page_title="Masini Barokela", page_icon="🌾")
 
 # ---------------------------
