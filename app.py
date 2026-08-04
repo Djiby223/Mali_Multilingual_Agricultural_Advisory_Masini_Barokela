@@ -133,62 +133,62 @@ if st.button(t["button"]):
 
         result, score = search_question(question, language)
 
-        if result:
+if result:
 
-            st.success(f"Match confidence: {score:.0f}%")
+    st.success(f"Match confidence: {score:.0f}%")
 
-            if language == "English":
-                answer = result["english"]["answer"]
+    if language == "English":
+        answer = result["english"]["answer"]
 
-            elif language == "Français":
-                answer = result["french"]["answer"]
+    elif language == "Français":
+        answer = result["french"]["answer"]
 
-            else:
-                answer = result["bambara"]["answer"]
+    else:
+        answer = result["bambara"]["answer"]
 
-            st.info(answer)
+    st.info(answer)
 
-            chat_entry = {
-                "question": question,
-                "answer": answer,
-                "score": score,
-                "language": language,
-                "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            }
+    chat_entry = {
+        "question": question,
+        "answer": answer,
+        "score": score,
+        "language": language,
+        "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
 
-        if developer_mode:
+    st.session_state.chat_history.append(chat_entry)
+    save_conversation(chat_entry)
 
-            st.divider()
-            st.subheader("🛠 Developer Mode")
+    # ---------------------------
+    # Developer Mode
+    # ---------------------------
+    if developer_mode:
 
-            st.markdown(f"""
-        **Language:** {language}
+        st.divider()
+        st.subheader("🛠 Developer Mode")
 
-        **Crop:** {crop}
+        st.markdown(f"""
+**Language:** {language}
 
-        **Confidence:** {score:.1f}%
+**Crop:** {crop}
 
-        **Search Time:** {elapsed_ms:.2f} ms
-        """)
+**Confidence:** {score:.1f}%
 
-            if language == "English":
-               matched_question = result["english"]["question"]
+**Search Time:** {elapsed_ms:.2f} ms
+""")
 
-            elif language == "Français":
-               matched_question = result["french"]["question"]
+        if language == "English":
+            matched_question = result["english"]["question"]
 
-            else:
-               matched_question = result["bambara"]["question"]
+        elif language == "Français":
+            matched_question = result["french"]["question"]
 
-            st.write("**Matched Question:**")
-
-            st.code(matched_question)
-
-            st.session_state.chat_history.append(chat_entry)
-
-            save_conversation(chat_entry)
-        
         else:
+            matched_question = result["bambara"]["question"]
 
-            st.error("Sorry, I couldn't find an answer.")
-    
+        st.write("**Matched Question:**")
+        st.code(matched_question)
+
+else:
+
+    st.error("Sorry, I couldn't find an answer.")
