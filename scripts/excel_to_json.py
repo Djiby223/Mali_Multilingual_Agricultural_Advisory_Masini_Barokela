@@ -56,7 +56,7 @@ record = {
     "last_updated": row.get("Last Updated", "")
 }
 
-    records.append(record)
+records.append(record)
 
 with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
     json.dump(records, f, ensure_ascii=False, indent=4)
