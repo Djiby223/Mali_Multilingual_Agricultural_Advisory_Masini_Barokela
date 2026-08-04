@@ -133,62 +133,62 @@ if st.button(t["button"]):
 
         result, score = search_question(question, language)
 
-if result:
+    if result:
 
-    st.success(f"Match confidence: {score:.0f}%")
-
-    if language == "English":
-        answer = result["english"]["answer"]
-
-    elif language == "Français":
-        answer = result["french"]["answer"]
-
-    else:
-        answer = result["bambara"]["answer"]
-
-    st.info(answer)
-
-    chat_entry = {
-        "question": question,
-        "answer": answer,
-        "score": score,
-        "language": language,
-        "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    }
-
-    st.session_state.chat_history.append(chat_entry)
-    save_conversation(chat_entry)
-
-    # ---------------------------
-    # Developer Mode
-    # ---------------------------
-    if developer_mode:
-
-        st.divider()
-        st.subheader("🛠 Developer Mode")
-
-        st.markdown(f"""
-**Language:** {language}
-
-**Crop:** {crop}
-
-**Confidence:** {score:.1f}%
-
-**Search Time:** {elapsed_ms:.2f} ms
-""")
+        st.success(f"Match confidence: {score:.0f}%")
 
         if language == "English":
-            matched_question = result["english"]["question"]
+        answer = result["english"]["answer"]
 
         elif language == "Français":
-            matched_question = result["french"]["question"]
+        answer = result["french"]["answer"]
 
         else:
-            matched_question = result["bambara"]["question"]
+        answer = result["bambara"]["answer"]
 
-        st.write("**Matched Question:**")
-        st.code(matched_question)
+        st.info(answer)
 
-else:
+        chat_entry = {
+            "question": question,
+            "answer": answer,
+            "score": score,
+            "language": language,
+            "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
 
-    st.error("Sorry, I couldn't find an answer.")
+        st.session_state.chat_history.append(chat_entry)
+        save_conversation(chat_entry)
+
+        # ---------------------------
+        # Developer Mode
+        # ---------------------------
+        if developer_mode:
+
+                st.divider()
+                st.subheader("🛠 Developer Mode")
+
+                st.markdown(f"""
+    **Language:** {language}
+
+    **Crop:** {crop}
+
+    **Confidence:** {score:.1f}%
+
+    **Search Time:** {elapsed_ms:.2f} ms
+    """)
+
+                if language == "English":
+                    matched_question = result["english"]["question"]
+
+                elif language == "Français":
+                    matched_question = result["french"]["question"]
+
+                else:
+                    matched_question = result["bambara"]["question"]
+
+                st.write("**Matched Question:**")
+                st.code(matched_question)
+
+    else:
+
+        st.error("Sorry, I couldn't find an answer.")
