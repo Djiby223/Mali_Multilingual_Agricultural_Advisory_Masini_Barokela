@@ -8,15 +8,17 @@ INPUT_FILE = PROJECT_ROOT / "data" / "Masini_Barokela_Master_Knowledge_Base.xlsx
 OUTPUT_FILE = PROJECT_ROOT / "data" / "masini_barokela.json"
 
 print("=" * 60)
-print("Masini Barokɛla TSV → JSON Converter")
+print("Masini Barokɛla Excel → JSON Converter")
 print("=" * 60)
 
 print("Reading:", INPUT_FILE)
 
-# Read the TSV (tab-separated) file
+# Read Excel
 df = pd.read_excel(INPUT_FILE, dtype=str).fillna("")
 
 print(f"{len(df)} records found.")
+print("Columns:")
+print(df.columns.tolist())
 
 records = []
 
