@@ -11,6 +11,20 @@ from utils.loader import load_knowledge_base
 
 MIN_SCORE = 70
 
+def filter_by_crop(records, crop):
+
+    if crop == "General":
+        return records
+
+    filtered = []
+
+    for record in records:
+
+        if record.get("crop", "").lower() == crop.lower():
+
+            filtered.append(record)
+
+    return filtered
 
 def search_question(user_question, language):
 
