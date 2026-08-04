@@ -14,7 +14,7 @@ print("=" * 60)
 print("Reading:", INPUT_FILE)
 
 # Read the TSV (tab-separated) file
-df = pd.read_csv(INPUT_FILE, sep="\t", dtype=str)
+df = pd.read_excel(INPUT_FILE, dtype=str).fillna("")
 
 print(f"{len(df)} records found.")
 
