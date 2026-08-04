@@ -18,36 +18,43 @@ df = pd.read_csv(INPUT_FILE, sep="\t", dtype=str)
 
 print(f"{len(df)} records found.")
 
-records = []
+record = {
 
-for _, row in df.iterrows():
+    "id": row.get("ID", ""),
 
-    record = {
-        "id": row.get("ID", ""),
-        "category": row.get("Category", ""),
-        "crop": row.get("Crop", ""),
+    "category": row.get("Category", ""),
 
-        "english": {
-            "question": row.get("English Question", ""),
-            "answer": row.get("English Answer", "")
-        },
+    "crop": row.get("Crop", ""),
 
-        "french": {
-            "question": row.get("French Question", ""),
-            "answer": row.get("French Answer", "")
-        },
+    "region": row.get("Region", ""),
 
-        "bambara": {
-            "question": row.get("Bambara Question", ""),
-            "answer": row.get("Bambara Answer", "")
-        },
+    "season": row.get("Season", ""),
 
-        "keywords": row.get("Keywords", ""),
-        "source": row.get("Source", ""),
-        "status": row.get("Status", ""),
-        "version": row.get("Version", ""),
-        "last_updated": row.get("Last Updated", "")
-    }
+    "english": {
+        "question": row.get("English Question", ""),
+        "answer": row.get("English Answer", "")
+    },
+
+    "french": {
+        "question": row.get("French Question", ""),
+        "answer": row.get("French Answer", "")
+    },
+
+    "bambara": {
+        "question": row.get("Bambara Question", ""),
+        "answer": row.get("Bambara Answer", "")
+    },
+
+    "keywords": row.get("Keywords", ""),
+
+    "source": row.get("Source", ""),
+
+    "status": row.get("Status", ""),
+
+    "version": row.get("Version", ""),
+
+    "last_updated": row.get("Last Updated", "")
+}
 
     records.append(record)
 
