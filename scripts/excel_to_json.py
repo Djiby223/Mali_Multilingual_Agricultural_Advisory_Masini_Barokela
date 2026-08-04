@@ -18,45 +18,40 @@ df = pd.read_excel(INPUT_FILE, dtype=str).fillna("")
 
 print(f"{len(df)} records found.")
 
-record = {
+records = []
 
-    "id": row.get("ID", ""),
+for _, row in df.iterrows():
 
-    "category": row.get("Category", ""),
+    record = {
+        "id": row.get("ID", ""),
+        "category": row.get("Category", ""),
+        "crop": row.get("Crop", ""),
+        "region": row.get("Region", ""),
+        "season": row.get("Season", ""),
 
-    "crop": row.get("Crop", ""),
+        "english": {
+            "question": row.get("English Question", ""),
+            "answer": row.get("English Answer", "")
+        },
 
-    "region": row.get("Region", ""),
+        "french": {
+            "question": row.get("French Question", ""),
+            "answer": row.get("French Answer", "")
+        },
 
-    "season": row.get("Season", ""),
+        "bambara": {
+            "question": row.get("Bambara Question", ""),
+            "answer": row.get("Bambara Answer", "")
+        },
 
-    "english": {
-        "question": row.get("English Question", ""),
-        "answer": row.get("English Answer", "")
-    },
+        "keywords": row.get("Keywords", ""),
+        "source": row.get("Source", ""),
+        "status": row.get("Status", ""),
+        "version": row.get("Version", ""),
+        "last_updated": row.get("Last Updated", "")
+    }
 
-    "french": {
-        "question": row.get("French Question", ""),
-        "answer": row.get("French Answer", "")
-    },
-
-    "bambara": {
-        "question": row.get("Bambara Question", ""),
-        "answer": row.get("Bambara Answer", "")
-    },
-
-    "keywords": row.get("Keywords", ""),
-
-    "source": row.get("Source", ""),
-
-    "status": row.get("Status", ""),
-
-    "version": row.get("Version", ""),
-
-    "last_updated": row.get("Last Updated", "")
-}
-
-records.append(record)
+    records.append(record)
 
 with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
     json.dump(records, f, ensure_ascii=False, indent=4)
