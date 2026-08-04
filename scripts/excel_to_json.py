@@ -14,7 +14,7 @@ print("=" * 60)
 print("Reading:", INPUT_FILE)
 
 # Read Excel
-df = pd.read_excel(INPUT_FILE, engine="openpyxl", dtype=str).fillna("")
+df = pd.read_csv(INPUT_FILE, sep="\t", dtype=str).fillna("")
 
 print(f"{len(df)} records found.")
 print("Columns:")
