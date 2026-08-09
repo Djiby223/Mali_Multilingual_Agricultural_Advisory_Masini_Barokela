@@ -1,0 +1,27 @@
+{
+  "id": "37",
+  "category": "Soil Management",
+  "topic": "Soil Erosion",
+  "crop": null,
+  "region": null,
+  "season": null,
+  "intent": "SOIL_MANAGEMENT",
+  "keywords": [],
+  "english": {
+    "question": "...",
+    "answer": "..."
+  },
+  "french": {
+    "question": "...",
+    "answer": "..."
+  },
+  "bambara": {
+    "question": "...",
+    "answer": "..."
+  },
+  "source": null,
+  "source_type": null,
+  "status": "review",
+  "version": "5.0",
+  "last_updated": null
+}
