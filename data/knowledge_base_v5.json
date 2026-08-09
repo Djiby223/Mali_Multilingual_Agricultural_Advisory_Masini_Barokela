@@ -1,27 +1,2802 @@
-{
-  "id": "37",
-  "category": "Soil Management",
-  "topic": "Soil Erosion",
-  "crop": null,
-  "region": null,
-  "season": null,
-  "intent": "SOIL_MANAGEMENT",
-  "keywords": [],
-  "english": {
-    "question": "...",
-    "answer": "..."
+[
+  {
+    "id": "1",
+    "category": "Planting",
+    "topic": null,
+    "crop": "General",
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is the best time to plant millet?",
+      "answer": "Millet should be planted at the beginning of the rainy season when adequate rainfall is expected."
+    },
+    "french": {
+      "question": "Quelle est la meilleure période pour planter le mil ?",
+      "answer": "Le mil doit être planté au début de la saison des pluies lorsque les précipitations sont suffisantes."
+    },
+    "bambara": {
+      "question": "Ɲɔ ka kan ka dan tuma jumɛn?",
+      "answer": "Ɲɔ ka kan ka dan samiyɛ daminɛ tuma la, sanjiba fɔlɔw mana na."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
   },
-  "french": {
-    "question": "...",
-    "answer": "..."
+  {
+    "id": "2",
+    "category": "Planting",
+    "topic": null,
+    "crop": "Rice",
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is the best time to plant maize?",
+      "answer": "Maize should be planted shortly after the first effective rains."
+    },
+    "french": {
+      "question": "Quelle est la meilleure période pour planter le maïs ?",
+      "answer": "Le maïs doit être planté juste après les premières pluies efficaces."
+    },
+    "bambara": {
+      "question": "Kaba ka kan ka dan tuma jumɛn?",
+      "answer": "Kaba ka kan ka dan samiyɛ daminɛ tuma la, sanji fɔlɔw kɔfɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
   },
-  "bambara": {
-    "question": "...",
-    "answer": "..."
+  {
+    "id": "3",
+    "category": "Planting",
+    "topic": null,
+    "crop": "Maize",
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is the recommended planting depth for millet seeds?",
+      "answer": "Millet seeds should generally be planted at a depth of 2 to 3 centimeters."
+    },
+    "french": {
+      "question": "Quelle est la profondeur recommandée pour semer les graines de mil ?",
+      "answer": "Les graines de mil doivent être semées à une profondeur de 2 à 3 cm."
+    },
+    "bambara": {
+      "question": "Ɲɔ danni dingɛ jate ye jumɛn ye?",
+      "answer": "Ɲɔ si danni dingɛ jate ye k’a ta santimɛtɛrɛ 2 la ka se santimɛtɛrɛ 3 ma."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
   },
-  "source": null,
-  "source_type": null,
-  "status": "review",
-  "version": "5.0",
-  "last_updated": null
-}
+  {
+    "id": "4",
+    "category": "Planting",
+    "topic": null,
+    "crop": "Millet",
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How much spacing should be left between maize plants?",
+      "answer": "Recommended spacing depends on the variety, but 75 cm between rows and 25 cm between plants is common."
+    },
+    "french": {
+      "question": "Quel espacement faut-il entre les plants de maïs ?",
+      "answer": "En général, 75 cm entre les rangées et 25 cm entre les plants."
+    },
+    "bambara": {
+      "question": "Jate jumɛn ka kan ka kɛ kaba siraw ani kaba danni dingɛw ni nɔgɔn cɛ?",
+      "answer": "Santimɛtɛrɛ 75 kaba siraw ni nɔgɔn cɛ, santimɛtɛrɛ 25 danni dingɛw ni nɔgɔn cɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "5",
+    "category": "Planting",
+    "topic": null,
+    "crop": "Sorghum",
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is timely planting important?",
+      "answer": "Timely planting helps crops make full use of the rainy season and improves yields."
+    },
+    "french": {
+      "question": "Pourquoi le semis au bon moment est-il important ?",
+      "answer": "Il permet aux cultures de profiter pleinement de la saison des pluies."
+    },
+    "bambara": {
+      "question": "Nafa jumɛn bɛ danni kɛli la a tuma jɔnjɔn na?",
+      "answer": "A b’a to sɛnɛfɛnw bɛ nafa sɔrɔ samiyɛ sanji nali la."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "6",
+    "category": "Irrigation",
+    "topic": null,
+    "crop": "Cotton",
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How often should tomato plants be watered?",
+      "answer": "Tomato plants should be watered regularly, especially during dry periods, while avoiding waterlogging."
+    },
+    "french": {
+      "question": "À quelle fréquence arroser les plants de tomate ?",
+      "answer": "Régulièrement, surtout en période sèche, sans excès d’eau."
+    },
+    "bambara": {
+      "question": "Ji ka kan kɛ tomati jukɔrɔ siɲɛ joli?",
+      "answer": "Tuma bɛɛ, kɛrɛnkɛrɛnnenya la ja waatiw la, ji tɛmɛnen t’a la, nka ji man ka ka dantɛmɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "7",
+    "category": "Irrigation",
+    "topic": null,
+    "crop": "Groundnut",
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is the best time of day to irrigate crops?",
+      "answer": "Early morning or late afternoon is generally the best time to irrigate crops."
+    },
+    "french": {
+      "question": "Quel est le meilleur moment pour irriguer ?",
+      "answer": "Le matin tôt ou en fin d’après-midi."
+    },
+    "bambara": {
+      "question": "Jidon ka kan ka di tuma jumɛn?",
+      "answer": "Sɔgɔmada fɛ walima wula fɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "8",
+    "category": "Irrigation",
+    "topic": null,
+    "crop": "Cowpea",
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers conserve irrigation water?",
+      "answer": "Farmers can conserve water through mulching, drip irrigation, and proper scheduling."
+    },
+    "french": {
+      "question": "Comment économiser l’eau d’irrigation ?",
+      "answer": "Utiliser le paillage, le goutte-à-goutte et une bonne planification."
+    },
+    "bambara": {
+      "question": "Ji bɛ se ka la lakana cogo di?",
+      "answer": "Dugubinfiri, ji donli, ani baara bolodacogo ɲuman."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "9",
+    "category": "Irrigation",
+    "topic": null,
+    "crop": "Sesame",
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What are signs that crops need water?",
+      "answer": "Wilting leaves, dry soil, and slow growth are common signs of water stress."
+    },
+    "french": {
+      "question": "Quels sont les signes de stress hydrique ?",
+      "answer": "Flétrissement, sol sec et croissance lente."
+    },
+    "bambara": {
+      "question": "Ji dɛsɛ taamasiɲɛ jumɛnw bɛ yen?",
+      "answer": "Jiriw bonyali ka suma, u tɛ fɛrɛ, dugukolo bɛ ja."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "10",
+    "category": "Irrigation",
+    "topic": null,
+    "crop": "Vegetables",
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Can excessive irrigation harm crops?",
+      "answer": "Yes. Excessive irrigation can cause root diseases, nutrient loss, and reduced yields."
+    },
+    "french": {
+      "question": "L’irrigation excessive est-elle dangereuse ?",
+      "answer": "Oui, elle peut provoquer des maladies des racines."
+    },
+    "bambara": {
+      "question": "kɔlɔlɔ jumɛnw bɛ ji cayali la ?",
+      "answer": "Jirisunw diliw bɛ bana."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "11",
+    "category": "Fertilizer",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Which fertilizer is commonly used for maize?",
+      "answer": "NPK fertilizer is commonly used for maize, depending on soil fertility conditions."
+    },
+    "french": {
+      "question": "Quel engrais utiliser pour le maïs ?",
+      "answer": "L’engrais NPK est couramment utilisé selon la fertilité du sol."
+    },
+    "bambara": {
+      "question": "Bagaji jumɛn ka kan ka kɛ kaba kɔrɔ?",
+      "answer": "NPK bagaji bɛ kɛ ka caya kaba kɔrɔ ka kɛɲɛ ni dugukolo nafa ye."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "12",
+    "category": "Fertilizer",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is organic manure important?",
+      "answer": "Organic manure improves soil fertility, soil structure, and water retention."
+    },
+    "french": {
+      "question": "Pourquoi utiliser le fumier organique ?",
+      "answer": "Il améliore la fertilité et la structure du sol."
+    },
+    "bambara": {
+      "question": "Mun na baara ka kan ka kɛ ni sununkun nɔgɔ ye?",
+      "answer": "A bɛ dugukolo nafa ni a jɔcogo ɲɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "13",
+    "category": "Fertilizer",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "When should fertilizer be applied?",
+      "answer": "Fertilizer should be applied according to crop requirements and local recommendations."
+    },
+    "french": {
+      "question": "Quand appliquer l’engrais ?",
+      "answer": "Selon les besoins des cultures et les recommandations locales."
+    },
+    "bambara": {
+      "question": "Tuma jumɛn na bagaji ka kan ka kɛ sɛnɛfɛnw kɔrɔ?",
+      "answer": "Ka kɛɲɛ ni sɛnɛfɛnw magow ye ani sigiyɔrɔ ladilikanw."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "14",
+    "category": "Fertilizer",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is compost?",
+      "answer": "Compost is decomposed organic material used to improve soil fertility."
+    },
+    "french": {
+      "question": "Qu’est-ce que le compost ?",
+      "answer": "Matière organique décomposée utilisée comme fertilisant."
+    },
+    "bambara": {
+      "question": "Kɔmpɔst ye mun ye?",
+      "answer": "Fɛnɲɛnama tolilenw minnu bɛ kɛ bagaji ye."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "15",
+    "category": "Fertilizer",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can a farmer know if soil lacks nutrients?",
+      "answer": "Soil testing and observation of crop symptoms can help identify nutrient deficiencies."
+    },
+    "french": {
+      "question": "Comment détecter une carence en nutriments ?",
+      "answer": "Par l’analyse du sol et les symptômes visibles sur les plantes."
+    },
+    "bambara": {
+      "question": "Dugukolo balo nafama dɛsɛ bɛ dɔn cogo di?",
+      "answer": "Dugukolo sɛgɛsɛgɛli fɛ ani a taamasiɲɛ minnu bɛ ye jiriw la."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "16",
+    "category": "Pests",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers control armyworms?",
+      "answer": "Farmers can control armyworms through regular monitoring, biological control, and recommended pesticides when necessary."
+    },
+    "french": {
+      "question": "Comment lutter contre les chenilles légionnaires ?",
+      "answer": "Surveillance et lutte intégrée des ravageurs."
+    },
+    "bambara": {
+      "question": "sɛnɛfɛnw bɛ se ka la kana cogo di?",
+      "answer": "Banakisɛw kɔlɔsili ani u kɛlɛli kɛlɛcogo kɛrɛnkɛrɛnnenw na."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "17",
+    "category": "Pests",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What are common signs of pest infestation?",
+      "answer": "Damaged leaves, holes, discoloration, and reduced growth are common signs."
+    },
+    "french": {
+      "question": "Quels sont les signes d’infestation ?",
+      "answer": "Feuilles endommagées, trous et croissance réduite."
+    },
+    "bambara": {
+      "question": "Mun ye bana taamasiɲɛw ye?",
+      "answer": "Jiriw buluw sɔgɔsɔgɔlen don, jiriw ka bonyali ka suma."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "18",
+    "category": "Pests",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is field monitoring important?",
+      "answer": "Regular monitoring helps detect pest problems early and reduces crop losses."
+    },
+    "french": {
+      "question": "Pourquoi surveiller les champs ?",
+      "answer": "Pour détecter les problèmes tôt."
+    },
+    "bambara": {
+      "question": "Mun na forow ka kan ka kɔrɔsili?",
+      "answer": "Walasa ka gɛlɛyaw la kodɔn joona."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "19",
+    "category": "Pests",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is integrated pest management?",
+      "answer": "Integrated Pest Management combines biological, cultural, mechanical, and chemical methods to manage pests sustainably."
+    },
+    "french": {
+      "question": "Qu’est-ce que la lutte intégrée ?",
+      "answer": "Combinaison de méthodes biologiques, mécaniques et chimiques."
+    },
+    "bambara": {
+      "question": "Bana bɛ se ka kɛlɛ kɛlɛcogo kɛrɛnkɛrɛnnenyalen na cogo di?",
+      "answer": "Nin ka kɛlɛ kɛ fɛɛrɛw fara ɲɔgɔn kan, k’u kɛ ɲɔgɔn fɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "20",
+    "category": "Pests",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Can crop rotation reduce pests?",
+      "answer": "Yes. Crop rotation can disrupt pest life cycles and reduce infestations."
+    },
+    "french": {
+      "question": "La rotation des cultures aide-t-elle ?",
+      "answer": "Oui, elle réduit les infestations."
+    },
+    "bambara": {
+      "question": "Yala ka sɛnɛfɛnw falen-falen o bɛ dɛmɛ kɛ wa?",
+      "answer": "Ɔwɔ, a bɛ dɔ bɔ banakisɛw sɔrɔli la."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "21",
+    "category": "Diseases",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers prevent crop diseases?",
+      "answer": "Farmers can prevent diseases by using certified seeds, resistant varieties, and good field hygiene."
+    },
+    "french": {
+      "question": "Comment prévenir les maladies des cultures ?",
+      "answer": "Utiliser des semences saines et des variétés résistantes."
+    },
+    "bambara": {
+      "question": "Sɛnɛfɛnw ka banaw bɛ se ka kunbɛn cogo di?",
+      "answer": "Ka baara kɛ ni sumansi kɛnɛmanw ye ani suguya minnu bɛ se ka bana kɛlɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "22",
+    "category": "Diseases",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why should diseased plants be removed?",
+      "answer": "Removing diseased plants helps prevent the spread of pathogens."
+    },
+    "french": {
+      "question": "Pourquoi enlever les plantes malades ?",
+      "answer": "Pour éviter la propagation des maladies."
+    },
+    "bambara": {
+      "question": "Mun na an ka kan ka jiri bananenw bɔ?",
+      "answer": "Walasa ka bana jɛnsɛnni bali."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "23",
+    "category": "Diseases",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What causes fungal diseases in crops?",
+      "answer": "High humidity, poor drainage, and infected plant materials often favor fungal diseases."
+    },
+    "french": {
+      "question": "Quelles sont les causes des maladies fongiques ?",
+      "answer": "Humidité élevée et mauvaise drainage."
+    },
+    "bambara": {
+      "question": "Nfiɛna banaw sababu ye mun ye?",
+      "answer": "Sumaya damatɛmɛni ani jibɔlisiraw kɛ kojuguya."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "24",
+    "category": "Diseases",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is seed treatment?",
+      "answer": "Seed treatment involves applying protective substances to seeds before planting to reduce disease risks."
+    },
+    "french": {
+      "question": "Qu’est-ce que le traitement des semences ?",
+      "answer": "Protection des graines avant le semis."
+    },
+    "bambara": {
+      "question": "Sumansi furakɛli ye mun ye?",
+      "answer": "U lakanani sani u ka dan."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "25",
+    "category": "Diseases",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is crop sanitation important?",
+      "answer": "Crop sanitation reduces the spread of diseases and pests in the field."
+    },
+    "french": {
+      "question": "Pourquoi l’hygiène des champs est-elle importante ?",
+      "answer": "Elle réduit les maladies et les ravageurs."
+    },
+    "bambara": {
+      "question": "Mun na foro saniya nafa ka bon?",
+      "answer": "A bɛ dɔ bɔ banaw ni fɛnɲɛnamaw na."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "26",
+    "category": "Weather",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How does rainfall affect crop production?",
+      "answer": "Adequate rainfall promotes crop growth, while insufficient rainfall can reduce yields."
+    },
+    "french": {
+      "question": "Comment la pluie affecte-t-elle la production agricole ?",
+      "answer": "Une pluie suffisante favorise la croissance, une insuffisante réduit les rendements."
+    },
+    "bambara": {
+      "question": "Sanji bɛ nɔ bila sɛnɛfɛnw na cogo di?",
+      "answer": "Ni sanji nana ka laboli kɛ sɛnɛfɛnw ka bonyali bɛ sabati, sanjidɛsɛ bɛ dɔ bɔ sɛnɛfɛnw sumanbɔ la."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "27",
+    "category": "Weather",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why should farmers follow weather forecasts?",
+      "answer": "Weather forecasts help farmers plan planting, irrigation, fertilizer application, and harvesting activities."
+    },
+    "french": {
+      "question": "Pourquoi suivre les prévisions météorologiques ?",
+      "answer": "Pour mieux planifier les activités agricoles."
+    },
+    "bambara": {
+      "question": "Mun na ka tugu waati kunnafoniw la?",
+      "answer": "Walasa ka sɛnɛko baaraw boloda ka ɲɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "28",
+    "category": "Weather",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What can farmers do before heavy rainfall?",
+      "answer": "Farmers should improve drainage, protect stored produce, and avoid applying fertilizers before heavy rains."
+    },
+    "french": {
+      "question": "Que faire avant de fortes pluies ?",
+      "answer": "Améliorer le drainage et protéger les récoltes."
+    },
+    "bambara": {
+      "question": "Mun ka kan ka kɛ sani sanjiba ka na?",
+      "answer": "Ka jibɔlisiraw laben ani ka sɔrɔ lakana."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "29",
+    "category": "Weather",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can strong winds affect crops?",
+      "answer": "Strong winds can damage plants, cause lodging, and reduce crop yields."
+    },
+    "french": {
+      "question": "Comment le vent fort affecte-t-il les cultures ?",
+      "answer": "Il peut casser les plantes et réduire les rendements."
+    },
+    "bambara": {
+      "question": "Fɔɲɔba bɛ nɔ bila sɛnɛfɛnw na cogo di?",
+      "answer": "A bɛ se ka jiriw kari ani ka dɔ bɔ sɛnɛfɛnw sumanbɔw la."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "30",
+    "category": "Weather",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is a rainfall anomaly?",
+      "answer": "A rainfall anomaly is the difference between actual rainfall and the long-term average rainfall."
+    },
+    "french": {
+      "question": "Qu’est-ce qu’une anomalie de pluie ?",
+      "answer": "La différence entre pluie réelle et moyenne normale."
+    },
+    "bambara": {
+      "question": "Sanjidantɛmɛ walima sanjidɛsɛ  ye mun ye?",
+      "answer": "Danfara min bɛ sanjiko yɛrɛyɛrɛ ni sanjidantɛmɛ walima sanjidɛsɛ hakɛ danmadɔ cɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "31",
+    "category": "Drought",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is drought?",
+      "answer": "Drought is a prolonged period of below-average rainfall that negatively affects crops, livestock, and water resources."
+    },
+    "french": {
+      "question": "Qu’est-ce que la sécheresse ?",
+      "answer": "Une période prolongée de faible pluie."
+    },
+    "bambara": {
+      "question": "Ja ye mun ye?",
+      "answer": "Sanji dɔgɔyalen ka waati jan kɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "32",
+    "category": "Drought",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What are the early signs of drought?",
+      "answer": "Early signs include delayed rains, declining soil moisture, wilting crops, and reduced water availability."
+    },
+    "french": {
+      "question": "Quels sont les signes de sécheresse ?",
+      "answer": "Retard des pluies, sol sec, flétrissement."
+    },
+    "bambara": {
+      "question": "Ja taamasiɲɛw ye mun ye?",
+      "answer": "Sanji mɛnna a ma na, dugukolo jalen, sɛnɛfɛnw kunw n’u buluw bɛ majigi."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "33",
+    "category": "Drought",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers reduce the impact of drought?",
+      "answer": "Farmers can use drought-tolerant crops, conserve soil moisture, and diversify their farming activities."
+    },
+    "french": {
+      "question": "Comment réduire les effets de la sécheresse ?",
+      "answer": "Utiliser des variétés résistantes et conserver l’eau."
+    },
+    "bambara": {
+      "question": "Ja kɔlɔlɔ bɛ se ka dɔgɔya cogo di?",
+      "answer": "Ka baara kɛ ni simansiw ye minnu bɛ se ka ja kɛlɛ ani ka ji mara."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "34",
+    "category": "Drought",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What are drought-tolerant crops?",
+      "answer": "Drought-tolerant crops are crop varieties that can survive and produce yields under limited water conditions."
+    },
+    "french": {
+      "question": "Que sont les cultures résistantes à la sécheresse ?",
+      "answer": "Des variétés capables de survivre avec peu d’eau."
+    },
+    "bambara": {
+      "question": "Sɛnɛfɛn minnu bɛ se ka ja kɛlɛ, olu ye mun ye?",
+      "answer": "Sɛnɛfɛn sugu minnu bɛ se ka balo ni ji fitinin ye."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "35",
+    "category": "Drought",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is mulching important during drought?",
+      "answer": "Mulching helps conserve soil moisture, suppress weeds, and regulate soil temperature."
+    },
+    "french": {
+      "question": "Pourquoi le paillage est-il important ?",
+      "answer": "Il conserve l’humidité du sol."
+    },
+    "bambara": {
+      "question": "Nafa jumɛn bɛ dugubinfiri la?",
+      "answer": "A bɛ dugukolo sumaya nin a nɔgɔ mara."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "36",
+    "category": "Soil Management",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is soil fertility important?",
+      "answer": "Soil fertility is important because it provides nutrients necessary for healthy crop growth."
+    },
+    "french": {
+      "question": "Pourquoi la fertilité du sol est-elle importante ?",
+      "answer": "Elle permet une bonne croissance des plantes."
+    },
+    "bambara": {
+      "question": "Mun na dugukolo nɔgɔya nafa ka bon?",
+      "answer": "A b’a to sɛnɛfɛnw bɛ bɔ u yɛrɛ la joona."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "37",
+    "category": "Soil Management",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can soil erosion be reduced?",
+      "answer": "Soil erosion can be reduced through contour farming, mulching, cover crops, and tree planting."
+    },
+    "french": {
+      "question": "Comment réduire l’érosion du sol ?",
+      "answer": "Par les cultures en courbes et la couverture végétale."
+    },
+    "bambara": {
+      "question": "Dugukolonɔn bɛ se ka dɔgɔya cogo di?",
+      "answer": "Dankun bɔlɔnw ani dugukolo datugun ni sɛnɛfɛnw ye."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "38",
+    "category": "Soil Management",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is crop rotation?",
+      "answer": "Crop rotation is the practice of growing different crops on the same field in successive seasons."
+    },
+    "french": {
+      "question": "Qu’est-ce que la rotation des cultures ?",
+      "answer": "Cultiver différentes plantes sur la même parcelle."
+    },
+    "bambara": {
+      "question": "Sɛnɛfɛnw bɔgɔgɔgɔli ye mun ye?",
+      "answer": "Ka sɛnɛfɛnw sɛnɛ k’a bɔ ɲɔgɔn koro yɔrɔ kelen na."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "39",
+    "category": "Soil Management",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is crop rotation beneficial?",
+      "answer": "Crop rotation improves soil fertility, reduces pests and diseases, and increases yields."
+    },
+    "french": {
+      "question": "Pourquoi pratiquer la rotation ?",
+      "answer": "Elle améliore la fertilité et réduit les maladies."
+    },
+    "bambara": {
+      "question": "Mun na sɛnɛfɛnw bɔgɔgɔgɔli ka ɲi?",
+      "answer": "A bɛ dugukolo nɔgɔya sabati ani ka banaw dɔgɔya."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "40",
+    "category": "Soil Management",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is mulching?",
+      "answer": "Mulching is the practice of covering the soil surface with plant residues or other materials to conserve moisture."
+    },
+    "french": {
+      "question": "Qu’est-ce que le paillage ?",
+      "answer": "Couvrir le sol avec des résidus végétaux."
+    },
+    "bambara": {
+      "question": "Dugubinfiri ye mun ye?",
+      "answer": "Ka dugukolo datugun nin fura buluw ni bin ye."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "41",
+    "category": "Harvest",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers know when crops are ready for harvest?",
+      "answer": "Crops are ready for harvest when they reach physiological maturity and show characteristic signs such as color change and drying."
+    },
+    "french": {
+      "question": "Comment savoir quand récolter ?",
+      "answer": "Lorsque la culture atteint sa maturité."
+    },
+    "bambara": {
+      "question": "A bɛ dɔn cogo di ko suman tigɛ waati sera?",
+      "answer": "Ni sɛnɛfɛnw kɔgɔra."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "42",
+    "category": "Harvest",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is timely harvesting important?",
+      "answer": "Timely harvesting reduces post-harvest losses and helps maintain crop quality."
+    },
+    "french": {
+      "question": "Pourquoi récolter au bon moment ?",
+      "answer": "Pour éviter les pertes."
+    },
+    "bambara": {
+      "question": "Mun na suman tigɛ ka kan ka kɛ a waati jɔnjɔn na?",
+      "answer": "Walasa ka bɔnɛw bali."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "43",
+    "category": "Harvest",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What can happen if crops are harvested too early?",
+      "answer": "Early harvesting may result in poor grain quality, low yields, and reduced storage life."
+    },
+    "french": {
+      "question": "Que se passe-t-il si on récolte trop tôt ?",
+      "answer": "Baisse de qualité et de rendement."
+    },
+    "bambara": {
+      "question": "Mun bɛ kɛ nin suman kɔnna ka tigɛ?",
+      "answer": "Nɔgɔnya ni sumanbɔ bɛ dɔgɔya."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "44",
+    "category": "Harvest",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What can happen if crops are harvested too late?",
+      "answer": "Late harvesting can increase losses due to pests, diseases, shattering, and adverse weather conditions."
+    },
+    "french": {
+      "question": "Que se passe-t-il si on récolte tard ?",
+      "answer": "Pertes dues aux ravageurs et au climat."
+    },
+    "bambara": {
+      "question": "Mun bɛ kɛ ni suman tigɛ waati tɛmɛna?",
+      "answer": "Tiɲɛli fɛnɲɛnamaw ni waati cogoya bɛ suman nagasi."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "45",
+    "category": "Harvest",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why should harvested produce be handled carefully?",
+      "answer": "Careful handling reduces physical damage and preserves product quality."
+    },
+    "french": {
+      "question": "Pourquoi manipuler soigneusement les récoltes ?",
+      "answer": "Pour éviter les dommages."
+    },
+    "bambara": {
+      "question": "Mun na sɛnɛfɛnw ka kan ka minɛ cogo ɲuman na?",
+      "answer": "Walasa ka tiɲɛni bali."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "46",
+    "category": "Storage",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is proper storage important?",
+      "answer": "Proper storage reduces losses caused by insects, rodents, moisture, and mold."
+    },
+    "french": {
+      "question": "Pourquoi le stockage est-il important ?",
+      "answer": "Pour réduire les pertes après récolte."
+    },
+    "bambara": {
+      "question": "Mun na suman mara cogo ɲuman nafa ka bon?",
+      "answer": "Walasa ka dɔ bɔ suman tigɛlen kɔfɛ bɔnɛw la."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "47",
+    "category": "Storage",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How should grains be dried before storage?",
+      "answer": "Grains should be dried to a safe moisture content before storage to prevent spoilage."
+    },
+    "french": {
+      "question": "Comment sécher les grains ?",
+      "answer": "Jusqu’à atteindre un taux d’humidité sûr."
+    },
+    "bambara": {
+      "question": "Suman kisɛ ka kan ka la ja cogo di?",
+      "answer": "Fo ka se sumaya hakɛ lakaɲanen ma."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "48",
+    "category": "Storage",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What are common storage pests?",
+      "answer": "Weevils, beetles, rodents, and moths are common storage pests."
+    },
+    "french": {
+      "question": "Quels sont les ravageurs des stocks ?",
+      "answer": "Charançons, insectes et rongeurs."
+    },
+    "bambara": {
+      "question": "Fɛnɲɛnama jumɛnw bɛ sumanmarata tiɲɛ?",
+      "answer": "Ntumuw, kɔnɔniw ani ɲinɛnu."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "49",
+    "category": "Storage",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers protect stored grains from pests?",
+      "answer": "Farmers can use hermetic storage bags, clean storage facilities, and approved pest-control methods."
+    },
+    "french": {
+      "question": "Comment protéger les stocks ?",
+      "answer": "Utiliser des sacs hermétiques et des entrepôts propres."
+    },
+    "bambara": {
+      "question": "Sumanmarata bɛ kɔrɔsili cogo di?",
+      "answer": "Ka baara kɛ ni bɔrɔw ye minnu tɛ fiɲɛ bila ka dɔn u tɛ fiɲɛ bila ka bɔ ani marayɔrɔ saniyalen."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "50",
+    "category": "Storage",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why should storage facilities be kept clean?",
+      "answer": "Clean storage facilities reduce contamination, pest infestations, and disease problems."
+    },
+    "french": {
+      "question": "Pourquoi nettoyer les stocks ?",
+      "answer": "Pour éviter les infestations."
+    },
+    "bambara": {
+      "question": "Mun na sumanmarata ka kan ka saniya?",
+      "answer": "Walasa ka banakisɛw bali."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "51",
+    "category": "Seed Selection",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is it important to use certified seeds?",
+      "answer": "Certified seeds have high germination rates, are genetically pure, and are less likely to carry diseases."
+    },
+    "french": {
+      "question": "Pourquoi utiliser des semences certifiées ?",
+      "answer": "Elles sont plus productives et saines."
+    },
+    "bambara": {
+      "question": "Mun na aw ka kan ka baara kɛ ni sumankisɛw ye minnu sɛgɛsɛgɛlen don?",
+      "answer": "Olu dɛ bɛ nafa caman lase mɔgɔw ma ani u ka kɛnɛya kɔsɔn."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "52",
+    "category": "Seed Selection",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers select good quality seeds?",
+      "answer": "Farmers should select clean, healthy, well-filled, and undamaged seeds from reliable sources."
+    },
+    "french": {
+      "question": "Comment choisir de bonnes semences ?",
+      "answer": "Semences propres, saines et non endommagées."
+    },
+    "bambara": {
+      "question": "sumankisɛ ɲumanw bɛ sugandi cogo di?",
+      "answer": "Minu saniyalen don, u ka kɛnɛ ani tiɲɛli da tɛ minu na."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "53",
+    "category": "Seed Selection",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is seed germination?",
+      "answer": "Seed germination is the process by which a seed begins to grow into a new plant."
+    },
+    "french": {
+      "question": "Qu’est-ce que la germination ?",
+      "answer": "Le processus de croissance de la graine."
+    },
+    "bambara": {
+      "question": "Fuleli ye mun ye?",
+      "answer": "sumankisɛw falencogo."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "54",
+    "category": "Seed Selection",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers test seed germination before planting?",
+      "answer": "Farmers can conduct a germination test by placing seeds on moist paper and observing how many sprout."
+    },
+    "french": {
+      "question": "Comment tester la germination ?",
+      "answer": "En plaçant les graines dans un milieu humide."
+    },
+    "bambara": {
+      "question": "Fuleli bɛ sɛgɛsɛgɛ cogo di?",
+      "answer": "Ka sumankisɛw bila sumaya la."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "55",
+    "category": "Seed Selection",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why should damaged seeds be avoided?",
+      "answer": "Damaged seeds often have low germination rates and may produce weak plants."
+    },
+    "french": {
+      "question": "Pourquoi éviter les graines endommagées ?",
+      "answer": "Elles donnent de faibles plants."
+    },
+    "bambara": {
+      "question": "Mun na aw ka kan ka sumankisɛw to yen da bɔra ninu na?",
+      "answer": "U falentaw man ca."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "56",
+    "category": "Land Preparation",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is land preparation important?",
+      "answer": "Proper land preparation improves soil conditions, promotes seed germination, and helps control weeds."
+    },
+    "french": {
+      "question": "Pourquoi préparer le sol ?",
+      "answer": "Pour améliorer la croissance des cultures."
+    },
+    "bambara": {
+      "question": "Mun na dugukolo ka kan ka labɛn?",
+      "answer": "Walasa ka sɛnɛfɛnw kɔrili ɲɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "57",
+    "category": "Land Preparation",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "When should land preparation begin?",
+      "answer": "Land preparation should begin before the onset of the rainy season."
+    },
+    "french": {
+      "question": "Quand préparer le sol ?",
+      "answer": "Avant la saison des pluies."
+    },
+    "bambara": {
+      "question": "Dugukolo ka kan ka labɛn tuma jumɛn?",
+      "answer": "Sani samiya se."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "58",
+    "category": "Land Preparation",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What are common methods of land preparation?",
+      "answer": "Common methods include plowing, harrowing, ridging, and minimum tillage."
+    },
+    "french": {
+      "question": "Quelles sont les méthodes ?",
+      "answer": "Labour, hersage, buttage."
+    },
+    "bambara": {
+      "question": "Fɛɛrɛ jumɛnw bɛ kɛ?",
+      "answer": "Dugukolofli, ɲariɲari, ani dugudili."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "59",
+    "category": "Land Preparation",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is minimum tillage?",
+      "answer": "Minimum tillage is a farming practice that disturbs the soil as little as possible to conserve moisture and reduce erosion."
+    },
+    "french": {
+      "question": "Qu’est-ce que le travail minimum du sol ?",
+      "answer": "Perturber le sol le moins possible."
+    },
+    "bambara": {
+      "question": "Dugukolo sɛnɛcogo fitinin ye mun ye?",
+      "answer": "Ka dugukolo tiɲɛli fɛgɛnya."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "60",
+    "category": "Land Preparation",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers reduce soil erosion during land preparation?",
+      "answer": "Farmers can use contour farming, maintain vegetation cover, and avoid excessive tillage."
+    },
+    "french": {
+      "question": "Comment réduire l’érosion ?",
+      "answer": "Couverture végétale et culture en courbes."
+    },
+    "bambara": {
+      "question": "Dugukolonɔn bɛ se ka dɔgɔya cogo di?",
+      "answer": "Ka dugukolo datugun ni sɛnɛfɛnw ye ani dankun bɔlɔnw."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "translation_review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "61",
+    "category": "Weed Management",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is weed control important?",
+      "answer": "Weeds compete with crops for nutrients, water, sunlight, and space."
+    },
+    "french": {
+      "question": "Pourquoi contrôler les mauvaises herbes ?",
+      "answer": "Elles concurrencent les cultures."
+    },
+    "bambara": {
+      "question": "Mun na an ka kan ka binjuguw kɛlɛ?",
+      "answer": "U bɛ ɲɔgɔntɛmɛ kɛ ni sɛnɛfɛnw ye."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "62",
+    "category": "Weed Management",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What are common methods of weed control?",
+      "answer": "Common methods include hand weeding, mulching, crop rotation, and the use of herbicides."
+    },
+    "french": {
+      "question": "Comment contrôler les mauvaises herbes ?",
+      "answer": "Désherbage manuel, herbicides, paillage."
+    },
+    "bambara": {
+      "question": "Binjuguw bɛ kɛlɛ cogo di?",
+      "answer": "Binjugu tigɛli bolola, binfagalanw ani dugubinfiri."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "63",
+    "category": "Weed Management",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "When should farmers remove weeds?",
+      "answer": "Weeds should be removed early, especially during the critical growth stages of crops."
+    },
+    "french": {
+      "question": "Quand désherber ?",
+      "answer": "Au début de la croissance des cultures."
+    },
+    "bambara": {
+      "question": "Binjuguw bɛ kɛlɛ tuma jumɛn?",
+      "answer": "Sɛnɛfɛnw kɔrili tuma."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "64",
+    "category": "Weed Management",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Can mulching help control weeds?",
+      "answer": "Yes. Mulching suppresses weed growth by blocking sunlight."
+    },
+    "french": {
+      "question": "Le paillage aide-t-il ?",
+      "answer": "Oui, il bloque la lumière aux mauvaises herbes."
+    },
+    "bambara": {
+      "question": "Yala dugubinfiri bɛ dɛmɛ don wa?",
+      "answer": "Ɔwɔ, a b’a to binjuguw tɛ yeelen sɔrɔ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "65",
+    "category": "Weed Management",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why should farmers avoid excessive herbicide use?",
+      "answer": "Excessive herbicide use can harm the environment, human health, and beneficial organisms."
+    },
+    "french": {
+      "question": "Pourquoi limiter les herbicides ?",
+      "answer": "Pour protéger l’environnement."
+    },
+    "bambara": {
+      "question": "Mun na dan ka kan ka sigi binfagalanw na?",
+      "answer": "Walasa ka laminifɛwn lakana."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "66",
+    "category": "Climate-Smart Agriculture",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is climate-smart agriculture?",
+      "answer": "Climate-smart agriculture involves farming practices that increase productivity, adapt to climate change, and reduce environmental impacts."
+    },
+    "french": {
+      "question": "Qu’est-ce que l’agriculture intelligente face au climat ?",
+      "answer": "Agriculture adaptée au changement climatique."
+    },
+    "bambara": {
+      "question": "Sɛnɛ bɛnnen fɔnyɔyaili ma o ye mun ye?",
+      "answer": "Sɛnɛ min bɛrɛbɛnnen don waati yelema ma."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "67",
+    "category": "Climate-Smart Agriculture",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What are examples of climate-smart agricultural practices?",
+      "answer": "Examples include agroforestry, water harvesting, crop rotation, and drought-tolerant crop varieties."
+    },
+    "french": {
+      "question": "Exemples ?",
+      "answer": "Agroforesterie, irrigation efficace."
+    },
+    "bambara": {
+      "question": "Misaliya la.",
+      "answer": "Sɛnɛ ni jirituruli furala ani jidon"
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "68",
+    "category": "Climate-Smart Agriculture",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can agroforestry benefit farmers?",
+      "answer": "Agroforestry improves soil fertility, provides shade, reduces erosion, and diversifies income sources."
+    },
+    "french": {
+      "question": "Avantages de l’agroforesterie ?",
+      "answer": "Fertilité et protection du sol."
+    },
+    "bambara": {
+      "question": "Sɛnɛ ni jirituruli furala nafa ye mun ye?",
+      "answer": "Dugukolo nɔgɔya ani dugukolo lakana."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "69",
+    "category": "Climate-Smart Agriculture",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is water harvesting?",
+      "answer": "Water harvesting is the collection and storage of rainwater for agricultural use."
+    },
+    "french": {
+      "question": "Qu’est-ce que la collecte d’eau ?",
+      "answer": "Stockage de l’eau de pluie."
+    },
+    "bambara": {
+      "question": "Ji dalajɛli ye mun ye?",
+      "answer": "Sanji ji marali."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "70",
+    "category": "Climate-Smart Agriculture",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is crop diversification important?",
+      "answer": "Crop diversification reduces production risks and improves food security."
+    },
+    "french": {
+      "question": "Pourquoi diversifier les cultures ?",
+      "answer": "Réduire les risques agricoles."
+    },
+    "bambara": {
+      "question": "Mun na sɛnɛfɛnw suguya caman ka ɲi?",
+      "answer": "Walasa ka sɛnɛko faratiw dɔgɔya."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "71",
+    "category": "Sustainable Agriculture",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is sustainable agriculture?",
+      "answer": "Sustainable agriculture meets current food needs while preserving resources for future generations."
+    },
+    "french": {
+      "question": "Qu’est-ce que l’agriculture durable ?",
+      "answer": "Agriculture respectueuse des ressources."
+    },
+    "bambara": {
+      "question": "Sɛnɛ maratɔ ye mun ye ?",
+      "answer": "Sɛnɛ min bɛ kɛ ni namafɛnw ye bonya kɔnɔ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "72",
+    "category": "Sustainable Agriculture",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is biodiversity important in agriculture?",
+      "answer": "Biodiversity enhances ecosystem resilience and helps control pests and diseases naturally."
+    },
+    "french": {
+      "question": "Pourquoi la biodiversité est-elle importante ?",
+      "answer": "Elle protège les écosystèmes."
+    },
+    "bambara": {
+      "question": "Mun na ɲanamaya fenw nafa ka bon?",
+      "answer": "A bɛ jɛkuluw lakana."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "73",
+    "category": "Sustainable Agriculture",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers improve soil organic matter?",
+      "answer": "Farmers can improve soil organic matter by applying compost, manure, and crop residues."
+    },
+    "french": {
+      "question": "Comment améliorer la matière organique ?",
+      "answer": "Compost et fumier."
+    },
+    "bambara": {
+      "question": "Bagan walima ɲama nɔgɔ bɛ la fisaya cogo di?",
+      "answer": "Ka dinka nɔgɔ ani bagan nɔgɔ fara a kan."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "74",
+    "category": "Sustainable Agriculture",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why should crop residues be retained on the field?",
+      "answer": "Crop residues protect the soil, conserve moisture, and improve soil fertility."
+    },
+    "french": {
+      "question": "Pourquoi garder les résidus ?",
+      "answer": "Pour protéger le sol."
+    },
+    "bambara": {
+      "question": "Mun na sɛnɛfɛn tɔw marali ka ɲi?",
+      "answer": "Walasa ka dugukolo lakana."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "75",
+    "category": "Sustainable Agriculture",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers reduce the use of chemical inputs?",
+      "answer": "Farmers can adopt integrated soil fertility and pest management practices."
+    },
+    "french": {
+      "question": "Comment réduire les intrants chimiques ?",
+      "answer": "Utiliser des méthodes intégrées."
+    },
+    "bambara": {
+      "question": "Do bɛ se ka bɔ nɔgɔ kemikiw la cogo di?",
+      "answer": "Nin ka fɛɛrɛw fara ɲɔgɔn kan, k’u kɛ ɲɔgɔn fɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "76",
+    "category": "Post-Harvest Handling",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is post-harvest handling?",
+      "answer": "Post-harvest handling refers to all activities carried out after harvesting to preserve crop quality and reduce losses."
+    },
+    "french": {
+      "question": "Qu’est-ce que la gestion post-récolte ?",
+      "answer": "Activités après la récolte."
+    },
+    "bambara": {
+      "question": "Suman mara cogo suman tigɛ kɔfɛ, o ye mun ye?",
+      "answer": "Baara minnu bɛ kɛ suman tigɛ kɔfɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "77",
+    "category": "Post-Harvest Handling",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why should harvested produce be sorted?",
+      "answer": "Sorting removes damaged, diseased, or poor-quality produce and improves market value."
+    },
+    "french": {
+      "question": "Pourquoi trier les produits ?",
+      "answer": "Pour améliorer la qualité."
+    },
+    "bambara": {
+      "question": "Mun na sumankisɛw ka kan ka woloma?",
+      "answer": "Walasa ka nɔgɔnya sabati."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "78",
+    "category": "Post-Harvest Handling",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why should harvested produce be protected from direct sunlight?",
+      "answer": "Excessive sunlight can reduce quality, increase moisture loss, and shorten shelf life."
+    },
+    "french": {
+      "question": "Pourquoi éviter le soleil direct ?",
+      "answer": "Il réduit la qualité."
+    },
+    "bambara": {
+      "question": "Mun na ka kana tile yeelen tilennen ma?",
+      "answer": "A bɛ nɔgɔnya fɛgɛnya."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "79",
+    "category": "Post-Harvest Handling",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers reduce post-harvest losses?",
+      "answer": "Farmers can reduce losses through proper drying, storage, handling, and transportation practices."
+    },
+    "french": {
+      "question": "Comment réduire les pertes ?",
+      "answer": "Bon séchage et stockage."
+    },
+    "bambara": {
+      "question": "Dɔ bɛ se ka bɔ bɔnɛw la cogo di?",
+      "answer": "Jalicogo ani maracogo ɲuman."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "80",
+    "category": "Post-Harvest Handling",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is proper packaging important?",
+      "answer": "Proper packaging protects produce during storage and transport and helps maintain quality."
+    },
+    "french": {
+      "question": "Pourquoi l’emballage est important ?",
+      "answer": "Protection pendant transport."
+    },
+    "bambara": {
+      "question": "Mun na pakew dilanni nafa ka bon?",
+      "answer": "Walasa ka lakana sabati taama siraw la."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "81",
+    "category": "Livestock Integration",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What are the benefits of integrating livestock with crop farming?",
+      "answer": "Integrating livestock and crops improves nutrient cycling, diversifies income, and enhances farm resilience."
+    },
+    "french": {
+      "question": "Avantages agriculture-élevage ?",
+      "answer": "Recyclage des nutriments."
+    },
+    "bambara": {
+      "question": "Nafa minnu bɛ sɛnɛ ni baganmara la?",
+      "answer": "Balofɛnw soginni."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "82",
+    "category": "Livestock Integration",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can animal manure benefit crop production?",
+      "answer": "Animal manure supplies nutrients, improves soil structure, and increases water retention."
+    },
+    "french": {
+      "question": "Pourquoi utiliser le fumier ?",
+      "answer": "Améliore le sol."
+    },
+    "bambara": {
+      "question": "Mun na an ka kan ka baara kɛ ni bagan nɔgɔ ye?",
+      "answer": "A bɛ do fara dugukolo ɲɛ ka."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "83",
+    "category": "Livestock Integration",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why should livestock have access to clean water?",
+      "answer": "Clean water is essential for animal health, productivity, and disease prevention."
+    },
+    "french": {
+      "question": "Pourquoi eau propre pour animaux ?",
+      "answer": "Santé animale."
+    },
+    "bambara": {
+      "question": "Mun na ji saniyalen ka ɲi baganw ma?",
+      "answer": "Baganw ka kɛnɛya."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "84",
+    "category": "Livestock Integration",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can crop residues be used in livestock production?",
+      "answer": "Crop residues can be used as livestock feed or bedding material."
+    },
+    "french": {
+      "question": "Résidus agricoles pour animaux ?",
+      "answer": "Aliment et litière."
+    },
+    "bambara": {
+      "question": "Sɛnɛfɛn ani bin tɔw baganw ye?",
+      "answer": "Dumuni ni lalan fɛnw."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "85",
+    "category": "Livestock Integration",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is livestock vaccination important?",
+      "answer": "Vaccination protects animals from diseases and reduces mortality."
+    },
+    "french": {
+      "question": "Pourquoi vacciner les animaux ?",
+      "answer": "Prévention des maladies."
+    },
+    "bambara": {
+      "question": "Mun na bagan furasɔgɔli bɛ kɛ?",
+      "answer": "Walasa ka banaw kunbɛn."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "86",
+    "category": "Agricultural Extension",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is agricultural extension?",
+      "answer": "Agricultural extension is a service that provides farmers with technical advice, training, and information."
+    },
+    "french": {
+      "question": "Qu’est-ce que la vulgarisation agricole ?",
+      "answer": "Service de conseil aux agriculteurs."
+    },
+    "bambara": {
+      "question": "Sɛnɛ yiriwali ye mun ye?",
+      "answer": "Ladilikan baarada min bɛ bila sɛnɛkɛlaw ka bolo kan."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "87",
+    "category": "Agricultural Extension",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why should farmers consult extension agents?",
+      "answer": "Extension agents provide guidance on improved farming practices, pest control, and new technologies."
+    },
+    "french": {
+      "question": "Pourquoi consulter les agents ?",
+      "answer": "Conseils techniques."
+    },
+    "bambara": {
+      "question": "Mun na an ka kan ka an ka ɲininkaliw tɛnkun sɛnɛkɛ dɛmɛbagaw la?",
+      "answer": "U bɛ ladilikanw di fɛɛrɛko siratigɛ la."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "88",
+    "category": "Agricultural Extension",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers access agricultural information?",
+      "answer": "Farmers can access information through extension services, radio programs, mobile phones, and farmer organizations."
+    },
+    "french": {
+      "question": "Où obtenir des infos agricoles ?",
+      "answer": "Radios, agents, téléphones."
+    },
+    "bambara": {
+      "question": "Sɛnɛ kunnafoniw bɛ sɔrɔ min?",
+      "answer": "Arajow, sɛnɛkɛ dɛmɛbagaw ani telefɔniw sira fɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "89",
+    "category": "Agricultural Extension",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What role do farmer organizations play?",
+      "answer": "Farmer organizations facilitate training, market access, and the sharing of agricultural knowledge."
+    },
+    "french": {
+      "question": "Rôle des organisations paysannes ?",
+      "answer": "Formation et accès au marché."
+    },
+    "bambara": {
+      "question": "Sɛnɛkɛlaw ka tɔnw jɔyɔrɔ ye mun ye?",
+      "answer": "Kalan ni sugu la sɔrɔli."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "90",
+    "category": "Agricultural Extension",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is farmer training important?",
+      "answer": "Training helps farmers adopt improved technologies and increase productivity."
+    },
+    "french": {
+      "question": "Pourquoi la formation ?",
+      "answer": "Améliorer les pratiques."
+    },
+    "bambara": {
+      "question": "Nafa jumɛn bɛ kalan na ?",
+      "answer": "Ka baara kɛ cogo sinsin."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "91",
+    "category": "Soil and Water Conservation",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is soil conservation?",
+      "answer": "Soil conservation refers to practices that protect soil from erosion and degradation."
+    },
+    "french": {
+      "question": "Qu’est-ce que la conservation du sol ?",
+      "answer": "Protection contre l’érosion."
+    },
+    "bambara": {
+      "question": "Dugukolo lakanani ye mun ye?",
+      "answer": "Lakanali ka bɔ Dugukolo tiliyali ma."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "92",
+    "category": "Soil and Water Conservation",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What is water conservation in agriculture?",
+      "answer": "Water conservation involves efficient use and management of water resources for farming."
+    },
+    "french": {
+      "question": "Qu’est-ce que la conservation de l’eau ?",
+      "answer": "Utilisation efficace de l’eau."
+    },
+    "bambara": {
+      "question": "Ji lakanani ye mun ye?",
+      "answer": "Ji la baara cogo ɲuman."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "93",
+    "category": "Soil and Water Conservation",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How do contour ridges help farmers?",
+      "answer": "Contour ridges reduce runoff, conserve water, and minimize soil erosion."
+    },
+    "french": {
+      "question": "Avantage des courbes de niveau ?",
+      "answer": "Réduction du ruissellement."
+    },
+    "bambara": {
+      "question": "Nafa jumɛnw bɛ ciden siraw la?",
+      "answer": "Ji boli dɔgɔyali."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "94",
+    "category": "Soil and Water Conservation",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why are trees important on farms?",
+      "answer": "Trees protect the soil, provide shade, improve biodiversity, and supply useful products."
+    },
+    "french": {
+      "question": "Pourquoi planter des arbres ?",
+      "answer": "Protection et fertilité."
+    },
+    "bambara": {
+      "question": "Nafa jumɛn bɛ jiri turu la?",
+      "answer": "Lakanali ani dugukolo nɔgɔya."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "95",
+    "category": "Soil and Water Conservation",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What are the benefits of cover crops?",
+      "answer": "Cover crops reduce erosion, improve soil fertility, suppress weeds, and conserve moisture."
+    },
+    "french": {
+      "question": "Avantages des cultures de couverture ?",
+      "answer": "Protection du sol."
+    },
+    "bambara": {
+      "question": "Nafa jumɛn bɛ dugukolo datugun binw na?",
+      "answer": "Dugukolo lakanani."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "96",
+    "category": "Pest and Disease Diagnosis",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "How can farmers identify crop diseases?",
+      "answer": "Farmers can identify diseases by observing symptoms such as spots, wilting, discoloration, and abnormal growth."
+    },
+    "french": {
+      "question": "Comment identifier une maladie ?",
+      "answer": "Observation des symptômes."
+    },
+    "bambara": {
+      "question": "Bana bɛ dɔn cogo di?",
+      "answer": "Taamasiɲɛw kɔlɔsili."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "97",
+    "category": "Pest and Disease Diagnosis",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why is early disease detection important?",
+      "answer": "Early detection allows timely intervention and reduces crop losses."
+    },
+    "french": {
+      "question": "Pourquoi détecter tôt ?",
+      "answer": "Réduire les pertes."
+    },
+    "bambara": {
+      "question": "Mun na bana ka kan ka dɔn joona?",
+      "answer": "Walasa dɔ ka bɔ bɔnɛw la."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "98",
+    "category": "Pest and Disease Diagnosis",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "What should farmers do when they observe unusual crop symptoms?",
+      "answer": "Farmers should consult extension agents or agricultural specialists for diagnosis and advice."
+    },
+    "french": {
+      "question": "Que faire en cas de problème ?",
+      "answer": "Consulter un expert."
+    },
+    "bambara": {
+      "question": "Ni gɛlɛya nanna, an ka kan ka mun kɛ?",
+      "answer": "An ka kan ka taa bɛ taa dɔnnikɛla dɔ fɛ."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "99",
+    "category": "Pest and Disease Diagnosis",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Can mobile technologies help diagnose crop problems?",
+      "answer": "Yes. Mobile applications and digital advisory services can help farmers identify crop problems."
+    },
+    "french": {
+      "question": "Les téléphones aident-ils ?",
+      "answer": "Oui, diagnostic numérique."
+    },
+    "bambara": {
+      "question": "Yala telefɔniw bɛ dɛmɛ don wa?",
+      "answer": "Walasa ka sɛgɛsɛgɛli sabati."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  },
+  {
+    "id": "100",
+    "category": "Pest and Disease Diagnosis",
+    "topic": null,
+    "crop": null,
+    "region": null,
+    "agroecological_zone": null,
+    "season": null,
+    "english": {
+      "question": "Why should farmers keep farm records?",
+      "answer": "Farm records help farmers monitor production, evaluate performance, and make informed decisions."
+    },
+    "french": {
+      "question": "Pourquoi tenir des registres ?",
+      "answer": "Suivi et prise de décision."
+    },
+    "bambara": {
+      "question": "Mun na ka sɛbɛnnikalaba mara?",
+      "answer": "Kɔlɔsili ani desizɔn taali."
+    },
+    "intent": null,
+    "keywords": [],
+    "source": null,
+    "source_type": null,
+    "status": "review",
+    "version": "5.0",
+    "last_updated": null
+  }
+]
