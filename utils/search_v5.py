@@ -35,7 +35,9 @@ MIN_SCORE = 70
 LANGUAGE_KEYS = {
     "English": "english",
     "Français": "french",
+    "Français": "french",
     "Bambara": "bambara",
+    "Bamanankan": "bambara",
 }
 
 
