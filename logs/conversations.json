@@ -166,5 +166,33 @@
         "score": 100,
         "language": "English",
         "time": "2026-08-11 15:41:20"
+    },
+    {
+        "question": "When should I plant millet?",
+        "answer": "Farmers should consult extension agents or agricultural specialists for diagnosis and advice.",
+        "score": 95.5,
+        "language": "English",
+        "time": "2026-08-11 16:21:52"
+    },
+    {
+        "question": "When should I plant maize?",
+        "answer": "Farmers should consult extension agents or agricultural specialists for diagnosis and advice.",
+        "score": 95.5,
+        "language": "English",
+        "time": "2026-08-11 16:24:01"
+    },
+    {
+        "question": "How deep should I plant millet seeds?",
+        "answer": "Millet seeds should generally be planted at a depth of 2 to 3 centimeters.",
+        "score": 95.5,
+        "language": "English",
+        "time": "2026-08-11 16:25:40"
+    },
+    {
+        "question": "How much spacing should be left between maize plants?",
+        "answer": "Recommended spacing depends on the variety, but 75 cm between rows and 25 cm between plants is common.",
+        "score": 100,
+        "language": "English",
+        "time": "2026-08-11 16:27:07"
     }
 ]
