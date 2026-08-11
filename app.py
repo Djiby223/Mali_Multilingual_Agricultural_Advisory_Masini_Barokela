@@ -124,7 +124,7 @@ if st.button(t["button"]):
         intent = detect_intent(question)
 
         start_time = time.perf_counter()
-        result, score = search_question(question, language)
+        result, score = search_question_v5(question, language)
         elapsed_ms = (time.perf_counter() - start_time) * 1000
 
         if result:
