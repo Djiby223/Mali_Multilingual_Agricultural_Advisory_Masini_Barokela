@@ -2,7 +2,7 @@ import time
 
 from utils.intent import detect_intent
 
-from utils.search import search_question
+from utils.search_v5 import search_question_v5
 
 from utils.classifier import (
     is_greeting,
