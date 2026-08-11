@@ -152,5 +152,12 @@
         "score": 100,
         "language": "English",
         "time": "2026-08-09 17:45:38"
+    },
+    {
+        "question": "Quelle est la meilleure période pour planter le mil ?\n",
+        "answer": "Le mil doit être planté au début de la saison des pluies lorsque les précipitations sont suffisantes.",
+        "score": 100,
+        "language": "Français",
+        "time": "2026-08-11 12:12:56"
     }
 ]
