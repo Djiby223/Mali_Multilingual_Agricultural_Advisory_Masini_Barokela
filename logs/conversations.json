@@ -194,5 +194,19 @@
         "score": 100,
         "language": "English",
         "time": "2026-08-11 16:27:07"
+    },
+    {
+        "question": "What is the best time to plant millet?",
+        "answer": "Millet should be planted at the beginning of the rainy season when adequate rainfall is expected.",
+        "score": 100,
+        "language": "English",
+        "time": "2026-08-11 17:04:02"
+    },
+    {
+        "question": "When should I plant millet?",
+        "answer": "Millet seeds should generally be planted at a depth of 2 to 3 centimeters.",
+        "score": 80.8,
+        "language": "English",
+        "time": "2026-08-11 17:04:55"
     }
 ]
