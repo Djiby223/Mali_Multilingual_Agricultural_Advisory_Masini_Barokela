@@ -208,5 +208,61 @@
         "score": 80.8,
         "language": "English",
         "time": "2026-08-11 17:04:55"
+    },
+    {
+        "question": "What is the best time to plant millet?",
+        "answer": "Millet should be planted at the beginning of the rainy season when adequate rainfall is expected.",
+        "score": 100,
+        "language": "English",
+        "time": "2026-08-12 11:43:16"
+    },
+    {
+        "question": "When should I plant millet?",
+        "answer": "Millet seeds should generally be planted at a depth of 2 to 3 centimeters.",
+        "score": 80.8,
+        "language": "English",
+        "time": "2026-08-12 11:44:24"
+    },
+    {
+        "question": "When should I plant maize?",
+        "answer": "Recommended spacing depends on the variety, but 75 cm between rows and 25 cm between plants is common.",
+        "score": 84.7,
+        "language": "English",
+        "time": "2026-08-12 11:47:10"
+    },
+    {
+        "question": "How deep should I plant millet seeds?",
+        "answer": "Millet seeds should generally be planted at a depth of 2 to 3 centimeters.",
+        "score": 76.9,
+        "language": "English",
+        "time": "2026-08-12 11:49:55"
+    },
+    {
+        "question": "How much spacing should be left between maize plants?",
+        "answer": "Recommended spacing depends on the variety, but 75 cm between rows and 25 cm between plants is common.",
+        "score": 100,
+        "language": "English",
+        "time": "2026-08-12 11:51:24"
+    },
+    {
+        "question": "When should I apply fertilizer?",
+        "answer": "Fertilizer should be applied according to crop requirements and local recommendations.",
+        "score": 75.2,
+        "language": "English",
+        "time": "2026-08-12 11:54:52"
+    },
+    {
+        "question": "How can I conserve irrigation water?",
+        "answer": "Farmers can conserve water through mulching, drip irrigation, and proper scheduling.",
+        "score": 95.8,
+        "language": "English",
+        "time": "2026-08-12 11:58:16"
+    },
+    {
+        "question": "How can I control pests?",
+        "answer": "Farmers can use hermetic storage bags, clean storage facilities, and approved pest-control methods.",
+        "score": 71.5,
+        "language": "English",
+        "time": "2026-08-12 11:59:50"
     }
 ]
