@@ -7,8 +7,8 @@ Detects:
     2. Specific agricultural intent
     3. Crop/entity when identifiable
 
-This module is intentionally separate from the
-older V4 intent.py.
+This module is intentionally separate from
+the older V4 intent.py.
 """
 
 
@@ -32,15 +32,15 @@ CROPS = {
 }
 
 
+# --------------------------------------------------
+# Specific intent patterns
+# --------------------------------------------------
+
 INTENT_PATTERNS = {
 
-    # --------------------------------------------------
-    # More specific intents FIRST
-    # --------------------------------------------------
-
-    # ------------------------------
-    # Fertilizer
-    # ------------------------------
+    # ==================================================
+    # FERTILIZER
+    # ==================================================
 
     "FERTILIZER_TIMING": [
         "when should fertilizer",
@@ -84,9 +84,9 @@ INTENT_PATTERNS = {
     ],
 
 
-    # ------------------------------
-    # Irrigation / Water
-    # ------------------------------
+    # ==================================================
+    # IRRIGATION / WATER
+    # ==================================================
 
     "WATER_CONSERVATION": [
         "conserve irrigation water",
@@ -127,9 +127,9 @@ INTENT_PATTERNS = {
     ],
 
 
-    # ------------------------------
-    # Planting
-    # ------------------------------
+    # ==================================================
+    # PLANTING
+    # ==================================================
 
     "PLANTING_DEPTH": [
         "how deep",
@@ -169,9 +169,9 @@ INTENT_PATTERNS = {
     ],
 
 
-    # ------------------------------
-    # Pests
-    # ------------------------------
+    # ==================================================
+    # PESTS
+    # ==================================================
 
     "INTEGRATED_PEST_MANAGEMENT": [
         "integrated pest management",
@@ -206,3 +206,101 @@ INTENT_PATTERNS = {
         "crop rotation pests",
     ],
 }
+
+
+# --------------------------------------------------
+# Main detector
+# --------------------------------------------------
+
+def detect_intent_v5(question):
+    """
+    Detect the agricultural domain, specific intent,
+    and crop/entity.
+
+    Returns:
+        {
+            "domain": str,
+            "sub_intent": str,
+            "crop": str or None
+        }
+    """
+
+    text = question.lower().strip()
+
+    # --------------------------------------------------
+    # Crop detection
+    # --------------------------------------------------
+
+    crop = None
+
+    for keyword, crop_name in CROPS.items():
+
+        if keyword in text:
+
+            crop = crop_name
+            break
+
+
+    # --------------------------------------------------
+    # Specific intent detection
+    # --------------------------------------------------
+
+    detected_intent = "GENERAL"
+
+    for intent, patterns in INTENT_PATTERNS.items():
+
+        for pattern in patterns:
+
+            if pattern in text:
+
+                detected_intent = intent
+                break
+
+        if detected_intent != "GENERAL":
+            break
+
+
+    # --------------------------------------------------
+    # Domain detection
+    # --------------------------------------------------
+
+    if detected_intent.startswith("PLANTING"):
+
+        domain = "PLANTING"
+
+    elif (
+        detected_intent.startswith("IRRIGATION")
+        or detected_intent.startswith("WATER")
+    ):
+
+        domain = "IRRIGATION"
+
+    elif (
+        detected_intent.startswith("FERTILIZER")
+        or detected_intent == "COMPOST"
+        or detected_intent == "NUTRIENT_DEFICIENCY"
+    ):
+
+        domain = "FERTILIZATION"
+
+    elif (
+        detected_intent.startswith("PEST")
+        or detected_intent == "INTEGRATED_PEST_MANAGEMENT"
+    ):
+
+        domain = "PESTS"
+
+    else:
+
+        domain = "GENERAL"
+
+
+    # --------------------------------------------------
+    # Return result
+    # --------------------------------------------------
+
+    return {
+        "domain": domain,
+        "sub_intent": detected_intent,
+        "crop": crop,
+    }
