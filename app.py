@@ -64,7 +64,17 @@ TEXT = {
         "crop": "Bii min sugandi",
         "question": "I ka senekɛlɛla kumakan don",
         "button": "Baro sɔrɔ"
-    }
+    },
+    "messages": {
+        "enter_question": "Please enter an agricultural question.",
+        "welcome": "Welcome to Masini Barokela!",
+        "non_agriculture": "Please ask an agricultural question."
+},
+    "messages": {
+        "enter_question": "Veuillez saisir une question agricole.",
+        "welcome": "Bienvenue sur Masini Barokela !",
+        "non_agriculture": "Veuillez poser une question agricole."
+}
 }
 
 t = TEXT[language]
