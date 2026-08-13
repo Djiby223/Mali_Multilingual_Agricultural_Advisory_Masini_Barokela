@@ -307,7 +307,14 @@ def search_question_v5_2(
 
         record_id = record.get("id")
 
-        record_intent = RECORD_INTENTS.get(record_id)
+        try:
+            record_id = int(record_id)
+        except (TypeError, ValueError):
+            continue
+
+        record_intent = RECORD_INTENTS.get(
+            record_id
+        )
 
         if record_intent == sub_intent:
 
