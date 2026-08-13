@@ -10,11 +10,14 @@ Architecture:
         ↓
     Similarity third
 
-The search engine uses the V5.2 intent detector to restrict
-the knowledge-base candidates before RapidFuzz ranking.
+The search engine first identifies the user's intent and crop.
+Only records matching BOTH are allowed to compete.
 
-This prevents semantically different questions in the same
-category from competing with each other.
+If no knowledge-base record exists for the requested
+intent + crop combination, the engine returns None.
+
+This prevents semantically different questions from
+competing with each other.
 """
 
 from rapidfuzz import fuzz
@@ -37,16 +40,14 @@ MIN_SCORE = 70
 LANGUAGE_KEYS = {
     "English": "english",
     "FranÃ§ais": "french",
+    "Français": "french",
     "Bambara": "bambara",
+    "Bamanankan": "bambara",
 }
 
 
 # --------------------------------------------------
 # Knowledge-base record → sub-intent
-#
-# This is deliberately explicit for V5.2.
-# Later, we can store the intent directly in the
-# knowledge-base schema.
 # --------------------------------------------------
 
 RECORD_INTENTS = {
@@ -199,41 +200,43 @@ RECORD_INTENTS = {
 
 CROP_TERMS = {
 
-    "Millet": ["millet"],
+    "Millet": [
+        "millet"
+    ],
 
     "Maize": [
         "maize",
-        "corn",
+        "corn"
     ],
 
     "Rice": [
-        "rice",
+        "rice"
     ],
 
     "Sorghum": [
-        "sorghum",
+        "sorghum"
     ],
 
     "Cotton": [
-        "cotton",
+        "cotton"
     ],
 
     "Groundnut": [
         "groundnut",
-        "peanut",
+        "peanut"
     ],
 
     "Cowpea": [
-        "cowpea",
+        "cowpea"
     ],
 
     "Sesame": [
-        "sesame",
+        "sesame"
     ],
 
     "Tomato": [
         "tomato",
-        "tomatoes",
+        "tomatoes"
     ],
 }
 
@@ -282,8 +285,9 @@ def search_question_v5_2(
 
     intent = detect_intent_v5(user_question)
 
-    sub_intent = intent["sub_intent"]
-    crop = intent["crop"]
+    domain = intent.get("domain")
+    sub_intent = intent.get("sub_intent")
+    crop = intent.get("crop")
 
     print("V5.2 Intent:", intent)
 
@@ -291,10 +295,7 @@ def search_question_v5_2(
     # Language
     # --------------------------------------------------
 
-    language_key = LANGUAGE_KEYS.get(language)
-
-    if language_key is None:
-        language_key = "english"
+    language_key = LANGUAGE_KEYS.get(language, "english")
 
     # --------------------------------------------------
     # STEP 2 — FILTER BY INTENT
@@ -306,9 +307,7 @@ def search_question_v5_2(
 
         record_id = record.get("id")
 
-        record_intent = RECORD_INTENTS.get(
-            record_id
-        )
+        record_intent = RECORD_INTENTS.get(record_id)
 
         if record_intent == sub_intent:
 
@@ -325,15 +324,17 @@ def search_question_v5_2(
 
     if not intent_candidates:
 
+        print("No records found for intent:", sub_intent)
+
         return None, 0
 
     # --------------------------------------------------
     # STEP 3 — FILTER BY CROP
     # --------------------------------------------------
 
-    crop_candidates = []
-
     if crop:
+
+        crop_candidates = []
 
         for record in intent_candidates:
 
@@ -364,27 +365,32 @@ def search_question_v5_2(
     )
 
     # --------------------------------------------------
-    # IMPORTANT:
+    # CRITICAL V5.2 RULE
     #
-    # If a crop was explicitly detected but there is
-    # no record for that crop + intent combination,
+    # If the user explicitly identifies a crop but
+    # the KB contains no record for that crop + intent,
     # DO NOT fall back to another crop.
     # --------------------------------------------------
 
     if crop and not crop_candidates:
 
+        print(
+            "No KB record for:",
+            sub_intent,
+            "+",
+            crop
+        )
+
         return None, 0
 
-    candidates = crop_candidates
-
     # --------------------------------------------------
-    # STEP 4 — RAPIDFUZZ
+    # STEP 4 — SIMILARITY
     # --------------------------------------------------
 
     best_record = None
     best_score = 0
 
-    for record in candidates:
+    for record in crop_candidates:
 
         question_data = record.get(
             language_key,
@@ -392,7 +398,8 @@ def search_question_v5_2(
         )
 
         kb_question = question_data.get(
-            "question"
+            "question",
+            ""
         )
 
         if not kb_question:
@@ -400,7 +407,7 @@ def search_question_v5_2(
 
         kb_question = kb_question.lower().strip()
 
-        # Base similarity
+        # RapidFuzz similarity
         wratio = fuzz.WRatio(
             user_question,
             kb_question
