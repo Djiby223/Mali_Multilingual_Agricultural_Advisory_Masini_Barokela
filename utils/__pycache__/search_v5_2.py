@@ -2,14 +2,19 @@
 Masini Barokɛla
 V5.2 Intent-Aware Search Engine
 
-Search strategy:
+Architecture:
 
-1. Detect domain, sub-intent, and crop.
-2. Filter knowledge-base records using intent.
-3. Rank remaining candidates with RapidFuzz.
-4. Return the best matching record and confidence score.
+    Intent first
+        ↓
+    Crop second
+        ↓
+    Similarity third
 
-This module does NOT replace the V4 search engine.
+The search engine uses the V5.2 intent detector to restrict
+the knowledge-base candidates before RapidFuzz ranking.
+
+This prevents semantically different questions in the same
+category from competing with each other.
 """
 
 from rapidfuzz import fuzz
@@ -37,65 +42,229 @@ LANGUAGE_KEYS = {
 
 
 # --------------------------------------------------
-# Knowledge-base intent mapping
+# Knowledge-base record → sub-intent
+#
+# This is deliberately explicit for V5.2.
+# Later, we can store the intent directly in the
+# knowledge-base schema.
 # --------------------------------------------------
 
-CATEGORY_TO_INTENTS = {
+RECORD_INTENTS = {
 
-    "Planting": {
-        "PLANTING_TIME",
-        "PLANTING_DEPTH",
-        "PLANTING_SPACING",
-        "PLANTING_IMPORTANCE",
-    },
+    # Planting
+    1: "PLANTING_TIME",
+    2: "PLANTING_TIME",
+    3: "PLANTING_DEPTH",
+    4: "PLANTING_SPACING",
+    5: "PLANTING_IMPORTANCE",
 
-    "Fertilizer": {
-        "FERTILIZER_TIMING",
-        "FERTILIZER_TYPE",
-        "FERTILIZER_IMPORTANCE",
-        "COMPOST",
-        "NUTRIENT_DEFICIENCY",
-    },
+    # Irrigation
+    6: "IRRIGATION_FREQUENCY",
+    7: "IRRIGATION_TIMING",
+    8: "WATER_CONSERVATION",
+    9: "WATER_STRESS",
+    10: "EXCESSIVE_IRRIGATION",
 
-    "Irrigation": {
-        "IRRIGATION_FREQUENCY",
-        "IRRIGATION_TIMING",
-        "WATER_CONSERVATION",
-        "WATER_STRESS",
-        "EXCESSIVE_IRRIGATION",
-    },
+    # Fertilizer
+    11: "FERTILIZER_TYPE",
+    12: "FERTILIZER_IMPORTANCE",
+    13: "FERTILIZER_TIMING",
+    14: "COMPOST",
+    15: "NUTRIENT_DEFICIENCY",
 
-    "Pests": {
-        "PEST_CONTROL",
-        "PEST_SYMPTOMS",
-        "PEST_MONITORING",
-        "INTEGRATED_PEST_MANAGEMENT",
-        "PEST_ROTATION",
-    },
+    # Pests
+    16: "PEST_CONTROL",
+    17: "PEST_SYMPTOMS",
+    18: "PEST_MONITORING",
+    19: "INTEGRATED_PEST_MANAGEMENT",
+    20: "PEST_ROTATION",
+
+    # Diseases
+    21: "DISEASE_PREVENTION",
+    22: "DISEASE_REMOVAL",
+    23: "FUNGAL_DISEASES",
+    24: "SEED_TREATMENT",
+    25: "CROP_SANITATION",
+
+    # Weather
+    26: "RAINFALL_EFFECT",
+    27: "WEATHER_FORECAST",
+    28: "HEAVY_RAINFALL",
+    29: "STRONG_WINDS",
+    30: "RAINFALL_ANOMALY",
+
+    # Drought
+    31: "DROUGHT_DEFINITION",
+    32: "DROUGHT_SIGNS",
+    33: "DROUGHT_MANAGEMENT",
+    34: "DROUGHT_TOLERANT_CROPS",
+    35: "DROUGHT_MULCHING",
+
+    # Soil Management
+    36: "SOIL_FERTILITY",
+    37: "SOIL_EROSION",
+    38: "CROP_ROTATION",
+    39: "CROP_ROTATION_BENEFITS",
+    40: "MULCHING",
+
+    # Harvest
+    41: "HARVEST_READINESS",
+    42: "HARVEST_TIMING",
+    43: "EARLY_HARVEST",
+    44: "LATE_HARVEST",
+    45: "HARVEST_HANDLING",
+
+    # Storage
+    46: "STORAGE_IMPORTANCE",
+    47: "GRAIN_DRYING",
+    48: "STORAGE_PESTS",
+    49: "STORAGE_PEST_CONTROL",
+    50: "STORAGE_CLEANLINESS",
+
+    # Seed Selection
+    51: "CERTIFIED_SEEDS",
+    52: "SEED_SELECTION",
+    53: "SEED_GERMINATION",
+    54: "GERMINATION_TEST",
+    55: "DAMAGED_SEEDS",
+
+    # Land Preparation
+    56: "LAND_PREPARATION_IMPORTANCE",
+    57: "LAND_PREPARATION_TIMING",
+    58: "LAND_PREPARATION_METHODS",
+    59: "MINIMUM_TILLAGE",
+    60: "LAND_PREPARATION_EROSION",
+
+    # Weed Management
+    61: "WEED_IMPORTANCE",
+    62: "WEED_CONTROL",
+    63: "WEED_TIMING",
+    64: "MULCHING_WEEDS",
+    65: "HERBICIDE_USE",
+
+    # Climate-Smart Agriculture
+    66: "CLIMATE_SMART_AGRICULTURE",
+    67: "CLIMATE_SMART_PRACTICES",
+    68: "AGROFORESTRY",
+    69: "WATER_HARVESTING",
+    70: "CROP_DIVERSIFICATION",
+
+    # Sustainable Agriculture
+    71: "SUSTAINABLE_AGRICULTURE",
+    72: "AGRICULTURAL_BIODIVERSITY",
+    73: "SOIL_ORGANIC_MATTER",
+    74: "CROP_RESIDUES",
+    75: "CHEMICAL_INPUT_REDUCTION",
+
+    # Post-Harvest Handling
+    76: "POST_HARVEST_HANDLING",
+    77: "PRODUCE_SORTING",
+    78: "SUNLIGHT_PROTECTION",
+    79: "POST_HARVEST_LOSSES",
+    80: "PACKAGING",
+
+    # Livestock Integration
+    81: "LIVESTOCK_CROP_INTEGRATION",
+    82: "ANIMAL_MANURE",
+    83: "LIVESTOCK_WATER",
+    84: "CROP_RESIDUES_LIVESTOCK",
+    85: "LIVESTOCK_VACCINATION",
+
+    # Agricultural Extension
+    86: "AGRICULTURAL_EXTENSION",
+    87: "EXTENSION_AGENTS",
+    88: "AGRICULTURAL_INFORMATION",
+    89: "FARMER_ORGANIZATIONS",
+    90: "FARMER_TRAINING",
+
+    # Soil and Water Conservation
+    91: "SOIL_CONSERVATION",
+    92: "WATER_CONSERVATION",
+    93: "CONTOUR_RIDGES",
+    94: "FARM_TREES",
+    95: "COVER_CROPS",
+
+    # Pest and Disease Diagnosis
+    96: "DISEASE_IDENTIFICATION",
+    97: "EARLY_DISEASE_DETECTION",
+    98: "UNUSUAL_CROP_SYMPTOMS",
+    99: "MOBILE_DIAGNOSIS",
+    100: "FARM_RECORDS",
 }
 
 
 # --------------------------------------------------
-# Find compatible category
+# Crop terms
 # --------------------------------------------------
 
-def get_target_categories(sub_intent):
+CROP_TERMS = {
 
-    categories = []
+    "Millet": ["millet"],
 
-    for category, intents in CATEGORY_TO_INTENTS.items():
+    "Maize": [
+        "maize",
+        "corn",
+    ],
 
-        if sub_intent in intents:
-            categories.append(category)
+    "Rice": [
+        "rice",
+    ],
 
-    return categories
+    "Sorghum": [
+        "sorghum",
+    ],
+
+    "Cotton": [
+        "cotton",
+    ],
+
+    "Groundnut": [
+        "groundnut",
+        "peanut",
+    ],
+
+    "Cowpea": [
+        "cowpea",
+    ],
+
+    "Sesame": [
+        "sesame",
+    ],
+
+    "Tomato": [
+        "tomato",
+        "tomatoes",
+    ],
+}
+
+
+# --------------------------------------------------
+# Detect crop in a knowledge-base question
+# --------------------------------------------------
+
+def question_contains_crop(question, crop):
+
+    if not crop:
+        return True
+
+    terms = CROP_TERMS.get(crop, [])
+
+    question = question.lower()
+
+    return any(
+        term in question
+        for term in terms
+    )
 
 
 # --------------------------------------------------
 # Search
 # --------------------------------------------------
 
-def search_question_v5_2(user_question, language="English"):
+def search_question_v5_2(
+    user_question,
+    language="English"
+):
 
     data = load_knowledge_base_v5()
 
@@ -104,20 +273,15 @@ def search_question_v5_2(user_question, language="English"):
     if not user_question:
         return None, 0
 
-    # --------------------------------------------------
-    # Very short questions
-    # --------------------------------------------------
-
     if len(user_question.split()) < 2:
         return None, 0
 
     # --------------------------------------------------
-    # Detect intent
+    # STEP 1 — INTENT
     # --------------------------------------------------
 
     intent = detect_intent_v5(user_question)
 
-    domain = intent["domain"]
     sub_intent = intent["sub_intent"]
     crop = intent["crop"]
 
@@ -133,80 +297,88 @@ def search_question_v5_2(user_question, language="English"):
         language_key = "english"
 
     # --------------------------------------------------
-    # Determine target categories
+    # STEP 2 — FILTER BY INTENT
     # --------------------------------------------------
 
-    target_categories = get_target_categories(sub_intent)
-
-    # --------------------------------------------------
-    # Candidate filtering
-    # --------------------------------------------------
-
-    candidates = []
+    intent_candidates = []
 
     for record in data:
 
-        category = record.get("category")
+        record_id = record.get("id")
 
-        # If we know the correct category, use it.
-        if target_categories:
+        record_intent = RECORD_INTENTS.get(
+            record_id
+        )
 
-            if category not in target_categories:
-                continue
+        if record_intent == sub_intent:
 
-        candidates.append(record)
+            intent_candidates.append(record)
+
+    print(
+        "Intent candidates:",
+        [r.get("id") for r in intent_candidates]
+    )
 
     # --------------------------------------------------
-    # Crop filtering
-    #
-    # IMPORTANT:
-    # The V5 knowledge base does not currently contain
-    # a crop field for every record, so crop filtering
-    # is based on the question text.
+    # No records for this intent
     # --------------------------------------------------
+
+    if not intent_candidates:
+
+        return None, 0
+
+    # --------------------------------------------------
+    # STEP 3 — FILTER BY CROP
+    # --------------------------------------------------
+
+    crop_candidates = []
 
     if crop:
 
-        crop_candidates = []
+        for record in intent_candidates:
 
-        crop_terms = {
-            "Millet": ["millet"],
-            "Maize": ["maize", "corn"],
-            "Rice": ["rice"],
-            "Sorghum": ["sorghum"],
-            "Cotton": ["cotton"],
-            "Groundnut": ["groundnut", "peanut"],
-            "Cowpea": ["cowpea"],
-            "Sesame": ["sesame"],
-            "Tomato": ["tomato", "tomatoes"],
-        }
+            question_data = record.get(
+                language_key,
+                {}
+            )
 
-        terms = crop_terms.get(crop, [])
+            kb_question = question_data.get(
+                "question",
+                ""
+            )
 
-        for record in candidates:
-
-            question_data = record.get(language_key, {})
-            kb_question = question_data.get("question", "").lower()
-
-            if any(term in kb_question for term in terms):
+            if question_contains_crop(
+                kb_question,
+                crop
+            ):
 
                 crop_candidates.append(record)
 
-        # Only use crop filtering if it found candidates.
-        if crop_candidates:
-            candidates = crop_candidates
+    else:
+
+        crop_candidates = intent_candidates
+
+    print(
+        "Crop candidates:",
+        [r.get("id") for r in crop_candidates]
+    )
 
     # --------------------------------------------------
-    # If intent filtering produced nothing,
-    # fall back to the full knowledge base.
+    # IMPORTANT:
+    #
+    # If a crop was explicitly detected but there is
+    # no record for that crop + intent combination,
+    # DO NOT fall back to another crop.
     # --------------------------------------------------
 
-    if not candidates:
+    if crop and not crop_candidates:
 
-        candidates = data
+        return None, 0
+
+    candidates = crop_candidates
 
     # --------------------------------------------------
-    # RapidFuzz ranking
+    # STEP 4 — RAPIDFUZZ
     # --------------------------------------------------
 
     best_record = None
@@ -214,79 +386,56 @@ def search_question_v5_2(user_question, language="English"):
 
     for record in candidates:
 
-        question_data = record.get(language_key, {})
+        question_data = record.get(
+            language_key,
+            {}
+        )
 
-        kb_question = question_data.get("question")
+        kb_question = question_data.get(
+            "question"
+        )
 
         if not kb_question:
             continue
 
         kb_question = kb_question.lower().strip()
 
-        # ----------------------------------------------
         # Base similarity
-        # ----------------------------------------------
-
         wratio = fuzz.WRatio(
             user_question,
-            kb_question,
+            kb_question
         )
 
-        # ----------------------------------------------
         # Word overlap
-        # ----------------------------------------------
+        user_words = set(
+            user_question.split()
+        )
 
-        user_words = set(user_question.split())
-        kb_words = set(kb_question.split())
+        kb_words = set(
+            kb_question.split()
+        )
 
-        overlap = len(user_words & kb_words)
+        overlap = len(
+            user_words & kb_words
+        )
 
-        score = wratio + (overlap * 5)
+        score = wratio + (
+            overlap * 5
+        )
 
-        # ----------------------------------------------
-        # Intent-aware bonus
-        # ----------------------------------------------
+        score = min(
+            score,
+            100
+        )
 
-        intent_bonus = 0
-
-        if target_categories:
-
-            if record.get("category") in target_categories:
-                intent_bonus += 10
-
-        score += intent_bonus
-
-        # ----------------------------------------------
-        # Crop bonus
-        # ----------------------------------------------
-
-        if crop:
-
-            crop_terms = {
-                "Millet": ["millet"],
-                "Maize": ["maize", "corn"],
-                "Rice": ["rice"],
-                "Sorghum": ["sorghum"],
-                "Cotton": ["cotton"],
-                "Groundnut": ["groundnut", "peanut"],
-                "Cowpea": ["cowpea"],
-                "Sesame": ["sesame"],
-                "Tomato": ["tomato", "tomatoes"],
-            }
-
-            terms = crop_terms.get(crop, [])
-
-            if any(term in kb_question for term in terms):
-
-                score += 10
-
-        # Never exceed 100.
-
-        score = min(score, 100)
-
-        # ----------------------------------------------
-        # Keep best result
-        # ----------------------------------------------
+        print(
+            "Candidate:",
+            record.get("id"),
+            "|",
+            kb_question,
+            "| score:",
+            score
+        )
 
         if score > best_score:
 
@@ -294,7 +443,7 @@ def search_question_v5_2(user_question, language="English"):
             best_record = record
 
     # --------------------------------------------------
-    # Minimum confidence
+    # STEP 5 — CONFIDENCE THRESHOLD
     # --------------------------------------------------
 
     if best_score >= MIN_SCORE:
