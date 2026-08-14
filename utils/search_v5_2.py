@@ -1,467 +1,972 @@
 """
 Masini Barokɛla
-V5.2 Intent-Aware Search Engine
+V5.2 Intent Detection
 
 Architecture:
+    1. Detect crop/entity
+    2. Detect specific agricultural intent
+    3. Determine agricultural domain
 
-    Intent first
-        ↓
-    Crop second
-        ↓
-    Similarity third
-
-The search engine first identifies the user's intent and crop.
-Only records matching BOTH are allowed to compete.
-
-If no knowledge-base record exists for the requested
-intent + crop combination, the engine returns None.
-
-This prevents semantically different questions from
-competing with each other.
+This module is intentionally separate from the
+older V4 intent.py.
 """
 
-from rapidfuzz import fuzz
-
-from utils.loader_v5 import load_knowledge_base_v5
-from utils.intent_v5 import detect_intent_v5
-
 
 # --------------------------------------------------
-# Configuration
+# Crop detection
 # --------------------------------------------------
 
-MIN_SCORE = 70
-
-
-# --------------------------------------------------
-# Language mapping
-# --------------------------------------------------
-
-LANGUAGE_KEYS = {
-    "English": "english",
-    "FranÃ§ais": "french",
-    "Français": "french",
-    "Bambara": "bambara",
-    "Bamanankan": "bambara",
+CROPS = {
+    "millet": "Millet",
+    "maize": "Maize",
+    "corn": "Maize",
+    "rice": "Rice",
+    "sorghum": "Sorghum",
+    "cotton": "Cotton",
+    "groundnut": "Groundnut",
+    "peanut": "Groundnut",
+    "cowpea": "Cowpea",
+    "sesame": "Sesame",
+    "tomato": "Tomato",
+    "tomatoes": "Tomato",
 }
 
 
 # --------------------------------------------------
-# Knowledge-base record → sub-intent
+# Specific intent patterns
 # --------------------------------------------------
 
-RECORD_INTENTS = {
+INTENT_PATTERNS = {
 
-    # Planting
-    1: "PLANTING_TIME",
-    2: "PLANTING_TIME",
-    3: "PLANTING_DEPTH",
-    4: "PLANTING_SPACING",
-    5: "PLANTING_IMPORTANCE",
+    # ==================================================
+    # PLANTING
+    # ==================================================
 
-    # Irrigation
-    6: "IRRIGATION_FREQUENCY",
-    7: "IRRIGATION_TIMING",
-    8: "WATER_CONSERVATION",
-    9: "WATER_STRESS",
-    10: "EXCESSIVE_IRRIGATION",
+    "PLANTING_TIME": [
+        "when should i plant",
+        "when should i sow",
+        "when do i plant",
+        "when to plant",
+        "best time to plant",
+        "best period to plant",
+        "planting time",
+        "planting season",
+        "time to plant",
+        "period to plant",
+        "when should farmers plant",
+    ],
 
-    # Fertilizer
-    11: "FERTILIZER_TYPE",
-    12: "FERTILIZER_IMPORTANCE",
-    13: "FERTILIZER_TIMING",
-    14: "COMPOST",
-    15: "NUTRIENT_DEFICIENCY",
+    "PLANTING_DEPTH": [
+        "how deep should i plant",
+        "how deep should i sow",
+        "how deep to plant",
+        "how deep to sow",
+        "planting depth",
+        "sowing depth",
+        "depth should",
+    ],
 
-    # Pests
-    16: "PEST_CONTROL",
-    17: "PEST_SYMPTOMS",
-    18: "PEST_MONITORING",
-    19: "INTEGRATED_PEST_MANAGEMENT",
-    20: "PEST_ROTATION",
+    "PLANTING_SPACING": [
+        "how far apart",
+        "how much spacing",
+        "spacing between",
+        "distance between plants",
+        "distance between",
+        "space between plants",
+        "space between",
+    ],
 
-    # Diseases
-    21: "DISEASE_PREVENTION",
-    22: "DISEASE_REMOVAL",
-    23: "FUNGAL_DISEASES",
-    24: "SEED_TREATMENT",
-    25: "CROP_SANITATION",
+    "PLANTING_IMPORTANCE": [
+        "why is timely planting",
+        "why is planting important",
+        "importance of planting",
+        "why plant on time",
+        "why timely planting",
+    ],
 
-    # Weather
-    26: "RAINFALL_EFFECT",
-    27: "WEATHER_FORECAST",
-    28: "HEAVY_RAINFALL",
-    29: "STRONG_WINDS",
-    30: "RAINFALL_ANOMALY",
 
-    # Drought
-    31: "DROUGHT_DEFINITION",
-    32: "DROUGHT_SIGNS",
-    33: "DROUGHT_MANAGEMENT",
-    34: "DROUGHT_TOLERANT_CROPS",
-    35: "DROUGHT_MULCHING",
+    # ==================================================
+    # IRRIGATION
+    # ==================================================
 
-    # Soil Management
-    36: "SOIL_FERTILITY",
-    37: "SOIL_EROSION",
-    38: "CROP_ROTATION",
-    39: "CROP_ROTATION_BENEFITS",
-    40: "MULCHING",
+    "IRRIGATION_FREQUENCY": [
+        "how often should i water",
+        "how often should crops be watered",
+        "how often to water",
+        "how frequently should i water",
+        "how frequently to water",
+        "watering frequency",
+        "irrigation frequency",
+    ],
 
-    # Harvest
-    41: "HARVEST_READINESS",
-    42: "HARVEST_TIMING",
-    43: "EARLY_HARVEST",
-    44: "LATE_HARVEST",
-    45: "HARVEST_HANDLING",
+    "IRRIGATION_TIMING": [
+        "best time of day to irrigate",
+        "best time to irrigate",
+        "when should i irrigate",
+        "when to irrigate",
+        "time to irrigate",
+    ],
 
-    # Storage
-    46: "STORAGE_IMPORTANCE",
-    47: "GRAIN_DRYING",
-    48: "STORAGE_PESTS",
-    49: "STORAGE_PEST_CONTROL",
-    50: "STORAGE_CLEANLINESS",
+    "WATER_CONSERVATION": [
+        "conserve irrigation water",
+        "conserve water",
+        "save irrigation water",
+        "save water",
+        "reduce water use",
+        "water conservation",
+        "conserving water",
+    ],
 
-    # Seed Selection
-    51: "CERTIFIED_SEEDS",
-    52: "SEED_SELECTION",
-    53: "SEED_GERMINATION",
-    54: "GERMINATION_TEST",
-    55: "DAMAGED_SEEDS",
+    "WATER_STRESS": [
+        "signs that crops need water",
+        "signs of water stress",
+        "signs crops need water",
+        "crops need water",
+        "need water",
+        "lack of water",
+        "water stress",
+    ],
 
-    # Land Preparation
-    56: "LAND_PREPARATION_IMPORTANCE",
-    57: "LAND_PREPARATION_TIMING",
-    58: "LAND_PREPARATION_METHODS",
-    59: "MINIMUM_TILLAGE",
-    60: "LAND_PREPARATION_EROSION",
+    "EXCESSIVE_IRRIGATION": [
+        "excessive irrigation",
+        "too much irrigation",
+        "too much water",
+        "over irrigation",
+        "over-irrigation",
+        "overwatering",
+    ],
 
-    # Weed Management
-    61: "WEED_IMPORTANCE",
-    62: "WEED_CONTROL",
-    63: "WEED_TIMING",
-    64: "MULCHING_WEEDS",
-    65: "HERBICIDE_USE",
 
-    # Climate-Smart Agriculture
-    66: "CLIMATE_SMART_AGRICULTURE",
-    67: "CLIMATE_SMART_PRACTICES",
-    68: "AGROFORESTRY",
-    69: "WATER_HARVESTING",
-    70: "CROP_DIVERSIFICATION",
+    # ==================================================
+    # FERTILIZATION
+    # ==================================================
 
-    # Sustainable Agriculture
-    71: "SUSTAINABLE_AGRICULTURE",
-    72: "AGRICULTURAL_BIODIVERSITY",
-    73: "SOIL_ORGANIC_MATTER",
-    74: "CROP_RESIDUES",
-    75: "CHEMICAL_INPUT_REDUCTION",
+    "FERTILIZER_TYPE": [
+        "which fertilizer",
+        "what fertilizer",
+        "fertilizer to use",
+        "which fertiliser",
+        "what fertiliser",
+        "fertiliser to use",
+    ],
 
-    # Post-Harvest Handling
-    76: "POST_HARVEST_HANDLING",
-    77: "PRODUCE_SORTING",
-    78: "SUNLIGHT_PROTECTION",
-    79: "POST_HARVEST_LOSSES",
-    80: "PACKAGING",
+    "FERTILIZER_TIMING": [
+        "when should fertilizer",
+        "when should i apply fertilizer",
+        "when to apply fertilizer",
+        "when apply fertilizer",
+        "fertilizer timing",
+        "when should fertiliser",
+        "when to apply fertiliser",
+        "fertiliser timing",
+    ],
 
-    # Livestock Integration
-    81: "LIVESTOCK_CROP_INTEGRATION",
-    82: "ANIMAL_MANURE",
-    83: "LIVESTOCK_WATER",
-    84: "CROP_RESIDUES_LIVESTOCK",
-    85: "LIVESTOCK_VACCINATION",
+    "FERTILIZER_IMPORTANCE": [
+        "why is fertilizer",
+        "why use fertilizer",
+        "importance of fertilizer",
+        "why use fertiliser",
+        "importance of fertiliser",
+        "organic manure important",
+        "why is organic manure",
+    ],
 
-    # Agricultural Extension
-    86: "AGRICULTURAL_EXTENSION",
-    87: "EXTENSION_AGENTS",
-    88: "AGRICULTURAL_INFORMATION",
-    89: "FARMER_ORGANIZATIONS",
-    90: "FARMER_TRAINING",
+    "COMPOST": [
+        "what is compost",
+        "what does compost mean",
+    ],
 
-    # Soil and Water Conservation
-    91: "SOIL_CONSERVATION",
-    92: "WATER_CONSERVATION",
-    93: "CONTOUR_RIDGES",
-    94: "FARM_TREES",
-    95: "COVER_CROPS",
+    "NUTRIENT_DEFICIENCY": [
+        "soil lacks nutrients",
+        "lack nutrients",
+        "lacks nutrients",
+        "nutrient deficiency",
+        "soil deficiency",
+        "deficiency in nutrients",
+    ],
 
-    # Pest and Disease Diagnosis
-    96: "DISEASE_IDENTIFICATION",
-    97: "EARLY_DISEASE_DETECTION",
-    98: "UNUSUAL_CROP_SYMPTOMS",
-    99: "MOBILE_DIAGNOSIS",
-    100: "FARM_RECORDS",
+
+    # ==================================================
+    # PESTS
+    # ==================================================
+
+    "INTEGRATED_PEST_MANAGEMENT": [
+        "integrated pest management",
+        "integrated pest control",
+    ],
+
+    "PEST_CONTROL": [
+        "control pests",
+        "control pest",
+        "fight pests",
+        "manage pests",
+        "pest control",
+    ],
+
+    "PEST_SYMPTOMS": [
+        "signs of pest infestation",
+        "signs of pest",
+        "signs of pests",
+        "pest infestation",
+        "pest symptoms",
+    ],
+
+    "PEST_MONITORING": [
+        "monitor pests",
+        "monitoring pests",
+        "field monitoring",
+        "monitor the field",
+    ],
+
+    "PEST_ROTATION": [
+        "crop rotation reduce pests",
+        "rotation reduce pests",
+        "crop rotation pests",
+    ],
+
+
+    # ==================================================
+    # DISEASES
+    # ==================================================
+
+    "DISEASE_PREVENTION": [
+        "prevent crop diseases",
+        "prevent diseases",
+        "prevent crop disease",
+        "disease prevention",
+        "prevent plant diseases",
+    ],
+
+    "DISEASED_PLANT_REMOVAL": [
+        "diseased plants removed",
+        "remove diseased plants",
+        "why should diseased plants",
+        "remove diseased",
+    ],
+
+    "FUNGAL_DISEASES": [
+        "fungal diseases",
+        "fungal disease",
+        "what causes fungal",
+        "causes of fungal diseases",
+    ],
+
+    "SEED_TREATMENT": [
+        "what is seed treatment",
+        "seed treatment",
+        "treat seeds",
+    ],
+
+    "CROP_SANITATION": [
+        "crop sanitation",
+        "field sanitation",
+        "why is crop sanitation",
+    ],
+
+
+    # ==================================================
+    # WEATHER
+    # ==================================================
+
+    "RAINFALL_EFFECT": [
+        "how does rainfall affect",
+        "rainfall affect crop",
+        "rainfall affect crops",
+        "effect of rainfall",
+    ],
+
+    "WEATHER_FORECAST": [
+        "follow weather forecasts",
+        "weather forecast",
+        "weather forecasts",
+        "why follow weather",
+    ],
+
+    "HEAVY_RAINFALL": [
+        "before heavy rainfall",
+        "before heavy rain",
+        "heavy rainfall",
+        "heavy rain",
+    ],
+
+    "STRONG_WINDS": [
+        "strong winds affect",
+        "strong winds",
+        "wind damage crops",
+    ],
+
+    "RAINFALL_ANOMALY": [
+        "rainfall anomaly",
+        "what is a rainfall anomaly",
+    ],
+
+
+    # ==================================================
+    # DROUGHT
+    # ==================================================
+
+    "DROUGHT_DEFINITION": [
+        "what is drought",
+        "define drought",
+    ],
+
+    "DROUGHT_SIGNS": [
+        "early signs of drought",
+        "signs of drought",
+        "drought signs",
+    ],
+
+    "DROUGHT_IMPACT_REDUCTION": [
+        "reduce the impact of drought",
+        "reduce drought impact",
+        "cope with drought",
+        "manage drought",
+    ],
+
+    "DROUGHT_TOLERANT_CROPS": [
+        "drought-tolerant crops",
+        "drought tolerant crops",
+        "crops tolerant to drought",
+    ],
+
+    "DROUGHT_MULCHING": [
+        "mulching during drought",
+        "mulching important during drought",
+        "mulch during drought",
+    ],
+
+
+    # ==================================================
+    # SOIL MANAGEMENT
+    # ==================================================
+
+    "SOIL_FERTILITY": [
+        "why is soil fertility",
+        "soil fertility important",
+        "importance of soil fertility",
+    ],
+
+    "SOIL_EROSION_CONTROL": [
+        "reduce soil erosion",
+        "soil erosion control",
+        "prevent soil erosion",
+        "control soil erosion",
+    ],
+
+    "CROP_ROTATION": [
+        "what is crop rotation",
+        "crop rotation",
+    ],
+
+    "CROP_ROTATION_BENEFITS": [
+        "why is crop rotation beneficial",
+        "benefits of crop rotation",
+        "crop rotation beneficial",
+    ],
+
+    "MULCHING": [
+        "what is mulching",
+        "mulching",
+    ],
+
+
+    # ==================================================
+    # HARVEST
+    # ==================================================
+
+    "HARVEST_READINESS": [
+        "ready for harvest",
+        "ready to harvest",
+        "when crops are ready",
+        "know when crops are ready",
+        "know when to harvest",
+        "harvest readiness",
+    ],
+
+    "HARVEST_TIMING": [
+        "timely harvesting",
+        "why harvest on time",
+        "importance of timely harvesting",
+    ],
+
+    "EARLY_HARVEST": [
+        "harvested too early",
+        "harvest too early",
+        "harvest too soon",
+    ],
+
+    "LATE_HARVEST": [
+        "harvested too late",
+        "harvest too late",
+        "harvest too late",
+    ],
+
+    "HARVEST_HANDLING": [
+        "harvested produce handled",
+        "handle harvested produce",
+        "handling harvested produce",
+    ],
+
+
+    # ==================================================
+    # STORAGE
+    # ==================================================
+
+    "STORAGE_IMPORTANCE": [
+        "why is proper storage",
+        "proper storage important",
+        "importance of storage",
+    ],
+
+    "GRAIN_DRYING": [
+        "how should grains be dried",
+        "dry grains before storage",
+        "grains dried before storage",
+    ],
+
+    "STORAGE_PESTS": [
+        "storage pests",
+        "common storage pests",
+    ],
+
+    "STORAGE_PEST_CONTROL": [
+        "protect stored grains from pests",
+        "stored grains from pests",
+        "storage pest control",
+    ],
+
+    "STORAGE_CLEANLINESS": [
+        "storage facilities kept clean",
+        "keep storage facilities clean",
+        "storage facilities clean",
+    ],
+
+
+    # ==================================================
+    # SEED SELECTION
+    # ==================================================
+
+    "CERTIFIED_SEEDS": [
+        "certified seeds",
+        "why use certified seeds",
+        "importance of certified seeds",
+    ],
+
+    "SEED_QUALITY": [
+        "select good quality seeds",
+        "good quality seeds",
+        "quality seeds",
+    ],
+
+    "SEED_GERMINATION": [
+        "what is seed germination",
+        "seed germination",
+    ],
+
+    "GERMINATION_TEST": [
+        "test seed germination",
+        "germination test",
+        "test germination before planting",
+    ],
+
+    "DAMAGED_SEEDS": [
+        "damaged seeds",
+        "why should damaged seeds",
+    ],
+
+
+    # ==================================================
+    # LAND PREPARATION
+    # ==================================================
+
+    "LAND_PREPARATION_IMPORTANCE": [
+        "why is land preparation",
+        "land preparation important",
+    ],
+
+    "LAND_PREPARATION_TIMING": [
+        "when should land preparation",
+        "when should farmers prepare land",
+        "land preparation begin",
+    ],
+
+    "LAND_PREPARATION_METHODS": [
+        "methods of land preparation",
+        "methods for land preparation",
+        "land preparation methods",
+    ],
+
+    "MINIMUM_TILLAGE": [
+        "what is minimum tillage",
+        "minimum tillage",
+    ],
+
+    "EROSION_LAND_PREPARATION": [
+        "reduce soil erosion during land preparation",
+        "soil erosion during land preparation",
+    ],
+
+
+    # ==================================================
+    # WEED MANAGEMENT
+    # ==================================================
+
+    "WEED_IMPORTANCE": [
+        "why is weed control",
+        "why is weed control important",
+        "importance of weed control",
+    ],
+
+    "WEED_CONTROL_METHODS": [
+        "methods of weed control",
+        "methods for weed control",
+        "how to control weeds",
+    ],
+
+    "WEED_CONTROL_TIMING": [
+        "when should farmers remove weeds",
+        "when should farmers weed",
+        "when to remove weeds",
+        "when to weed",
+        "when should weeds be removed",
+    ],
+
+    "WEED_MULCHING": [
+        "mulching help control weeds",
+        "mulch control weeds",
+        "mulching control weeds",
+    ],
+
+    "HERBICIDE_USE": [
+        "excessive herbicide use",
+        "avoid excessive herbicide",
+        "too much herbicide",
+    ],
+
+
+    # ==================================================
+    # CLIMATE-SMART AGRICULTURE
+    # ==================================================
+
+    "CLIMATE_SMART_AGRICULTURE": [
+        "what is climate-smart agriculture",
+        "what is climate smart agriculture",
+        "climate-smart agriculture",
+    ],
+
+    "CLIMATE_SMART_PRACTICES": [
+        "examples of climate-smart",
+        "examples of climate smart",
+        "climate-smart agricultural practices",
+    ],
+
+    "AGROFORESTRY": [
+        "how can agroforestry",
+        "agroforestry benefit",
+        "benefits of agroforestry",
+    ],
+
+    "WATER_HARVESTING": [
+        "what is water harvesting",
+        "water harvesting",
+    ],
+
+    "CROP_DIVERSIFICATION": [
+        "crop diversification",
+        "why is crop diversification",
+        "benefits of crop diversification",
+    ],
+
+
+    # ==================================================
+    # SUSTAINABLE AGRICULTURE
+    # ==================================================
+
+    "SUSTAINABLE_AGRICULTURE": [
+        "what is sustainable agriculture",
+        "sustainable agriculture",
+    ],
+
+    "AGRICULTURAL_BIODIVERSITY": [
+        "why is biodiversity important",
+        "biodiversity important in agriculture",
+        "agricultural biodiversity",
+    ],
+
+    "SOIL_ORGANIC_MATTER": [
+        "improve soil organic matter",
+        "soil organic matter",
+        "increase organic matter",
+    ],
+
+    "CROP_RESIDUES": [
+        "crop residues retained",
+        "retain crop residues",
+        "crop residues on the field",
+    ],
+
+    "REDUCE_CHEMICAL_INPUTS": [
+        "reduce the use of chemical inputs",
+        "reduce chemical inputs",
+        "reduce chemical use",
+    ],
+
+
+    # ==================================================
+    # POST-HARVEST
+    # ==================================================
+
+    "POST_HARVEST_HANDLING": [
+        "what is post-harvest handling",
+        "post-harvest handling",
+    ],
+
+    "PRODUCE_SORTING": [
+        "why should harvested produce be sorted",
+        "sort harvested produce",
+        "sorting harvested produce",
+    ],
+
+    "SUNLIGHT_PROTECTION": [
+        "protected from direct sunlight",
+        "direct sunlight after harvest",
+        "protect harvested produce from sunlight",
+    ],
+
+    "POST_HARVEST_LOSSES": [
+        "reduce post-harvest losses",
+        "post-harvest losses",
+        "reduce post harvest losses",
+    ],
+
+    "PACKAGING": [
+        "why is proper packaging",
+        "proper packaging important",
+        "packaging important",
+    ],
+
+
+    # ==================================================
+    # LIVESTOCK INTEGRATION
+    # ==================================================
+
+    "LIVESTOCK_CROP_INTEGRATION": [
+        "integrating livestock with crop farming",
+        "livestock with crop farming",
+        "integrate livestock and crops",
+    ],
+
+    "ANIMAL_MANURE": [
+        "animal manure benefit",
+        "animal manure",
+        "manure benefit crop production",
+    ],
+
+    "LIVESTOCK_WATER": [
+        "livestock clean water",
+        "animals clean water",
+        "livestock have access to clean water",
+    ],
+
+    "CROP_RESIDUES_LIVESTOCK": [
+        "crop residues livestock",
+        "crop residues be used in livestock",
+        "use crop residues for livestock",
+    ],
+
+    "LIVESTOCK_VACCINATION": [
+        "livestock vaccination",
+        "why is livestock vaccination",
+        "vaccination important for livestock",
+    ],
+
+
+    # ==================================================
+    # AGRICULTURAL EXTENSION
+    # ==================================================
+
+    "AGRICULTURAL_EXTENSION": [
+        "what is agricultural extension",
+        "agricultural extension",
+    ],
+
+    "EXTENSION_AGENTS": [
+        "consult extension agents",
+        "extension agents",
+        "agricultural specialists",
+    ],
+
+    "AGRICULTURAL_INFORMATION": [
+        "access agricultural information",
+        "agricultural information",
+    ],
+
+    "FARMER_ORGANIZATIONS": [
+        "farmer organizations",
+        "role do farmer organizations",
+    ],
+
+    "FARMER_TRAINING": [
+        "farmer training",
+        "why is farmer training",
+        "importance of farmer training",
+    ],
+
+
+    # ==================================================
+    # SOIL AND WATER CONSERVATION
+    # ==================================================
+
+    "SOIL_CONSERVATION": [
+        "what is soil conservation",
+        "soil conservation",
+    ],
+
+    "WATER_CONSERVATION_AGRICULTURE": [
+        "water conservation in agriculture",
+        "water conservation agriculture",
+    ],
+
+    "CONTOUR_RIDGES": [
+        "contour ridges",
+        "how do contour ridges",
+    ],
+
+    "FARM_TREES": [
+        "trees important on farms",
+        "trees on farms",
+        "benefits of trees on farms",
+    ],
+
+    "COVER_CROPS": [
+        "benefits of cover crops",
+        "cover crops",
+    ],
+
+
+    # ==================================================
+    # PEST AND DISEASE DIAGNOSIS
+    # ==================================================
+
+    "DISEASE_IDENTIFICATION": [
+        "identify crop diseases",
+        "identify crop disease",
+        "how can farmers identify diseases",
+        "identify plant diseases",
+    ],
+
+    "EARLY_DISEASE_DETECTION": [
+        "early disease detection",
+        "early detection of disease",
+        "why is early disease detection",
+    ],
+
+    "CROP_SYMPTOMS": [
+        "unusual crop symptoms",
+        "unusual symptoms",
+        "crop symptoms",
+    ],
+
+    "MOBILE_DIAGNOSIS": [
+        "mobile technologies",
+        "mobile technology diagnose",
+        "mobile technologies help diagnose",
+    ],
+
+    "FARM_RECORDS": [
+        "farm records",
+        "keep farm records",
+        "why should farmers keep farm records",
+    ],
 }
 
 
 # --------------------------------------------------
-# Crop terms
+# Domain mapping
 # --------------------------------------------------
 
-CROP_TERMS = {
+DOMAIN_MAP = {
 
-    "Millet": [
-        "millet"
-    ],
+    "PLANTING": "PLANTING",
 
-    "Maize": [
-        "maize",
-        "corn"
-    ],
+    "IRRIGATION": "IRRIGATION",
+    "WATER_CONSERVATION": "IRRIGATION",
+    "WATER_STRESS": "IRRIGATION",
+    "EXCESSIVE_IRRIGATION": "IRRIGATION",
 
-    "Rice": [
-        "rice"
-    ],
+    "FERTILIZER_TIMING": "FERTILIZATION",
+    "FERTILIZER_TYPE": "FERTILIZATION",
+    "FERTILIZER_IMPORTANCE": "FERTILIZATION",
+    "COMPOST": "FERTILIZATION",
+    "NUTRIENT_DEFICIENCY": "FERTILIZATION",
 
-    "Sorghum": [
-        "sorghum"
-    ],
+    "PEST_CONTROL": "PESTS",
+    "PEST_SYMPTOMS": "PESTS",
+    "PEST_MONITORING": "PESTS",
+    "PEST_ROTATION": "PESTS",
+    "INTEGRATED_PEST_MANAGEMENT": "PESTS",
 
-    "Cotton": [
-        "cotton"
-    ],
+    "DISEASE_PREVENTION": "DISEASES",
+    "DISEASED_PLANT_REMOVAL": "DISEASES",
+    "FUNGAL_DISEASES": "DISEASES",
+    "SEED_TREATMENT": "DISEASES",
+    "CROP_SANITATION": "DISEASES",
 
-    "Groundnut": [
-        "groundnut",
-        "peanut"
-    ],
+    "RAINFALL_EFFECT": "WEATHER",
+    "WEATHER_FORECAST": "WEATHER",
+    "HEAVY_RAINFALL": "WEATHER",
+    "STRONG_WINDS": "WEATHER",
+    "RAINFALL_ANOMALY": "WEATHER",
 
-    "Cowpea": [
-        "cowpea"
-    ],
+    "DROUGHT_DEFINITION": "DROUGHT",
+    "DROUGHT_SIGNS": "DROUGHT",
+    "DROUGHT_IMPACT_REDUCTION": "DROUGHT",
+    "DROUGHT_TOLERANT_CROPS": "DROUGHT",
+    "DROUGHT_MULCHING": "DROUGHT",
 
-    "Sesame": [
-        "sesame"
-    ],
+    "SOIL_FERTILITY": "SOIL_MANAGEMENT",
+    "SOIL_EROSION_CONTROL": "SOIL_MANAGEMENT",
+    "CROP_ROTATION": "SOIL_MANAGEMENT",
+    "CROP_ROTATION_BENEFITS": "SOIL_MANAGEMENT",
+    "MULCHING": "SOIL_MANAGEMENT",
 
-    "Tomato": [
-        "tomato",
-        "tomatoes"
-    ],
+    "HARVEST_READINESS": "HARVEST",
+    "HARVEST_TIMING": "HARVEST",
+    "EARLY_HARVEST": "HARVEST",
+    "LATE_HARVEST": "HARVEST",
+    "HARVEST_HANDLING": "HARVEST",
+
+    "STORAGE_IMPORTANCE": "STORAGE",
+    "GRAIN_DRYING": "STORAGE",
+    "STORAGE_PESTS": "STORAGE",
+    "STORAGE_PEST_CONTROL": "STORAGE",
+    "STORAGE_CLEANLINESS": "STORAGE",
+
+    "CERTIFIED_SEEDS": "SEED_SELECTION",
+    "SEED_QUALITY": "SEED_SELECTION",
+    "SEED_GERMINATION": "SEED_SELECTION",
+    "GERMINATION_TEST": "SEED_SELECTION",
+    "DAMAGED_SEEDS": "SEED_SELECTION",
+
+    "LAND_PREPARATION_IMPORTANCE": "LAND_PREPARATION",
+    "LAND_PREPARATION_TIMING": "LAND_PREPARATION",
+    "LAND_PREPARATION_METHODS": "LAND_PREPARATION",
+    "MINIMUM_TILLAGE": "LAND_PREPARATION",
+    "EROSION_LAND_PREPARATION": "LAND_PREPARATION",
+
+    "WEED_IMPORTANCE": "WEED_MANAGEMENT",
+    "WEED_CONTROL_METHODS": "WEED_MANAGEMENT",
+    "WEED_CONTROL_TIMING": "WEED_MANAGEMENT",
+    "WEED_MULCHING": "WEED_MANAGEMENT",
+    "HERBICIDE_USE": "WEED_MANAGEMENT",
+
+    "CLIMATE_SMART_AGRICULTURE": "CLIMATE_SMART_AGRICULTURE",
+    "CLIMATE_SMART_PRACTICES": "CLIMATE_SMART_AGRICULTURE",
+    "AGROFORESTRY": "CLIMATE_SMART_AGRICULTURE",
+    "WATER_HARVESTING": "CLIMATE_SMART_AGRICULTURE",
+    "CROP_DIVERSIFICATION": "CLIMATE_SMART_AGRICULTURE",
+
+    "SUSTAINABLE_AGRICULTURE": "SUSTAINABLE_AGRICULTURE",
+    "AGRICULTURAL_BIODIVERSITY": "SUSTAINABLE_AGRICULTURE",
+    "SOIL_ORGANIC_MATTER": "SUSTAINABLE_AGRICULTURE",
+    "CROP_RESIDUES": "SUSTAINABLE_AGRICULTURE",
+    "REDUCE_CHEMICAL_INPUTS": "SUSTAINABLE_AGRICULTURE",
+
+    "POST_HARVEST_HANDLING": "POST_HARVEST_HANDLING",
+    "PRODUCE_SORTING": "POST_HARVEST_HANDLING",
+    "SUNLIGHT_PROTECTION": "POST_HARVEST_HANDLING",
+    "POST_HARVEST_LOSSES": "POST_HARVEST_HANDLING",
+    "PACKAGING": "POST_HARVEST_HANDLING",
+
+    "LIVESTOCK_CROP_INTEGRATION": "LIVESTOCK_INTEGRATION",
+    "ANIMAL_MANURE": "LIVESTOCK_INTEGRATION",
+    "LIVESTOCK_WATER": "LIVESTOCK_INTEGRATION",
+    "CROP_RESIDUES_LIVESTOCK": "LIVESTOCK_INTEGRATION",
+    "LIVESTOCK_VACCINATION": "LIVESTOCK_INTEGRATION",
+
+    "AGRICULTURAL_EXTENSION": "AGRICULTURAL_EXTENSION",
+    "EXTENSION_AGENTS": "AGRICULTURAL_EXTENSION",
+    "AGRICULTURAL_INFORMATION": "AGRICULTURAL_EXTENSION",
+    "FARMER_ORGANIZATIONS": "AGRICULTURAL_EXTENSION",
+    "FARMER_TRAINING": "AGRICULTURAL_EXTENSION",
+
+    "SOIL_CONSERVATION": "SOIL_AND_WATER_CONSERVATION",
+    "WATER_CONSERVATION_AGRICULTURE": "SOIL_AND_WATER_CONSERVATION",
+    "CONTOUR_RIDGES": "SOIL_AND_WATER_CONSERVATION",
+    "FARM_TREES": "SOIL_AND_WATER_CONSERVATION",
+    "COVER_CROPS": "SOIL_AND_WATER_CONSERVATION",
+
+    "DISEASE_IDENTIFICATION": "PEST_AND_DISEASE_DIAGNOSIS",
+    "EARLY_DISEASE_DETECTION": "PEST_AND_DISEASE_DIAGNOSIS",
+    "CROP_SYMPTOMS": "PEST_AND_DISEASE_DIAGNOSIS",
+    "MOBILE_DIAGNOSIS": "PEST_AND_DISEASE_DIAGNOSIS",
+    "FARM_RECORDS": "PEST_AND_DISEASE_DIAGNOSIS",
 }
 
 
 # --------------------------------------------------
-# Detect crop in a knowledge-base question
+# Main detector
 # --------------------------------------------------
 
-def question_contains_crop(question, crop):
+def detect_intent_v5(question):
+    """
+    Detect:
 
-    if not crop:
-        return True
+        1. Agricultural domain
+        2. Specific sub-intent
+        3. Crop/entity
 
-    terms = CROP_TERMS.get(crop, [])
+    Returns:
 
-    question = question.lower()
+        {
+            "domain": str,
+            "sub_intent": str,
+            "crop": str or None
+        }
+    """
 
-    return any(
-        term in question
-        for term in terms
+    text = question.lower().strip()
+
+    # --------------------------------------------------
+    # Crop detection
+    # --------------------------------------------------
+
+    crop = None
+
+    for keyword, crop_name in CROPS.items():
+
+        if keyword in text:
+            crop = crop_name
+            break
+
+    # --------------------------------------------------
+    # Specific intent detection
+    # --------------------------------------------------
+
+    detected_intent = "GENERAL"
+
+    for intent, patterns in INTENT_PATTERNS.items():
+
+        for pattern in patterns:
+
+            if pattern in text:
+                detected_intent = intent
+                break
+
+        if detected_intent != "GENERAL":
+            break
+
+    # --------------------------------------------------
+    # Domain detection
+    # --------------------------------------------------
+
+    domain = DOMAIN_MAP.get(
+        detected_intent,
+        "GENERAL"
     )
 
-
-# --------------------------------------------------
-# Search
-# --------------------------------------------------
-
-def search_question_v5_2(
-    user_question,
-    language="English"
-):
-
-    data = load_knowledge_base_v5()
-
-    user_question = user_question.lower().strip()
-
-    if not user_question:
-        return None, 0
-
-    if len(user_question.split()) < 2:
-        return None, 0
-
-    # --------------------------------------------------
-    # STEP 1 — INTENT
-    # --------------------------------------------------
-
-    intent = detect_intent_v5(user_question)
-
-    domain = intent.get("domain")
-    sub_intent = intent.get("sub_intent")
-    crop = intent.get("crop")
-
-    print("V5.2 Intent:", intent)
-
-    # --------------------------------------------------
-    # Language
-    # --------------------------------------------------
-
-    language_key = LANGUAGE_KEYS.get(language, "english")
-
-    # --------------------------------------------------
-    # STEP 2 — FILTER BY INTENT
-    # --------------------------------------------------
-
-    intent_candidates = []
-
-    for record in data:
-
-        record_id = record.get("id")
-
-        try:
-            record_id = int(record_id)
-        except (TypeError, ValueError):
-            continue
-
-        record_intent = RECORD_INTENTS.get(
-            record_id
-        )
-
-        if record_intent == sub_intent:
-
-            intent_candidates.append(record)
-
-    print(
-        "Intent candidates:",
-        [r.get("id") for r in intent_candidates]
-    )
-
-    # --------------------------------------------------
-    # No records for this intent
-    # --------------------------------------------------
-
-    if not intent_candidates:
-
-        print("No records found for intent:", sub_intent)
-
-        return None, 0
-
-    # --------------------------------------------------
-    # STEP 3 — FILTER BY CROP
-    # --------------------------------------------------
-
-    if crop:
-
-        crop_candidates = []
-
-        for record in intent_candidates:
-
-            question_data = record.get(
-                language_key,
-                {}
-            )
-
-            kb_question = question_data.get(
-                "question",
-                ""
-            )
-
-            if question_contains_crop(
-                kb_question,
-                crop
-            ):
-
-                crop_candidates.append(record)
-
-    else:
-
-        crop_candidates = intent_candidates
-
-    print(
-        "Crop candidates:",
-        [r.get("id") for r in crop_candidates]
-    )
-
-    # --------------------------------------------------
-    # CRITICAL V5.2 RULE
-    #
-    # If the user explicitly identifies a crop but
-    # the KB contains no record for that crop + intent,
-    # DO NOT fall back to another crop.
-    # --------------------------------------------------
-
-    if crop and not crop_candidates:
-
-        print(
-            "No KB record for:",
-            sub_intent,
-            "+",
-            crop
-        )
-
-        return None, 0
-
-    # --------------------------------------------------
-    # STEP 4 — SIMILARITY
-    # --------------------------------------------------
-
-    best_record = None
-    best_score = 0
-
-    for record in crop_candidates:
-
-        question_data = record.get(
-            language_key,
-            {}
-        )
-
-        kb_question = question_data.get(
-            "question",
-            ""
-        )
-
-        if not kb_question:
-            continue
-
-        kb_question = kb_question.lower().strip()
-
-        # RapidFuzz similarity
-        wratio = fuzz.WRatio(
-            user_question,
-            kb_question
-        )
-
-        # Word overlap
-        user_words = set(
-            user_question.split()
-        )
-
-        kb_words = set(
-            kb_question.split()
-        )
-
-        overlap = len(
-            user_words & kb_words
-        )
-
-        score = wratio + (
-            overlap * 5
-        )
-
-        score = min(
-            score,
-            100
-        )
-
-        print(
-            "Candidate:",
-            record.get("id"),
-            "|",
-            kb_question,
-            "| score:",
-            score
-        )
-
-        if score > best_score:
-
-            best_score = score
-            best_record = record
-
-    # --------------------------------------------------
-    # STEP 5 — CONFIDENCE THRESHOLD
-    # --------------------------------------------------
-
-    if best_score >= MIN_SCORE:
-
-        return best_record, best_score
-
-    return None, best_score
+    return {
+        "domain": domain,
+        "sub_intent": detected_intent,
+        "crop": crop,
+    }
