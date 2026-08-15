@@ -499,16 +499,14 @@ def detect_intent_v5(question):
 
         domain = "FERTILIZATION"
 
+    elif detected_intent == "PEST_DISEASE_DIAGNOSIS":
+        domain = "PEST_DISEASE_DIAGNOSIS"
+
     elif (
         detected_intent.startswith("PEST")
         or detected_intent == "INTEGRATED_PEST_MANAGEMENT"
     ):
-
         domain = "PESTS"
-
-    elif detected_intent == "PEST_DISEASE_DIAGNOSIS":
-
-        domain = "PEST_DISEASE_DIAGNOSIS"
 
     elif detected_intent.startswith("DISEASE"):
 
