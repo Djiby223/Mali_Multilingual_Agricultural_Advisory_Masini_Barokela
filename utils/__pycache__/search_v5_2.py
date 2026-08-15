@@ -1,24 +1,25 @@
 """
 Masini Barokɛla
-V5.2 Intent-Aware Search Engine
+V5.2 Controlled Search Engine
 
-Architecture:
+Pipeline:
 
-    Intent first
+    User Question
         ↓
-    Crop second
+    Intent Detection
         ↓
-    Similarity third
+    Domain / Crop Filtering
+        ↓
+    RapidFuzz Similarity
+        ↓
+    Confidence Check
+        ↓
+    Record OR None
 
-The search engine first identifies the user's intent and crop.
-Only records matching BOTH are allowed to compete.
-
-If no knowledge-base record exists for the requested
-intent + crop combination, the engine returns None.
-
-This prevents semantically different questions from
-competing with each other.
+This module does not modify the V5.1 search engine.
 """
+
+import re
 
 from rapidfuzz import fuzz
 
@@ -39,225 +40,256 @@ MIN_SCORE = 70
 
 LANGUAGE_KEYS = {
     "English": "english",
-    "FranÃ§ais": "french",
     "Français": "french",
+    "FranÃ§ais": "french",
     "Bambara": "bambara",
     "Bamanankan": "bambara",
 }
 
 
 # --------------------------------------------------
-# Knowledge-base record → sub-intent
+# Intent → Knowledge Base category
 # --------------------------------------------------
 
-RECORD_INTENTS = {
+INTENT_TO_CATEGORY = {
 
     # Planting
-    1: "PLANTING_TIME",
-    2: "PLANTING_TIME",
-    3: "PLANTING_DEPTH",
-    4: "PLANTING_SPACING",
-    5: "PLANTING_IMPORTANCE",
+    "PLANTING_TIME": "Planting",
+    "PLANTING_DEPTH": "Planting",
+    "PLANTING_SPACING": "Planting",
+    "PLANTING_IMPORTANCE": "Planting",
 
     # Irrigation
-    6: "IRRIGATION_FREQUENCY",
-    7: "IRRIGATION_TIMING",
-    8: "WATER_CONSERVATION",
-    9: "WATER_STRESS",
-    10: "EXCESSIVE_IRRIGATION",
+    "WATER_CONSERVATION": "Irrigation",
+    "IRRIGATION_FREQUENCY": "Irrigation",
+    "IRRIGATION_TIMING": "Irrigation",
+    "WATER_STRESS": "Irrigation",
+    "EXCESSIVE_IRRIGATION": "Irrigation",
 
-    # Fertilizer
-    11: "FERTILIZER_TYPE",
-    12: "FERTILIZER_IMPORTANCE",
-    13: "FERTILIZER_TIMING",
-    14: "COMPOST",
-    15: "NUTRIENT_DEFICIENCY",
+    # Fertilization
+    "FERTILIZER_TIMING": "Fertilizer",
+    "FERTILIZER_TYPE": "Fertilizer",
+    "FERTILIZER_IMPORTANCE": "Fertilizer",
+    "COMPOST": "Fertilizer",
+    "NUTRIENT_DEFICIENCY": "Fertilizer",
 
     # Pests
-    16: "PEST_CONTROL",
-    17: "PEST_SYMPTOMS",
-    18: "PEST_MONITORING",
-    19: "INTEGRATED_PEST_MANAGEMENT",
-    20: "PEST_ROTATION",
+    "INTEGRATED_PEST_MANAGEMENT": "Pests",
+    "PEST_CONTROL": "Pests",
+    "PEST_SYMPTOMS": "Pests",
+    "PEST_MONITORING": "Pests",
+    "PEST_ROTATION": "Pests",
 
     # Diseases
-    21: "DISEASE_PREVENTION",
-    22: "DISEASE_REMOVAL",
-    23: "FUNGAL_DISEASES",
-    24: "SEED_TREATMENT",
-    25: "CROP_SANITATION",
+    "DISEASE_PREVENTION": "Diseases",
+    "DISEASE_SYMPTOMS": "Diseases",
 
-    # Weather
-    26: "RAINFALL_EFFECT",
-    27: "WEATHER_FORECAST",
-    28: "HEAVY_RAINFALL",
-    29: "STRONG_WINDS",
-    30: "RAINFALL_ANOMALY",
-
-    # Drought
-    31: "DROUGHT_DEFINITION",
-    32: "DROUGHT_SIGNS",
-    33: "DROUGHT_MANAGEMENT",
-    34: "DROUGHT_TOLERANT_CROPS",
-    35: "DROUGHT_MULCHING",
-
-    # Soil Management
-    36: "SOIL_FERTILITY",
-    37: "SOIL_EROSION",
-    38: "CROP_ROTATION",
-    39: "CROP_ROTATION_BENEFITS",
-    40: "MULCHING",
+    # Soil
+    "SOIL_MANAGEMENT": "Soil Management",
 
     # Harvest
-    41: "HARVEST_READINESS",
-    42: "HARVEST_TIMING",
-    43: "EARLY_HARVEST",
-    44: "LATE_HARVEST",
-    45: "HARVEST_HANDLING",
+    "HARVEST": "Harvest",
 
     # Storage
-    46: "STORAGE_IMPORTANCE",
-    47: "GRAIN_DRYING",
-    48: "STORAGE_PESTS",
-    49: "STORAGE_PEST_CONTROL",
-    50: "STORAGE_CLEANLINESS",
+    "STORAGE": "Storage",
 
-    # Seed Selection
-    51: "CERTIFIED_SEEDS",
-    52: "SEED_SELECTION",
-    53: "SEED_GERMINATION",
-    54: "GERMINATION_TEST",
-    55: "DAMAGED_SEEDS",
+    # Seeds
+    "SEED_SELECTION": "Seed Selection",
 
-    # Land Preparation
-    56: "LAND_PREPARATION_IMPORTANCE",
-    57: "LAND_PREPARATION_TIMING",
-    58: "LAND_PREPARATION_METHODS",
-    59: "MINIMUM_TILLAGE",
-    60: "LAND_PREPARATION_EROSION",
+    # Land preparation
+    "LAND_PREPARATION": "Land Preparation",
 
-    # Weed Management
-    61: "WEED_IMPORTANCE",
-    62: "WEED_CONTROL",
-    63: "WEED_TIMING",
-    64: "MULCHING_WEEDS",
-    65: "HERBICIDE_USE",
+    # Weeds
+    "WEED_MANAGEMENT": "Weed Management",
 
-    # Climate-Smart Agriculture
-    66: "CLIMATE_SMART_AGRICULTURE",
-    67: "CLIMATE_SMART_PRACTICES",
-    68: "AGROFORESTRY",
-    69: "WATER_HARVESTING",
-    70: "CROP_DIVERSIFICATION",
+    # Climate-smart agriculture
+    "CLIMATE_SMART_AGRICULTURE": "Climate-Smart Agriculture",
 
-    # Sustainable Agriculture
-    71: "SUSTAINABLE_AGRICULTURE",
-    72: "AGRICULTURAL_BIODIVERSITY",
-    73: "SOIL_ORGANIC_MATTER",
-    74: "CROP_RESIDUES",
-    75: "CHEMICAL_INPUT_REDUCTION",
+    # Sustainable agriculture
+    "SUSTAINABLE_AGRICULTURE": "Sustainable Agriculture",
 
-    # Post-Harvest Handling
-    76: "POST_HARVEST_HANDLING",
-    77: "PRODUCE_SORTING",
-    78: "SUNLIGHT_PROTECTION",
-    79: "POST_HARVEST_LOSSES",
-    80: "PACKAGING",
+    # Post-harvest
+    "POST_HARVEST_HANDLING": "Post-Harvest Handling",
 
-    # Livestock Integration
-    81: "LIVESTOCK_CROP_INTEGRATION",
-    82: "ANIMAL_MANURE",
-    83: "LIVESTOCK_WATER",
-    84: "CROP_RESIDUES_LIVESTOCK",
-    85: "LIVESTOCK_VACCINATION",
+    # Livestock
+    "LIVESTOCK_INTEGRATION": "Livestock Integration",
 
-    # Agricultural Extension
-    86: "AGRICULTURAL_EXTENSION",
-    87: "EXTENSION_AGENTS",
-    88: "AGRICULTURAL_INFORMATION",
-    89: "FARMER_ORGANIZATIONS",
-    90: "FARMER_TRAINING",
+    # Agricultural extension
+    "AGRICULTURAL_EXTENSION": "Agricultural Extension",
 
-    # Soil and Water Conservation
-    91: "SOIL_CONSERVATION",
-    92: "WATER_CONSERVATION",
-    93: "CONTOUR_RIDGES",
-    94: "FARM_TREES",
-    95: "COVER_CROPS",
+    # Soil conservation
+    "SOIL_CONSERVATION": "Soil and Water Conservation",
 
-    # Pest and Disease Diagnosis
-    96: "DISEASE_IDENTIFICATION",
-    97: "EARLY_DISEASE_DETECTION",
-    98: "UNUSUAL_CROP_SYMPTOMS",
-    99: "MOBILE_DIAGNOSIS",
-    100: "FARM_RECORDS",
+    # Pest and disease diagnosis
+    "PEST_DISEASE_DIAGNOSIS": "Pest and Disease Diagnosis",
 }
 
 
 # --------------------------------------------------
-# Crop terms
+# Stopwords
 # --------------------------------------------------
 
-CROP_TERMS = {
+STOPWORDS = {
+    "english": {
+        "what", "when", "where", "why", "how",
+        "which", "who", "whom",
+        "is", "are", "was", "were",
+        "the", "a", "an",
+        "to", "of", "for", "in", "on", "at",
+        "and", "or",
+        "should", "can", "could", "would",
+        "do", "does", "did",
+        "i", "we", "you", "they", "he", "she",
+        "my", "our", "your", "their",
+    },
 
-    "Millet": [
-        "millet"
-    ],
+    "french": {
+        "quelle", "quelles", "quel", "quels",
+        "quand", "où", "ou", "pourquoi", "comment",
+        "qui", "que", "quoi",
+        "est", "sont", "était", "étaient",
+        "le", "la", "les", "un", "une", "des",
+        "du", "de", "dans", "sur", "à", "au", "aux",
+        "et", "ou",
+        "doit", "doivent", "peut", "peuvent",
+        "je", "nous", "vous", "ils", "elles",
+        "mon", "notre", "votre", "leur",
+    },
 
-    "Maize": [
-        "maize",
-        "corn"
-    ],
-
-    "Rice": [
-        "rice"
-    ],
-
-    "Sorghum": [
-        "sorghum"
-    ],
-
-    "Cotton": [
-        "cotton"
-    ],
-
-    "Groundnut": [
-        "groundnut",
-        "peanut"
-    ],
-
-    "Cowpea": [
-        "cowpea"
-    ],
-
-    "Sesame": [
-        "sesame"
-    ],
-
-    "Tomato": [
-        "tomato",
-        "tomatoes"
-    ],
+    "bambara": set(),
 }
 
 
 # --------------------------------------------------
-# Detect crop in a knowledge-base question
+# Text normalization
 # --------------------------------------------------
 
-def question_contains_crop(question, crop):
+def normalize_text(text):
 
-    if not crop:
-        return True
+    text = text.lower().strip()
 
-    terms = CROP_TERMS.get(crop, [])
+    text = re.sub(r"[^\w\s]", " ", text)
 
-    question = question.lower()
+    text = re.sub(r"\s+", " ", text).strip()
 
-    return any(
-        term in question
-        for term in terms
-    )
+    return text
+
+
+# --------------------------------------------------
+# Word normalization
+# --------------------------------------------------
+
+def normalize_word(word, language_key):
+
+    word = word.lower().strip()
+
+    if language_key == "english":
+
+        replacements = [
+            ("ies", "y"),
+            ("ing", ""),
+            ("ed", ""),
+            ("es", ""),
+            ("s", ""),
+        ]
+
+        for suffix, replacement in replacements:
+
+            if len(word) > len(suffix) + 2 and word.endswith(suffix):
+
+                word = word[:-len(suffix)] + replacement
+                break
+
+    elif language_key == "french":
+
+        replacements = [
+            ("ées", "ée"),
+            ("és", "é"),
+            ("es", "e"),
+            ("s", ""),
+        ]
+
+        for suffix, replacement in replacements:
+
+            if len(word) > len(suffix) + 2 and word.endswith(suffix):
+
+                word = word[:-len(suffix)] + replacement
+                break
+
+    return word
+
+
+# --------------------------------------------------
+# Meaningful tokens
+# --------------------------------------------------
+
+def meaningful_tokens(text, language_key):
+
+    text = normalize_text(text)
+
+    words = text.split()
+
+    stopwords = STOPWORDS.get(language_key, set())
+
+    tokens = []
+
+    for word in words:
+
+        if word in stopwords:
+            continue
+
+        normalized = normalize_word(
+            word,
+            language_key,
+        )
+
+        if normalized:
+            tokens.append(normalized)
+
+    return set(tokens)
+
+
+# --------------------------------------------------
+# Candidate filtering
+# --------------------------------------------------
+
+def filter_candidates(records, category, crop):
+
+    candidates = records
+
+    # --------------------------------------------------
+    # Category filtering
+    # --------------------------------------------------
+
+    if category:
+
+        category_matches = [
+            record
+            for record in candidates
+            if record.get("category") == category
+        ]
+
+        if category_matches:
+
+            candidates = category_matches
+
+    # --------------------------------------------------
+    # Crop filtering
+    # --------------------------------------------------
+
+    if crop:
+
+        crop_matches = [
+            record
+            for record in candidates
+            if record.get("crop") == crop
+        ]
+
+        if crop_matches:
+
+            candidates = crop_matches
+
+    return candidates
 
 
 # --------------------------------------------------
@@ -266,191 +298,160 @@ def question_contains_crop(question, crop):
 
 def search_question_v5_2(
     user_question,
-    language="English"
+    language="English",
 ):
 
     data = load_knowledge_base_v5()
 
-    user_question = user_question.lower().strip()
+    if not user_question or not user_question.strip():
 
-    if not user_question:
-        return None, 0
-
-    if len(user_question.split()) < 2:
         return None, 0
 
     # --------------------------------------------------
-    # STEP 1 — INTENT
+    # Detect intent
     # --------------------------------------------------
 
-    intent = detect_intent_v5(user_question)
+    intent_result = detect_intent_v5(
+        user_question
+    )
 
-    domain = intent.get("domain")
-    sub_intent = intent.get("sub_intent")
-    crop = intent.get("crop")
+    domain = intent_result["domain"]
 
-    print("V5.2 Intent:", intent)
+    sub_intent = intent_result["sub_intent"]
+
+    crop = intent_result["crop"]
+
+    # --------------------------------------------------
+    # Determine KB category
+    # --------------------------------------------------
+
+    category = INTENT_TO_CATEGORY.get(
+        sub_intent
+    )
+
+    # --------------------------------------------------
+    # Filter candidates
+    # --------------------------------------------------
+
+    candidates = filter_candidates(
+        data,
+        category,
+        crop,
+    )
 
     # --------------------------------------------------
     # Language
     # --------------------------------------------------
 
-    language_key = LANGUAGE_KEYS.get(language, "english")
-
-    # --------------------------------------------------
-    # STEP 2 — FILTER BY INTENT
-    # --------------------------------------------------
-
-    intent_candidates = []
-
-    for record in data:
-
-        record_id = record.get("id")
-
-        record_intent = RECORD_INTENTS.get(record_id)
-
-        if record_intent == sub_intent:
-
-            intent_candidates.append(record)
-
-    print(
-        "Intent candidates:",
-        [r.get("id") for r in intent_candidates]
+    language_key = LANGUAGE_KEYS.get(
+        language,
+        "english",
     )
 
     # --------------------------------------------------
-    # No records for this intent
+    # Normalize query
     # --------------------------------------------------
 
-    if not intent_candidates:
+    user_question_normalized = normalize_text(
+        user_question
+    )
 
-        print("No records found for intent:", sub_intent)
+    if len(user_question_normalized.split()) < 2:
 
         return None, 0
 
-    # --------------------------------------------------
-    # STEP 3 — FILTER BY CROP
-    # --------------------------------------------------
-
-    if crop:
-
-        crop_candidates = []
-
-        for record in intent_candidates:
-
-            question_data = record.get(
-                language_key,
-                {}
-            )
-
-            kb_question = question_data.get(
-                "question",
-                ""
-            )
-
-            if question_contains_crop(
-                kb_question,
-                crop
-            ):
-
-                crop_candidates.append(record)
-
-    else:
-
-        crop_candidates = intent_candidates
-
-    print(
-        "Crop candidates:",
-        [r.get("id") for r in crop_candidates]
+    user_tokens = meaningful_tokens(
+        user_question_normalized,
+        language_key,
     )
 
     # --------------------------------------------------
-    # CRITICAL V5.2 RULE
-    #
-    # If the user explicitly identifies a crop but
-    # the KB contains no record for that crop + intent,
-    # DO NOT fall back to another crop.
-    # --------------------------------------------------
-
-    if crop and not crop_candidates:
-
-        print(
-            "No KB record for:",
-            sub_intent,
-            "+",
-            crop
-        )
-
-        return None, 0
-
-    # --------------------------------------------------
-    # STEP 4 — SIMILARITY
+    # Score candidates
     # --------------------------------------------------
 
     best_record = None
+
     best_score = 0
 
-    for record in crop_candidates:
+    for record in candidates:
 
-        question_data = record.get(
+        language_data = record.get(
             language_key,
-            {}
+            {},
         )
 
-        kb_question = question_data.get(
-            "question",
-            ""
+        question = language_data.get(
+            "question"
         )
 
-        if not kb_question:
+        if not question:
             continue
 
-        kb_question = kb_question.lower().strip()
+        question_normalized = normalize_text(
+            question
+        )
 
-        # RapidFuzz similarity
+        # Fuzzy similarity
         wratio = fuzz.WRatio(
-            user_question,
-            kb_question
+            user_question_normalized,
+            question_normalized,
         )
 
-        # Word overlap
-        user_words = set(
-            user_question.split()
+        token_similarity = fuzz.token_set_ratio(
+            user_question_normalized,
+            question_normalized,
         )
 
-        kb_words = set(
-            kb_question.split()
+        # Meaningful-word coverage
+        question_tokens = meaningful_tokens(
+            question_normalized,
+            language_key,
         )
 
-        overlap = len(
-            user_words & kb_words
+        if user_tokens:
+
+            overlap = (
+                user_tokens
+                & question_tokens
+            )
+
+            coverage = (
+                len(overlap)
+                / len(user_tokens)
+            ) * 100
+
+        else:
+
+            coverage = 0
+
+        # Combined score
+        score = (
+            (wratio * 0.45)
+            + (token_similarity * 0.25)
+            + (coverage * 0.30)
         )
 
-        score = wratio + (
-            overlap * 5
-        )
+        # Exact meaningful-token bonus
+        if (
+            user_tokens
+            and user_tokens == question_tokens
+        ):
+
+            score += 5
 
         score = min(
-            score,
-            100
-        )
-
-        print(
-            "Candidate:",
-            record.get("id"),
-            "|",
-            kb_question,
-            "| score:",
-            score
+            round(score, 1),
+            100,
         )
 
         if score > best_score:
 
             best_score = score
+
             best_record = record
 
     # --------------------------------------------------
-    # STEP 5 — CONFIDENCE THRESHOLD
+    # Confidence check
     # --------------------------------------------------
 
     if best_score >= MIN_SCORE:
