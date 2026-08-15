@@ -502,10 +502,13 @@ def detect_intent_v5(question):
     elif (
         detected_intent.startswith("PEST")
         or detected_intent == "INTEGRATED_PEST_MANAGEMENT"
-        or detected_intent == "PEST_DISEASE_DIAGNOSIS"
     ):
 
         domain = "PESTS"
+
+    elif detected_intent == "PEST_DISEASE_DIAGNOSIS":
+
+        domain = "PEST_DISEASE_DIAGNOSIS"
 
     elif detected_intent.startswith("DISEASE"):
 
