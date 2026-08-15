@@ -205,6 +205,222 @@ INTENT_PATTERNS = {
         "rotation reduce pests",
         "crop rotation pests",
     ],
+
+
+    # ==================================================
+    # DISEASES
+    # ==================================================
+
+    "DISEASE_PREVENTION": [
+        "prevent crop diseases",
+        "prevent diseases",
+        "prevent disease",
+        "disease prevention",
+        "avoid crop diseases",
+        "how to prevent diseases",
+    ],
+
+    "DISEASE_SYMPTOMS": [
+        "signs of disease",
+        "signs of diseases",
+        "disease symptoms",
+        "symptoms of disease",
+        "crop symptoms",
+    ],
+
+
+    # ==================================================
+    # SOIL MANAGEMENT
+    # ==================================================
+
+    "SOIL_MANAGEMENT": [
+        "soil management",
+        "manage the soil",
+        "manage soil",
+        "improve soil",
+        "soil fertility",
+        "improving soil",
+        "crop rotation beneficial",
+        "benefits of crop rotation",
+    ],
+
+
+    # ==================================================
+    # HARVEST
+    # ==================================================
+
+    "HARVEST": [
+        "when to harvest",
+        "when should farmers harvest",
+        "when should i harvest",
+        "harvest time",
+        "harvesting time",
+        "ready for harvest",
+        "ready to harvest",
+        "harvest crops",
+    ],
+
+
+    # ==================================================
+    # STORAGE
+    # ==================================================
+
+    "STORAGE": [
+        "proper storage",
+        "crop storage",
+        "grain storage",
+        "store crops",
+        "how to store",
+        "why is storage important",
+        "importance of storage",
+        "storage important",
+    ],
+
+
+    # ==================================================
+    # SEED SELECTION
+    # ==================================================
+
+    "SEED_SELECTION": [
+        "seed selection",
+        "select seeds",
+        "selecting seeds",
+        "certified seeds",
+        "quality seeds",
+        "good seeds",
+        "why use certified seeds",
+        "importance of certified seeds",
+    ],
+
+
+    # ==================================================
+    # LAND PREPARATION
+    # ==================================================
+
+    "LAND_PREPARATION": [
+        "land preparation",
+        "prepare the land",
+        "prepare land",
+        "land before planting",
+        "preparing the land",
+    ],
+
+
+    # ==================================================
+    # WEED MANAGEMENT
+    # ==================================================
+
+    "WEED_MANAGEMENT": [
+        "weed management",
+        "control weeds",
+        "control weed",
+        "remove weeds",
+        "remove weed",
+        "weeding",
+        "manage weeds",
+        "weed control",
+    ],
+
+
+    # ==================================================
+    # CLIMATE-SMART AGRICULTURE
+    # ==================================================
+
+    "CLIMATE_SMART_AGRICULTURE": [
+        "climate-smart agriculture",
+        "climate smart agriculture",
+        "climate-smart farming",
+        "climate smart farming",
+        "smart agriculture",
+        "farming under climate change",
+    ],
+
+
+    # ==================================================
+    # SUSTAINABLE AGRICULTURE
+    # ==================================================
+
+    "SUSTAINABLE_AGRICULTURE": [
+        "sustainable agriculture",
+        "sustainable farming",
+        "sustainable farming practices",
+        "sustainable agriculture practices",
+    ],
+
+
+    # ==================================================
+    # POST-HARVEST HANDLING
+    # ==================================================
+
+    "POST_HARVEST_HANDLING": [
+        "post-harvest handling",
+        "post harvest handling",
+        "postharvest handling",
+        "after harvest",
+        "after harvesting",
+        "handling after harvest",
+    ],
+
+
+    # ==================================================
+    # LIVESTOCK INTEGRATION
+    # ==================================================
+
+    "LIVESTOCK_INTEGRATION": [
+        "livestock integration",
+        "integrating livestock",
+        "integrate livestock",
+        "livestock with crops",
+        "livestock and crop farming",
+        "crop livestock integration",
+        "benefits of integrating livestock",
+    ],
+
+
+    # ==================================================
+    # AGRICULTURAL EXTENSION
+    # ==================================================
+
+    "AGRICULTURAL_EXTENSION": [
+        "agricultural extension",
+        "extension services",
+        "extension service",
+        "agricultural advisory",
+        "farm advisory",
+        "extension officer",
+    ],
+
+
+    # ==================================================
+    # SOIL AND WATER CONSERVATION
+    # ==================================================
+
+    "SOIL_CONSERVATION": [
+        "soil conservation",
+        "conserve soil",
+        "soil erosion",
+        "reduce soil erosion",
+        "prevent soil erosion",
+        "erosion control",
+        "water conservation and soil",
+    ],
+
+
+    # ==================================================
+    # PEST AND DISEASE DIAGNOSIS
+    # ==================================================
+
+    "PEST_DISEASE_DIAGNOSIS": [
+        "identify crop diseases",
+        "identify diseases",
+        "identify crop disease",
+        "diagnose crop disease",
+        "diagnose diseases",
+        "disease diagnosis",
+        "identify pests and diseases",
+        "identify pest and disease",
+        "unusual crop symptoms",
+    ],
 }
 
 
@@ -260,7 +476,7 @@ def detect_intent_v5(question):
             break
 
 
-    # --------------------------------------------------
+        # --------------------------------------------------
     # Domain detection
     # --------------------------------------------------
 
@@ -286,9 +502,62 @@ def detect_intent_v5(question):
     elif (
         detected_intent.startswith("PEST")
         or detected_intent == "INTEGRATED_PEST_MANAGEMENT"
+        or detected_intent == "PEST_DISEASE_DIAGNOSIS"
     ):
 
         domain = "PESTS"
+
+    elif detected_intent.startswith("DISEASE"):
+
+        domain = "DISEASES"
+
+    elif detected_intent == "SOIL_MANAGEMENT":
+
+        domain = "SOIL_MANAGEMENT"
+
+    elif detected_intent == "HARVEST":
+
+        domain = "HARVEST"
+
+    elif detected_intent == "STORAGE":
+
+        domain = "STORAGE"
+
+    elif detected_intent == "SEED_SELECTION":
+
+        domain = "SEED_SELECTION"
+
+    elif detected_intent == "LAND_PREPARATION":
+
+        domain = "LAND_PREPARATION"
+
+    elif detected_intent == "WEED_MANAGEMENT":
+
+        domain = "WEED_MANAGEMENT"
+
+    elif detected_intent == "CLIMATE_SMART_AGRICULTURE":
+
+        domain = "CLIMATE_SMART_AGRICULTURE"
+
+    elif detected_intent == "SUSTAINABLE_AGRICULTURE":
+
+        domain = "SUSTAINABLE_AGRICULTURE"
+
+    elif detected_intent == "POST_HARVEST_HANDLING":
+
+        domain = "POST_HARVEST_HANDLING"
+
+    elif detected_intent == "LIVESTOCK_INTEGRATION":
+
+        domain = "LIVESTOCK_INTEGRATION"
+
+    elif detected_intent == "AGRICULTURAL_EXTENSION":
+
+        domain = "AGRICULTURAL_EXTENSION"
+
+    elif detected_intent == "SOIL_CONSERVATION":
+
+        domain = "SOIL_CONSERVATION"
 
     else:
 
