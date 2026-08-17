@@ -466,7 +466,7 @@ def search_question_v5_2(
             and user_tokens == question_tokens
         ):
 
-            score += 5
+            score += 20
 
         score = min(
             round(score, 1),
