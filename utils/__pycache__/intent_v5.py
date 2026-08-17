@@ -155,18 +155,29 @@ INTENT_PATTERNS = {
         "why plant on time",
     ],
 
-    "PLANTING_TIME": [
-        "when should i plant",
-        "when should i sow",
-        "when do i plant",
-        "when to plant",
-        "best time",
-        "best period",
-        "planting time",
-        "planting season",
-        "time to plant",
-        "period to plant",
-    ],
+   "PLANTING_TIME": [
+    	"when should i plant",
+    	"when should i sow",
+    	"when do i plant",
+    	"when do i sow",
+    	"when to plant",
+    	"when to sow",
+    	"best time",
+    	"right time",
+    	"best time to plant",
+    	"best time to sow",
+    	"right time to plant",
+    	"right time to sow",
+    	"when is the best time",
+    	"when is the right time",
+    	"planting time",
+    	"planting season",
+    	"planting period",
+    	"when is planting",
+    	"when is the planting season",
+    	"when should planting be done",
+],
+    	
 
 
     # ==================================================
@@ -499,16 +510,14 @@ def detect_intent_v5(question):
 
         domain = "FERTILIZATION"
 
-    elif (
-    	detected_intent.startswith("PEST")
-    	or detected_intent == "INTEGRATED_PEST_MANAGEMENT"
-    ):
-
-    	domain = "PESTS"
-
     elif detected_intent == "PEST_DISEASE_DIAGNOSIS":
+        domain = "PEST_DISEASE_DIAGNOSIS"
 
-    	domain = "PEST_DISEASE_DIAGNOSIS"
+    elif (
+        detected_intent.startswith("PEST")
+        or detected_intent == "INTEGRATED_PEST_MANAGEMENT"
+    ):
+        domain = "PESTS"
 
     elif detected_intent.startswith("DISEASE"):
 
