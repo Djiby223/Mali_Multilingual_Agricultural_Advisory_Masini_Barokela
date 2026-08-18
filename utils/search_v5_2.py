@@ -484,26 +484,36 @@ def search_question_v5_2(
             + (token_similarity * 0.25)
             + (coverage * 0.30)
         )
-
         # --------------------------------------------------
         # Intent alignment
         # --------------------------------------------------
 
         candidate_intent = detect_candidate_intent(
-            question
-    )
+        question
+)
 
-        if sub_intent and candidate_intent:
+        # For a specific detected intent, reject candidates
+        # belonging to a different intent.
+        #
+        # GENERAL is treated as a fallback because it does not
+        # identify a specific agricultural task.
 
-            if candidate_intent == sub_intent:
+        if (
+            sub_intent
+            and sub_intent != "GENERAL"
+            and candidate_intent
+            and candidate_intent != sub_intent
+    ):
+        continue
 
-                # Reward candidates matching the detected intent
-                score += 20
+        # Reward candidates matching the detected intent.
 
-            else:
-
-                # Penalize candidates belonging to another intent
-                score -= 15
+        if (
+            sub_intent
+            and sub_intent != "GENERAL"
+            and candidate_intent == sub_intent
+        ):
+            score += 10
 
         # Exact meaningful-token bonus
 
