@@ -328,30 +328,6 @@ def filter_candidates(records, category, crop):
 
     return candidates
 
-    # --------------------------------------------------
-    # Crop filtering
-    # --------------------------------------------------
-    # If a specific crop is detected, keep both:
-    #   1. records specifically for that crop
-    #   2. General records that may apply across crops
-    #
-    # This prevents relevant General records from being
-    # eliminated before similarity scoring.
-    # --------------------------------------------------
-
-    if crop:
-
-        crop_matches = [
-            record
-            for record in candidates
-            if record.get("crop") in (crop, "General")
-        ]
-
-        if crop_matches:
-            candidates = crop_matches
-
-    return candidates
-
 
 # --------------------------------------------------
 # Candidate intent detection
