@@ -535,12 +535,21 @@ def search_question_v5_2(
 
             best_record = record
 
-    # --------------------------------------------------
-    # Confidence check
-    # --------------------------------------------------
+        # --------------------------------------------------
+        # Confidence check
+        # --------------------------------------------------
 
-    if best_score >= MIN_SCORE:
+        if sub_intent == "GENERAL":
 
-        return best_record, best_score
+        # General queries require stronger textual similarity
+        # because no specific intent/category filter was available.
+        if best_score >= 85:
 
-    return None, best_score
+            return best_record, best_score
+
+        else:
+
+        if best_score >= MIN_SCORE:
+            return best_record, best_score
+
+            return None, best_score
