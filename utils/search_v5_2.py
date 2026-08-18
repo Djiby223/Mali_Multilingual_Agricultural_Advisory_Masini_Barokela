@@ -123,7 +123,39 @@ INTENT_TO_CATEGORY = {
     # Pest and disease diagnosis
     "PEST_DISEASE_DIAGNOSIS": "Pest and Disease Diagnosis",
 }
+# --------------------------------------------------
+# Intent cues for candidate-question alignment
+# --------------------------------------------------
 
+INTENT_CUES = {
+
+    "PLANTING_TIME": {
+        "when",
+        "time",
+        "season",
+        "start",
+        "begin",
+        "beginning",
+        "planting time",
+    },
+
+    "PLANTING_DEPTH": {
+        "deep",
+        "depth",
+        "centimeter",
+        "centimeters",
+        "cm",
+    },
+
+    "PLANTING_SPACING": {
+        "spacing",
+        "apart",
+        "distance",
+        "between",
+        "rows",
+    },
+
+}
 
 # --------------------------------------------------
 # Stopwords
@@ -320,6 +352,37 @@ def filter_candidates(records, category, crop):
 
     return candidates
 
+# --------------------------------------------------
+# Candidate intent detection
+# --------------------------------------------------
+
+def detect_candidate_intent(question, language_key):
+
+    question_normalized = normalize_text(question)
+
+    tokens = set(
+        meaningful_tokens(
+            question_normalized,
+            language_key,
+        )
+    )
+
+    if not tokens:
+        return None
+
+    best_intent = None
+    best_matches = 0
+
+    for intent, cues in INTENT_CUES.items():
+
+        matches = len(tokens & cues)
+
+        if matches > best_matches:
+
+            best_matches = matches
+            best_intent = intent
+
+    return best_intent
 
 # --------------------------------------------------
 # Search
@@ -460,7 +523,29 @@ def search_question_v5_2(
             + (coverage * 0.30)
         )
 
+        # --------------------------------------------------
+        # Intent alignment
+        # --------------------------------------------------
+
+        candidate_intent = detect_candidate_intent(
+            question,
+            language_key,
+        )
+
+        if sub_intent and candidate_intent:
+
+            if candidate_intent == sub_intent:
+
+                # Reward candidates matching the detected intent
+                score += 20
+
+            else:
+
+                # Penalize candidates belonging to another intent
+                score -= 15
+
         # Exact meaningful-token bonus
+
         if (
             user_tokens
             and user_tokens == question_tokens

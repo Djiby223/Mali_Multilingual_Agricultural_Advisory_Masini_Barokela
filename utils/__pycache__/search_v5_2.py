@@ -123,61 +123,40 @@ INTENT_TO_CATEGORY = {
     # Pest and disease diagnosis
     "PEST_DISEASE_DIAGNOSIS": "Pest and Disease Diagnosis",
 }
-
 # --------------------------------------------------
-# Intent cues for semantic alignment
+# Intent cues for candidate-question alignment
 # --------------------------------------------------
 
 INTENT_CUES = {
 
     "PLANTING_TIME": {
+        "when",
         "time",
         "season",
-        "period",
-        "timely",
+        "start",
+        "begin",
+        "beginning",
+        "planting time",
     },
 
     "PLANTING_DEPTH": {
-        "depth",
         "deep",
-        "shallow",
+        "depth",
+        "centimeter",
+        "centimeters",
+        "cm",
     },
 
     "PLANTING_SPACING": {
         "spacing",
         "apart",
         "distance",
-        "row",
+        "between",
         "rows",
     },
+
 }
-# --------------------------------------------------
-# Intent cues for semantic alignment
-# --------------------------------------------------
 
-INTENT_CUES = {
-
-    "PLANTING_TIME": {
-        "time",
-        "season",
-        "period",
-        "timely",
-    },
-
-    "PLANTING_DEPTH": {
-        "depth",
-        "deep",
-        "shallow",
-    },
-
-    "PLANTING_SPACING": {
-        "spacing",
-        "apart",
-        "distance",
-        "row",
-        "rows",
-    },
-}
 # --------------------------------------------------
 # Stopwords
 # --------------------------------------------------
@@ -373,6 +352,37 @@ def filter_candidates(records, category, crop):
 
     return candidates
 
+# --------------------------------------------------
+# Candidate intent detection
+# --------------------------------------------------
+
+def detect_candidate_intent(question, language_key):
+
+    question_normalized = normalize_text(question)
+
+    tokens = set(
+        meaningful_tokens(
+            question_normalized,
+            language_key,
+        )
+    )
+
+    if not tokens:
+        return None
+
+    best_intent = None
+    best_matches = 0
+
+    for intent, cues in INTENT_CUES.items():
+
+        matches = len(tokens & cues)
+
+        if matches > best_matches:
+
+            best_matches = matches
+            best_intent = intent
+
+    return best_intent
 
 # --------------------------------------------------
 # Search
@@ -506,7 +516,7 @@ def search_question_v5_2(
 
             coverage = 0
 
-        # Combined score
+                # Combined score
         score = (
             (wratio * 0.45)
             + (token_similarity * 0.25)
@@ -514,77 +524,28 @@ def search_question_v5_2(
         )
 
         # --------------------------------------------------
-# Intent alignment
-# --------------------------------------------------
+        # Intent alignment
+        # --------------------------------------------------
 
-    intent_cues = INTENT_CUES.get(
-    sub_intent,
-    set(),
-)
-
-        candidate_cues = set()
-
-        for cue_intent, cues in INTENT_CUES.items():
-
-    if cue_intent == sub_intent:
-        continue
-
-    if meaningful_tokens(
-        question_normalized,
-        language_key,
-    ) & cues:
-
-        candidate_cues.add(cue_intent)
-
-    if (
-        meaningful_tokens(
-            question_normalized,
+        candidate_intent = detect_candidate_intent(
+            question,
             language_key,
-        ) & intent_cues
-    ):
+        )
 
-        score += 15
+        if sub_intent and candidate_intent:
 
-    elif candidate_cues:
+            if candidate_intent == sub_intent:
 
-        score -= 15
-	# --------------------------------------------------
-# Intent alignment
-# --------------------------------------------------
+                # Reward candidates matching the detected intent
+                score += 20
 
-intent_cues = INTENT_CUES.get(
-    sub_intent,
-    set(),
-)
+            else:
 
-candidate_cues = set()
-
-for cue_intent, cues in INTENT_CUES.items():
-
-    if cue_intent == sub_intent:
-        continue
-
-    if meaningful_tokens(
-        question_normalized,
-        language_key,
-    ) & cues:
-
-        candidate_cues.add(cue_intent)
-
-if (
-    meaningful_tokens(
-        question_normalized,
-        language_key,
-    ) & intent_cues
-):
-
-    score += 15
-
-elif candidate_cues:
-
-    score -= 15
+                # Penalize candidates belonging to another intent
+                score -= 15
 
         # Exact meaningful-token bonus
+
         if (
             user_tokens
             and user_tokens == question_tokens
