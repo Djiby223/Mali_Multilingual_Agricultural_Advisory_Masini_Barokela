@@ -124,7 +124,33 @@ INTENT_TO_CATEGORY = {
     "PEST_DISEASE_DIAGNOSIS": "Pest and Disease Diagnosis",
 }
 
+# --------------------------------------------------
+# Intent cues for semantic alignment
+# --------------------------------------------------
 
+INTENT_CUES = {
+
+    "PLANTING_TIME": {
+        "time",
+        "season",
+        "period",
+        "timely",
+    },
+
+    "PLANTING_DEPTH": {
+        "depth",
+        "deep",
+        "shallow",
+    },
+
+    "PLANTING_SPACING": {
+        "spacing",
+        "apart",
+        "distance",
+        "row",
+        "rows",
+    },
+}
 # --------------------------------------------------
 # Stopwords
 # --------------------------------------------------
@@ -459,6 +485,41 @@ def search_question_v5_2(
             + (token_similarity * 0.25)
             + (coverage * 0.30)
         )
+	# --------------------------------------------------
+# Intent alignment
+# --------------------------------------------------
+
+intent_cues = INTENT_CUES.get(
+    sub_intent,
+    set(),
+)
+
+candidate_cues = set()
+
+for cue_intent, cues in INTENT_CUES.items():
+
+    if cue_intent == sub_intent:
+        continue
+
+    if meaningful_tokens(
+        question_normalized,
+        language_key,
+    ) & cues:
+
+        candidate_cues.add(cue_intent)
+
+if (
+    meaningful_tokens(
+        question_normalized,
+        language_key,
+    ) & intent_cues
+):
+
+    score += 15
+
+elif candidate_cues:
+
+    score -= 15
 
         # Exact meaningful-token bonus
         if (
