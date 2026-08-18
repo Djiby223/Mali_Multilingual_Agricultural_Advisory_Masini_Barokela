@@ -352,37 +352,23 @@ def filter_candidates(records, category, crop):
 
     return candidates
 
+
 # --------------------------------------------------
 # Candidate intent detection
 # --------------------------------------------------
 
-def detect_candidate_intent(question, language_key):
+def detect_candidate_intent(question):
 
-    question_normalized = normalize_text(question)
-
-    tokens = set(
-        meaningful_tokens(
-            question_normalized,
-            language_key,
-        )
-    )
-
-    if not tokens:
+    if not question:
         return None
 
-    best_intent = None
-    best_matches = 0
+    intent_result = detect_intent_v5(
+        question
+    )
 
-    for intent, cues in INTENT_CUES.items():
-
-        matches = len(tokens & cues)
-
-        if matches > best_matches:
-
-            best_matches = matches
-            best_intent = intent
-
-    return best_intent
+    return intent_result.get(
+        "sub_intent"
+    )
 
 # --------------------------------------------------
 # Search
@@ -528,9 +514,8 @@ def search_question_v5_2(
         # --------------------------------------------------
 
         candidate_intent = detect_candidate_intent(
-            question,
-            language_key,
-        )
+            question
+    )
 
         if sub_intent and candidate_intent:
 
