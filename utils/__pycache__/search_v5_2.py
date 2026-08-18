@@ -517,14 +517,14 @@ def search_question_v5_2(
 # Intent alignment
 # --------------------------------------------------
 
-intent_cues = INTENT_CUES.get(
+    intent_cues = INTENT_CUES.get(
     sub_intent,
     set(),
 )
 
-candidate_cues = set()
+        candidate_cues = set()
 
-for cue_intent, cues in INTENT_CUES.items():
+        for cue_intent, cues in INTENT_CUES.items():
 
     if cue_intent == sub_intent:
         continue
@@ -536,18 +536,18 @@ for cue_intent, cues in INTENT_CUES.items():
 
         candidate_cues.add(cue_intent)
 
-if (
-    meaningful_tokens(
-        question_normalized,
-        language_key,
-    ) & intent_cues
-):
+    if (
+        meaningful_tokens(
+            question_normalized,
+            language_key,
+        ) & intent_cues
+    ):
 
-    score += 15
+        score += 15
 
-elif candidate_cues:
+    elif candidate_cues:
 
-    score -= 15
+        score -= 15
 	# --------------------------------------------------
 # Intent alignment
 # --------------------------------------------------
