@@ -119,13 +119,17 @@ INTENT_PATTERNS = {
         "lack of water",
     ],
 
-    "EXCESSIVE_IRRIGATION": [
-        "excessive irrigation",
-        "too much water",
-        "over irrigation",
-        "overwatering",
-    ],
-
+   "EXCESSIVE_IRRIGATION": [
+       "excessive irrigation",
+       "too much irrigation",
+       "too much water",
+       "over irrigation",
+       "over-irrigation",
+       "overwatering",
+       "too much watering",
+       "excess water",
+       "excessive watering",
+   ],
 
     # ==================================================
     # PLANTING
@@ -155,29 +159,28 @@ INTENT_PATTERNS = {
         "why plant on time",
     ],
 
-   "PLANTING_TIME": [
-    	"when should i plant",
-    	"when should i sow",
-    	"when do i plant",
-    	"when do i sow",
-    	"when to plant",
-    	"when to sow",
-    	"best time",
-    	"right time",
-    	"best time to plant",
-    	"best time to sow",
-    	"right time to plant",
-    	"right time to sow",
-    	"when is the best time",
-    	"when is the right time",
-    	"planting time",
-    	"planting season",
-    	"planting period",
-    	"when is planting",
-    	"when is the planting season",
-    	"when should planting be done",
-],
-    	
+    "PLANTING_TIME": [
+        "when should i plant",
+        "when should i sow",
+        "when do i plant",
+        "when do i sow",
+        "when to plant",
+        "when to sow",
+        "best time",
+        "right time",
+        "best time to plant",
+        "best time to sow",
+        "right time to plant",
+        "right time to sow",
+        "when is the best time",
+        "when is the right time",
+        "planting time",
+        "planting season",
+        "planting period",
+        "when is planting",
+        "when is the planting season",
+        "when should planting be done",
+    ],
 
 
     # ==================================================
@@ -232,12 +235,17 @@ INTENT_PATTERNS = {
     ],
 
     "DISEASE_SYMPTOMS": [
-        "signs of disease",
-        "signs of diseases",
-        "disease symptoms",
-        "symptoms of disease",
-        "crop symptoms",
-    ],
+       "signs of disease",
+       "signs of diseases",
+       "signs of crop disease",
+       "signs of crop diseases",
+       "disease symptoms",
+       "crop disease symptoms",
+       "symptoms of disease",
+       "symptoms of crop disease",
+       "symptoms of crop diseases",
+       "crop symptoms",
+   ],
 
 
     # ==================================================
@@ -378,14 +386,20 @@ INTENT_PATTERNS = {
     # ==================================================
 
     "LIVESTOCK_INTEGRATION": [
-        "livestock integration",
-        "integrating livestock",
-        "integrate livestock",
-        "livestock with crops",
-        "livestock and crop farming",
-        "crop livestock integration",
-        "benefits of integrating livestock",
-    ],
+       "livestock integration",
+       "integrating livestock",
+       "integrate livestock",
+       "livestock with crops",
+       "livestock and crop farming",
+       "crop livestock integration",
+       "benefits of integrating livestock",
+       "livestock be integrated with crop farming",
+       "integrating livestock with crop farming",
+       "integrated livestock and crop farming",
+       "integrate livestock with crops",
+       "combine livestock and crop farming",
+       "combine crops and livestock",
+   ],
 
 
     # ==================================================
@@ -422,16 +436,23 @@ INTENT_PATTERNS = {
     # ==================================================
 
     "PEST_DISEASE_DIAGNOSIS": [
-        "identify crop diseases",
-        "identify diseases",
-        "identify crop disease",
-        "diagnose crop disease",
-        "diagnose diseases",
-        "disease diagnosis",
-        "identify pests and diseases",
-        "identify pest and disease",
-        "unusual crop symptoms",
-    ],
+       "identify crop diseases",
+       "identify diseases",
+       "identify crop disease",
+       "diagnose crop disease",
+       "diagnose diseases",
+       "disease diagnosis",
+       "identify pests and diseases",
+       "identify pest and disease",
+       "unusual crop symptoms",
+       "diagnose crop pests and diseases",
+       "diagnose pests and diseases",
+       "diagnose crop pests",
+       "identify crop pests and diseases",
+       "identify crop pests",
+       "how to diagnose crop pests and diseases",
+      "how can i diagnose crop pests and diseases",
+   ],
 }
 
 
