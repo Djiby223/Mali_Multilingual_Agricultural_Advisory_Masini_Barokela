@@ -484,13 +484,13 @@ def search_question_v5_2(
             + (token_similarity * 0.25)
             + (coverage * 0.30)
         )
-        # --------------------------------------------------
+                # --------------------------------------------------
         # Intent alignment
         # --------------------------------------------------
 
         candidate_intent = detect_candidate_intent(
-        question
-)
+            question
+        )
 
         # For a specific detected intent, reject candidates
         # belonging to a different intent.
@@ -503,8 +503,8 @@ def search_question_v5_2(
             and sub_intent != "GENERAL"
             and candidate_intent
             and candidate_intent != sub_intent
-    ):
-        continue
+        ):
+            continue
 
         # Reward candidates matching the detected intent.
 

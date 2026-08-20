@@ -123,61 +123,40 @@ INTENT_TO_CATEGORY = {
     # Pest and disease diagnosis
     "PEST_DISEASE_DIAGNOSIS": "Pest and Disease Diagnosis",
 }
-
 # --------------------------------------------------
-# Intent cues for semantic alignment
+# Intent cues for candidate-question alignment
 # --------------------------------------------------
 
 INTENT_CUES = {
 
     "PLANTING_TIME": {
+        "when",
         "time",
         "season",
-        "period",
-        "timely",
+        "start",
+        "begin",
+        "beginning",
+        "planting time",
     },
 
     "PLANTING_DEPTH": {
-        "depth",
         "deep",
-        "shallow",
+        "depth",
+        "centimeter",
+        "centimeters",
+        "cm",
     },
 
     "PLANTING_SPACING": {
         "spacing",
         "apart",
         "distance",
-        "row",
+        "between",
         "rows",
     },
+
 }
-# --------------------------------------------------
-# Intent cues for semantic alignment
-# --------------------------------------------------
 
-INTENT_CUES = {
-
-    "PLANTING_TIME": {
-        "time",
-        "season",
-        "period",
-        "timely",
-    },
-
-    "PLANTING_DEPTH": {
-        "depth",
-        "deep",
-        "shallow",
-    },
-
-    "PLANTING_SPACING": {
-        "spacing",
-        "apart",
-        "distance",
-        "row",
-        "rows",
-    },
-}
 # --------------------------------------------------
 # Stopwords
 # --------------------------------------------------
@@ -349,30 +328,23 @@ def filter_candidates(records, category, crop):
 
     return candidates
 
-    # --------------------------------------------------
-    # Crop filtering
-    # --------------------------------------------------
-    # If a specific crop is detected, keep both:
-    #   1. records specifically for that crop
-    #   2. General records that may apply across crops
-    #
-    # This prevents relevant General records from being
-    # eliminated before similarity scoring.
-    # --------------------------------------------------
 
-    if crop:
+# --------------------------------------------------
+# Candidate intent detection
+# --------------------------------------------------
 
-        crop_matches = [
-            record
-            for record in candidates
-            if record.get("crop") in (crop, "General")
-        ]
+def detect_candidate_intent(question):
 
-        if crop_matches:
-            candidates = crop_matches
+    if not question:
+        return None
 
-    return candidates
+    intent_result = detect_intent_v5(
+        question
+    )
 
+    return intent_result.get(
+        "sub_intent"
+    )
 
 # --------------------------------------------------
 # Search
@@ -506,36 +478,45 @@ def search_question_v5_2(
 
             coverage = 0
 
-                # Combined score
+        # Combined score
         score = (
             (wratio * 0.45)
             + (token_similarity * 0.25)
             + (coverage * 0.30)
         )
-
-        # --------------------------------------------------
+                # --------------------------------------------------
         # Intent alignment
         # --------------------------------------------------
 
         candidate_intent = detect_candidate_intent(
-            question,
-            language_key,
+            question
         )
 
-        if sub_intent and candidate_intent:
+        # For a specific detected intent, reject candidates
+        # belonging to a different intent.
+        #
+        # GENERAL is treated as a fallback because it does not
+        # identify a specific agricultural task.
 
-            if candidate_intent == sub_intent:
+        if (
+            sub_intent
+            and sub_intent != "GENERAL"
+            and candidate_intent
+            and candidate_intent != sub_intent
+        ):
+            continue
 
-                # Reward candidates matching the detected intent
-                score += 20
+        # Reward candidates matching the detected intent.
 
-            else:
-
-                # Penalize candidates belonging to another intent
-                score -= 15
+        if (
+            sub_intent
+            and sub_intent != "GENERAL"
+            and candidate_intent == sub_intent
+        ):
+            score += 10
 
         # Exact meaningful-token bonus
-        
+
         if (
             user_tokens
             and user_tokens == question_tokens
@@ -554,12 +535,21 @@ def search_question_v5_2(
 
             best_record = record
 
-    # --------------------------------------------------
-    # Confidence check
-    # --------------------------------------------------
+        # --------------------------------------------------
+        # Confidence check
+        # --------------------------------------------------
 
-    if best_score >= MIN_SCORE:
+        if sub_intent == "GENERAL":
 
-        return best_record, best_score
+        # General queries require stronger textual similarity
+        # because no specific intent/category filter was available.
+        if best_score >= 85:
 
-    return None, best_score
+            return best_record, best_score
+
+        else:
+
+        if best_score >= MIN_SCORE:
+            return best_record, best_score
+
+            return None, best_score
