@@ -519,6 +519,8 @@ def detect_intent_v5(question):
     elif (
         detected_intent.startswith("IRRIGATION")
         or detected_intent.startswith("WATER")
+        or detected_intent == "EXCESSIVE_IRRIGATION"
+
     ):
 
         domain = "IRRIGATION"
