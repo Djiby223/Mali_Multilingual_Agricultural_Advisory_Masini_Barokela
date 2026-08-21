@@ -541,15 +541,22 @@ def search_question_v5_2(
 
         if sub_intent == "GENERAL":
 
-        # General queries require stronger textual similarity
-        # because no specific intent/category filter was available.
-        if best_score >= 85:
+            # General queries require stronger textual similarity
+            # because no specific intent/category filter was available.
+            if best_score >= 85:
 
-            return best_record, best_score
+                return best_record, best_score
+
+            else:
+
+                return None, best_score
 
         else:
 
-        if best_score >= MIN_SCORE:
-            return best_record, best_score
+            if best_score >= MIN_SCORE:
 
-            return None, best_score
+                return best_record, best_score
+
+            else:
+
+                return None, best_score
