@@ -229,16 +229,16 @@ def normalize_word(word, language_key):
             # Semantic normalization
             # --------------------------------------------------
 
-            SYNONYMS = {
-                "deep": "depth",
-                "sow": "plant",
-                "sowing": "plant",
-                "sown": "plant",
-                "planted": "plant",
-                "planting": "plant",
+        SYNONYMS = {
+            "deep": "depth",
+            "sow": "plant",
+            "sowing": "plant",
+            "sown": "plant",
+            "planted": "plant",
+            "planting": "plant",
             }
 
-                word = SYNONYMS.get(word, word)
+            word = SYNONYMS.get(word, word)
 
         for suffix, replacement in replacements:
 
