@@ -170,7 +170,7 @@ STOPWORDS = {
         "to", "of", "for", "in", "on", "at",
         "and", "or",
         "should", "can", "could", "would",
-        "do", "does", "did",
+        "do", "does", "did", "be",
         "i", "we", "you", "they", "he", "she",
         "my", "our", "your", "their",
     },
