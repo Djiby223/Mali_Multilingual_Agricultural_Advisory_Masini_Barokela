@@ -225,6 +225,21 @@ def normalize_word(word, language_key):
             ("s", ""),
         ]
 
+            # --------------------------------------------------
+            # Semantic normalization
+            # --------------------------------------------------
+
+            SYNONYMS = {
+                "deep": "depth",
+                "sow": "plant",
+                "sowing": "plant",
+                "sown": "plant",
+                "planted": "plant",
+                "planting": "plant",
+            }
+
+    word = SYNONYMS.get(word, word)
+
         for suffix, replacement in replacements:
 
             if len(word) > len(suffix) + 2 and word.endswith(suffix):
