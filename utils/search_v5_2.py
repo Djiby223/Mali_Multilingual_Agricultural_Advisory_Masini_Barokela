@@ -238,7 +238,7 @@ def normalize_word(word, language_key):
             "planting": "plant",
             }
 
-            word = SYNONYMS.get(word, word)
+                word = SYNONYMS.get(word, word)
 
         for suffix, replacement in replacements:
 
