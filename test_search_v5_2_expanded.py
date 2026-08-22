@@ -1,62 +1,74 @@
 ﻿from utils.search_v5_2 import search_question_v5_2
 
-tests = [
-    ("EN-P1", "When should I plant millet?", "1"),
-    ("EN-P2", "When is the right time to sow maize?", "2"),
-    ("EN-P3", "How deep should millet seeds be planted?", "3"),
-    ("EN-P4", "How far apart should maize plants be?", "4"),
-    ("EN-P5", "What spacing is recommended for maize?", "4"),
-    ("EN-P6", "At what depth should I sow millet?", "3"),
 
-    ("FR-1", "Quelle est la meilleure période pour planter le mil ?", "1"),
-    ("FR-2", "Quand faut-il planter le maïs ?", "2"),
-    ("FR-3", "À quelle profondeur faut-il semer le mil ?", "3"),
-    ("FR-4", "Quel espacement faut-il laisser entre les plants de maïs ?", "4"),
+TESTS = [
+    # English
+    ("EN-P1", "When should I plant millet?", "English", "1"),
+    ("EN-P2", "When is the right time to sow maize?", "English", "2"),
+    ("EN-P3", "How deep should millet seeds be planted?", "English", "3"),
+    ("EN-P4", "How far apart should maize plants be?", "English", "4"),
+    ("EN-P5", "How much spacing should I leave between maize plants?", "English", "4"),
+    ("EN-P6", "How deep should I sow millet seeds?", "English", "3"),
 
-    ("BM-1", "Ɲɔ ka kan ka dan tuma jumɛn?", "1"),
-    ("BM-2", "Kaba ka kan ka dan tuma jumɛn?", "2"),
-    ("BM-3", "Ɲɔ danni dingɛ jate ye jumɛn ye?", "3"),
-    ("BM-4", "Jate jumɛn ka kan ka kɛ kaba siraw ni nɔgɔn cɛ?", "4"),
+    # French
+    ("FR-1", "Quelle est la meilleure période pour planter le mil ?", "Français", "1"),
+    ("FR-2", "Quelle est la meilleure période pour planter le maïs ?", "Français", "2"),
+    ("FR-3", "Quelle est la profondeur recommandée pour semer les graines de mil ?", "Français", "3"),
+    ("FR-4", "Quel espacement faut-il entre les plants de maïs ?", "Français", "4"),
 
-    ("NEG-1", "How do I operate a tractor?", "NONE"),
-    ("NEG-2", "What is the price of a tractor?", "NONE"),
-    ("NEG-3", "How do I repair a car engine?", "NONE"),
-    ("NEG-4", "What is the capital of Mali?", "NONE"),
+    # Bambara
+    ("BM-1", "Ɲɔ ka kan ka dan tuma jumɛn?", "Bambara", "1"),
+    ("BM-2", "Kaba ka kan ka dan tuma jumɛn?", "Bambara", "2"),
+    ("BM-3", "Ɲɔ danni dingɛ jate ye jumɛn ye?", "Bambara", "3"),
+    ("BM-4", "Jate jumɛn ka kan ka kɛ kaba siraw ani kaba danni dingɛw ni nɔgɔn cɛ?", "Bambara", "4"),
+
+    # Negative tests
+    ("NEG-1", "How do I repair a tractor?", "English", None),
+    ("NEG-2", "What is the price of a tractor?", "English", None),
+    ("NEG-3", "How does a car engine work?", "English", None),
+    ("NEG-4", "What is the capital of Mali?", "English", None),
 ]
 
-print("=" * 100)
-print("MASINI BAROKƐLA V5.2 — EXPANDED CONTROLLED SUITE")
-print("=" * 100)
 
 passed = 0
 failed = 0
 
-for label, question, expected in tests:
-    result, score = search_question_v5_2(question)
+print("=" * 70)
+print("Masini Barokɛla V5.2 Expanded Search Test")
+print("=" * 70)
 
-    if result:
-        actual = result.get("id")
-        crop = result.get("crop")
-    else:
-        actual = "NONE"
-        crop = "-"
+for test_id, question, language, expected_id in TESTS:
 
-    status = "PASS" if actual == expected else "FAIL"
-
-    if status == "PASS":
-        passed += 1
-    else:
-        failed += 1
-
-    print(
-        f"{label:7} | "
-        f"{question:65} | "
-        f"ID={actual:4} | "
-        f"Crop={str(crop):8} | "
-        f"Score={score:5.1f} | "
-        f"{status}"
+    result, score = search_question_v5_2(
+        question,
+        language=language,
     )
 
-print("=" * 100)
-print(f"TOTAL: {len(tests)} | PASSED: {passed} | FAILED: {failed}")
-print("=" * 100)
+    actual_id = result.get("id") if result else None
+
+    ok = actual_id == expected_id
+
+    if ok:
+        passed += 1
+        status = "PASS"
+    else:
+        failed += 1
+        status = "FAIL"
+
+    print(
+        f"{status} | {test_id} | "
+        f"{language} | "
+        f"Expected={expected_id} | "
+        f"Actual={actual_id} | "
+        f"Score={score} | "
+        f"{question}"
+    )
+
+print()
+print("=" * 70)
+print("SUMMARY")
+print("=" * 70)
+print(f"Passed: {passed}/{len(TESTS)}")
+print(f"Failed: {failed}/{len(TESTS)}")
+print(f"Accuracy: {(passed / len(TESTS)) * 100:.1f}%")
+print("=" * 70)
