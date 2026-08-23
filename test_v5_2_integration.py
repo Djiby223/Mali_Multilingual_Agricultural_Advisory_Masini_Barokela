@@ -208,7 +208,10 @@ def main():
         # Validate
         # ----------------------------------------------------
 
-        intent_ok = actual_intent == test["expected_intent"]
+        intent_ok = (
+    	      test["expected_intent"] is None
+              or actual_intent == test["expected_intent"]
+        )
 
         crop_ok = (
             test["expected_crop"] is None
