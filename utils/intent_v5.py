@@ -17,6 +17,7 @@ the older V4 intent.py.
 # --------------------------------------------------
 
 CROPS = {
+    # English
     "millet": "Millet",
     "maize": "Maize",
     "corn": "Maize",
@@ -25,10 +26,14 @@ CROPS = {
     "cotton": "Cotton",
     "groundnut": "Groundnut",
     "peanut": "Groundnut",
-    "cowpea": "Cowpea",
-    "sesame": "Sesame",
-    "tomato": "Tomato",
-    "tomatoes": "Tomato",
+
+    # French
+    "mil": "Millet",
+    "maïs": "Maize",
+
+    # Bambara
+    "ɲɔ": "Millet",
+    "kaba": "Maize",
 }
 
 
