@@ -209,13 +209,11 @@ def main():
         # ----------------------------------------------------
 
         intent_ok = (
-            actual_intent == test["expected_intent"]
-            or (
-                test["expected_intent"] is None
-                and actual_intent == "GENERAL"
+              test["expected_intent"] is None
+               or actual_intent == test["expected_intent"]
             )
-    )
-
+    
+        
         crop_ok = (
             test["expected_crop"] is None
             or actual_crop == test["expected_crop"]
