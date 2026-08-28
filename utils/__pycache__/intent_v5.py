@@ -459,7 +459,61 @@ INTENT_PATTERNS = {
       "how can i diagnose crop pests and diseases",
    ],
 }
+   # --------------------------------------------------
+# V5.3 Multilingual Intent Patterns
+# French planting intents
+# --------------------------------------------------
 
+MULTILINGUAL_INTENT_PATTERNS = {
+
+    "PLANTING_TIME": [
+        # French
+        "quand planter",
+        "quand faut il planter",
+        "quand faut-il planter",
+        "quand semer",
+        "quand faut il semer",
+        "quand faut-il semer",
+        "meilleur moment pour planter",
+        "meilleur moment pour semer",
+        "meilleure période pour planter",
+        "meilleure période pour semer",
+        "période recommandée pour planter",
+        "période recommandée pour semer",
+        "moment recommandé pour planter",
+        "moment recommandé pour semer",
+        "quelle période pour planter",
+        "quelle période pour semer",
+    ],
+
+    "PLANTING_DEPTH": [
+        # French
+        "profondeur",
+        "à quelle profondeur",
+        "a quelle profondeur",
+        "profondeur pour semer",
+        "profondeur pour planter",
+        "profondeur recommandée",
+        "profondeur recommandée pour semer",
+        "profondeur recommandée pour planter",
+        "profondeur des graines",
+        "profondeur de semis",
+    ],
+
+    "PLANTING_SPACING": [
+        # French
+        "espacement",
+        "quel espacement",
+        "distance entre",
+        "distance entre les plants",
+        "distance entre les plantes",
+        "distance pour planter",
+        "quelle distance",
+        "quelle distance entre",
+        "laisser entre les plants",
+        "espace entre les plants",
+    ],
+}
 
 # --------------------------------------------------
 # Main detector
@@ -513,7 +567,7 @@ def detect_intent_v5(question):
             break
 
 
-        # --------------------------------------------------
+    # --------------------------------------------------
     # Domain detection
     # --------------------------------------------------
 
