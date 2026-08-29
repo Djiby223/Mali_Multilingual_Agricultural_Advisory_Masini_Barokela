@@ -554,7 +554,26 @@ def detect_intent_v5(question):
 
     detected_intent = "GENERAL"
 
+    # --------------------------------------------------
+    # V5.3 Multilingual intent detection
+    # --------------------------------------------------
+    #
+    # Preserve all existing V5.2 intent patterns and
+    # add the V5.3 multilingual patterns.
+    #
+    combined_intent_patterns = {}
+
     for intent, patterns in INTENT_PATTERNS.items():
+        combined_intent_patterns[intent] = list(patterns)
+
+    for intent, patterns in MULTILINGUAL_INTENT_PATTERNS.items():
+
+        if intent not in combined_intent_patterns:
+            combined_intent_patterns[intent] = []
+
+        combined_intent_patterns[intent].extend(patterns)
+
+    for intent, patterns in combined_intent_patterns.items():
 
         for pattern in patterns:
 

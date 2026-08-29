@@ -558,8 +558,8 @@ def detect_intent_v5(question):
     # V5.3 Multilingual intent detection
     # --------------------------------------------------
     #
-    # Start with the original V5.2 English patterns,
-    # then add the multilingual patterns.
+    # Preserve all existing V5.2 intent patterns and
+    # add the V5.3 multilingual patterns.
     #
     combined_intent_patterns = {}
 
@@ -567,6 +567,7 @@ def detect_intent_v5(question):
         combined_intent_patterns[intent] = list(patterns)
 
     for intent, patterns in MULTILINGUAL_INTENT_PATTERNS.items():
+
         if intent not in combined_intent_patterns:
             combined_intent_patterns[intent] = []
 
@@ -583,6 +584,7 @@ def detect_intent_v5(question):
 
         if detected_intent != "GENERAL":
             break
+
 
     # --------------------------------------------------
     # Domain detection
