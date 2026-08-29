@@ -460,9 +460,9 @@ INTENT_PATTERNS = {
    ],
 }
    # --------------------------------------------------
-# V5.3 Multilingual Intent Patterns
-# French planting intents
-# --------------------------------------------------
+   # V5.3 Multilingual Intent Patterns
+   # French planting intents
+   # --------------------------------------------------
 
 MULTILINGUAL_INTENT_PATTERNS = {
 
@@ -551,13 +551,28 @@ def detect_intent_v5(question):
     # --------------------------------------------------
     # Specific intent detection
     # --------------------------------------------------
+
     detected_intent = "GENERAL"
 
     # --------------------------------------------------
-    # V5.3: Existing English intent detection
+    # V5.3 Multilingual intent detection
     # --------------------------------------------------
+    #
+    # Start with the original V5.2 English patterns,
+    # then add the multilingual patterns.
+    #
+    combined_intent_patterns = {}
 
     for intent, patterns in INTENT_PATTERNS.items():
+        combined_intent_patterns[intent] = list(patterns)
+
+    for intent, patterns in MULTILINGUAL_INTENT_PATTERNS.items():
+        if intent not in combined_intent_patterns:
+            combined_intent_patterns[intent] = []
+
+        combined_intent_patterns[intent].extend(patterns)
+
+    for intent, patterns in combined_intent_patterns.items():
 
         for pattern in patterns:
 
@@ -568,30 +583,6 @@ def detect_intent_v5(question):
 
         if detected_intent != "GENERAL":
             break
-
-
-    # --------------------------------------------------
-    # V5.3: Multilingual intent fallback
-    #
-    # Existing English patterns remain authoritative.
-    # Multilingual patterns are checked only when the
-    # English detector returns GENERAL.
-    # --------------------------------------------------
-
-    if detected_intent == "GENERAL":
-
-        for intent, patterns in MULTILINGUAL_INTENT_PATTERNS.items():
-
-            for pattern in patterns:
-
-                if pattern in text:
-
-                    detected_intent = intent
-                    break
-
-            if detected_intent != "GENERAL":
-                break
-
 
     # --------------------------------------------------
     # Domain detection
