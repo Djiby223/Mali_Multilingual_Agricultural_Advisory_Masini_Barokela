@@ -155,6 +155,10 @@ INTENT_PATTERNS = {
         "distance between",
         "space between",
         "apart should",
+        "how much distance",
+        "how much distance between",
+        "distance should there be between",
+        "distance should be between",
     ],
 
     "PLANTING_IMPORTANCE": [
