@@ -170,7 +170,7 @@ STOPWORDS = {
         "to", "of", "for", "in", "on", "at",
         "and", "or",
         "should", "can", "could", "would",
-        "do", "does", "did",
+        "do", "does", "did", "be",
         "i", "we", "you", "they", "he", "she",
         "my", "our", "your", "their",
     },
@@ -224,6 +224,21 @@ def normalize_word(word, language_key):
             ("es", ""),
             ("s", ""),
         ]
+
+            # --------------------------------------------------
+            # Semantic normalization
+            # --------------------------------------------------
+
+        SYNONYMS = {
+            "deep": "depth",
+            "sow": "plant",
+            "sowing": "plant",
+            "sown": "plant",
+            "planted": "plant",
+            "planting": "plant",
+            }
+
+        word = SYNONYMS.get(word, word)
 
         for suffix, replacement in replacements:
 
@@ -290,6 +305,14 @@ def filter_candidates(records, category, crop):
     candidates = records
 
     # --------------------------------------------------
+# Candidate filtering
+# --------------------------------------------------
+
+def filter_candidates(records, category, crop):
+
+    candidates = records
+
+    # --------------------------------------------------
     # Category filtering
     # --------------------------------------------------
 
@@ -307,12 +330,15 @@ def filter_candidates(records, category, crop):
     # --------------------------------------------------
     # Crop filtering
     # --------------------------------------------------
-    # If a specific crop is detected, keep both:
-    #   1. records specifically for that crop
-    #   2. General records that may apply across crops
+    # V5.3 crop-priority logic:
     #
-    # This prevents relevant General records from being
-    # eliminated before similarity scoring.
+    # 1. Prefer records for the detected crop.
+    # 2. If none exist, use General records.
+    # 3. If neither exists, preserve the category
+    #    candidate pool for broader fallback behavior.
+    #
+    # This prevents a General or unrelated crop record
+    # from competing directly with a crop-specific record.
     # --------------------------------------------------
 
     if crop:
@@ -320,11 +346,20 @@ def filter_candidates(records, category, crop):
         crop_matches = [
             record
             for record in candidates
-            if record.get("crop") in (crop, "General")
+            if record.get("crop") == crop
         ]
 
         if crop_matches:
-            candidates = crop_matches
+            return crop_matches
+
+        general_matches = [
+            record
+            for record in candidates
+            if record.get("crop") == "General"
+        ]
+
+        if general_matches:
+            return general_matches
 
     return candidates
 
@@ -535,11 +570,11 @@ def search_question_v5_2(
 
             best_record = record
 
-        # --------------------------------------------------
-        # Confidence check
-        # --------------------------------------------------
+    # --------------------------------------------------
+    # Confidence check
+    # --------------------------------------------------
 
-        if sub_intent == "GENERAL":
+    if sub_intent == "GENERAL":
 
         # General queries require stronger textual similarity
         # because no specific intent/category filter was available.
@@ -549,7 +584,14 @@ def search_question_v5_2(
 
         else:
 
+            return None, best_score
+
+    else:
+
         if best_score >= MIN_SCORE:
+
             return best_record, best_score
+
+        else:
 
             return None, best_score
