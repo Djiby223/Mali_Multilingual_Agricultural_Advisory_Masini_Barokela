@@ -322,12 +322,11 @@ def filter_candidates(records, category, crop):
     # --------------------------------------------------
     # Crop filtering
     # --------------------------------------------------
-    # If a specific crop is detected, keep both:
-    #   1. records specifically for that crop
-    #   2. General records that may apply across crops
+    # If a specific crop is detected, prioritize records
+    # specifically associated with that crop.
     #
-    # This prevents relevant General records from being
-    # eliminated before similarity scoring.
+    # General records remain available as a fallback ONLY
+    # when no crop-specific records exist.
     # --------------------------------------------------
 
     if crop:
@@ -335,11 +334,22 @@ def filter_candidates(records, category, crop):
         crop_matches = [
             record
             for record in candidates
-            if record.get("crop") in (crop, "General")
+            if record.get("crop") == crop
         ]
 
         if crop_matches:
             candidates = crop_matches
+
+        else:
+
+            general_matches = [
+                record
+                for record in candidates
+                if record.get("crop") == "General"
+            ]
+
+            if general_matches:
+                candidates = general_matches
 
     return candidates
 

@@ -305,14 +305,6 @@ def filter_candidates(records, category, crop):
     candidates = records
 
     # --------------------------------------------------
-# Candidate filtering
-# --------------------------------------------------
-
-def filter_candidates(records, category, crop):
-
-    candidates = records
-
-    # --------------------------------------------------
     # Category filtering
     # --------------------------------------------------
 
@@ -330,15 +322,11 @@ def filter_candidates(records, category, crop):
     # --------------------------------------------------
     # Crop filtering
     # --------------------------------------------------
-    # V5.3 crop-priority logic:
+    # If a specific crop is detected, prioritize records
+    # specifically associated with that crop.
     #
-    # 1. Prefer records for the detected crop.
-    # 2. If none exist, use General records.
-    # 3. If neither exists, preserve the category
-    #    candidate pool for broader fallback behavior.
-    #
-    # This prevents a General or unrelated crop record
-    # from competing directly with a crop-specific record.
+    # General records remain available as a fallback ONLY
+    # when no crop-specific records exist.
     # --------------------------------------------------
 
     if crop:
@@ -350,16 +338,18 @@ def filter_candidates(records, category, crop):
         ]
 
         if crop_matches:
-            return crop_matches
+            candidates = crop_matches
 
-        general_matches = [
-            record
-            for record in candidates
-            if record.get("crop") == "General"
-        ]
+        else:
 
-        if general_matches:
-            return general_matches
+            general_matches = [
+                record
+                for record in candidates
+                if record.get("crop") == "General"
+            ]
+
+            if general_matches:
+                candidates = general_matches
 
     return candidates
 
