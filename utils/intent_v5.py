@@ -470,25 +470,40 @@ INTENT_PATTERNS = {
 
 MULTILINGUAL_INTENT_PATTERNS = {
 
-    "PLANTING_TIME": [
-        # French
-        "quand planter",
-        "quand faut il planter",
-        "quand faut-il planter",
-        "quand semer",
-        "quand faut il semer",
-        "quand faut-il semer",
-        "meilleur moment pour planter",
-        "meilleur moment pour semer",
-        "meilleure période pour planter",
-        "meilleure période pour semer",
-        "période recommandée pour planter",
-        "période recommandée pour semer",
-        "moment recommandé pour planter",
-        "moment recommandé pour semer",
-        "quelle période pour planter",
-        "quelle période pour semer",
-    ],
+"PLANTING_TIME": [
+    # French
+    "quand planter",
+    "quand faut il planter",
+    "quand faut-il planter",
+    "quand semer",
+    "quand faut il semer",
+    "quand faut-il semer",
+
+    "meilleur moment pour planter",
+    "meilleur moment pour semer",
+
+    "meilleure période pour planter",
+    "meilleure période pour semer",
+
+    "période recommandée pour planter",
+    "période recommandée pour semer",
+
+    "moment recommandé pour planter",
+    "moment recommandé pour semer",
+
+    "quelle période pour planter",
+    "quelle période pour semer",
+
+    # Additional natural French constructions
+    "à quelle période faut-il planter",
+    "à quelle période faut-il semer",
+    "a quelle période faut-il planter",
+    "a quelle période faut-il semer",
+    "à quelle période faut il planter",
+    "à quelle période faut il semer",
+    "a quelle période faut il planter",
+    "a quelle période faut il semer",
+],
 
     "PLANTING_DEPTH": [
         # French
