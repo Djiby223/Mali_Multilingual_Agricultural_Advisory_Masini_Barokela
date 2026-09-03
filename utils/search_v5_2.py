@@ -402,6 +402,51 @@ def search_question_v5_2(
     )
 
     # --------------------------------------------------
+    # Intent-aware crop specificity
+    # --------------------------------------------------
+    # If a crop-specific record exists for the detected
+    # intent, prioritize those records exclusively.
+    #
+    # Otherwise, retain the existing candidate pool so
+    # General records remain available as a fallback.
+    # --------------------------------------------------
+
+    if crop and sub_intent and sub_intent != "GENERAL":
+
+        crop_intent_matches = []
+
+        for record in candidates:
+
+            if record.get("crop") != crop:
+                continue
+
+            language_data = record.get(
+                language_key,
+                {},
+            )
+
+            question = language_data.get(
+                "question"
+            )
+
+            if not question:
+                continue
+
+            candidate_intent = detect_candidate_intent(
+                question
+            )
+
+            if candidate_intent == sub_intent:
+
+                crop_intent_matches.append(
+                    record
+                )
+
+        if crop_intent_matches:
+
+            candidates = crop_intent_matches
+
+    # --------------------------------------------------
     # Normalize query
     # --------------------------------------------------
 

@@ -400,6 +400,7 @@ def search_question_v5_2(
         language,
         "english",
     )
+
     # --------------------------------------------------
     # Intent-aware crop specificity
     # --------------------------------------------------
@@ -444,6 +445,7 @@ def search_question_v5_2(
         if crop_intent_matches:
 
             candidates = crop_intent_matches
+
     # --------------------------------------------------
     # Normalize query
     # --------------------------------------------------
