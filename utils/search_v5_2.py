@@ -300,7 +300,7 @@ def meaningful_tokens(text, language_key):
 # Candidate filtering
 # --------------------------------------------------
 
-def filter_candidates(records, category, crop):
+def filter_candidates(records, category, crop, sub_intent=None):
 
     candidates = records
 
@@ -322,11 +322,10 @@ def filter_candidates(records, category, crop):
     # --------------------------------------------------
     # Crop filtering
     # --------------------------------------------------
-    # If a specific crop is detected, prioritize records
-    # specifically associated with that crop.
+    # Prefer crop-specific records ONLY when they also
+    # match the requested intent.
     #
-    # General records remain available as a fallback ONLY
-    # when no crop-specific records exist.
+    # Otherwise, retain General records as fallback.
     # --------------------------------------------------
 
     if crop:
@@ -337,7 +336,39 @@ def filter_candidates(records, category, crop):
             if record.get("crop") == crop
         ]
 
-        if crop_matches:
+        # If a specific intent is available, keep only
+        # crop-specific records matching that intent.
+        if sub_intent and sub_intent != "GENERAL":
+
+            intent_crop_matches = [
+                record
+                for record in crop_matches
+                if detect_candidate_intent(
+                    record.get(
+                        LANGUAGE_KEYS.get(
+                            "English",
+                            "english"
+                        ),
+                        {}
+                    ).get("question", "")
+                ) == sub_intent
+            ]
+
+            if intent_crop_matches:
+                candidates = intent_crop_matches
+            else:
+
+                general_matches = [
+                    record
+                    for record in candidates
+                    if record.get("crop") == "General"
+                ]
+
+                if general_matches:
+                    candidates = general_matches
+
+        elif crop_matches:
+
             candidates = crop_matches
 
         else:
