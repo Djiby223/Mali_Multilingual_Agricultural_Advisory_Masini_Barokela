@@ -304,10 +304,6 @@ def filter_candidates(records, category, crop):
 
     candidates = records
 
-    # --------------------------------------------------
-    # Category filtering
-    # --------------------------------------------------
-
     if category:
 
         category_matches = [
@@ -319,40 +315,18 @@ def filter_candidates(records, category, crop):
         if category_matches:
             candidates = category_matches
 
-    # --------------------------------------------------
-    # Crop filtering
-    # --------------------------------------------------
-    # If a specific crop is detected, prioritize records
-    # specifically associated with that crop.
-    #
-    # General records remain available as a fallback ONLY
-    # when no crop-specific records exist.
-    # --------------------------------------------------
-
     if crop:
 
         crop_matches = [
             record
             for record in candidates
-            if record.get("crop") == crop
+            if record.get("crop") in (crop, "General")
         ]
 
         if crop_matches:
             candidates = crop_matches
 
-        else:
-
-            general_matches = [
-                record
-                for record in candidates
-                if record.get("crop") == "General"
-            ]
-
-            if general_matches:
-                candidates = general_matches
-
     return candidates
-
 
 # --------------------------------------------------
 # Candidate intent detection
@@ -426,7 +400,50 @@ def search_question_v5_2(
         language,
         "english",
     )
+    # --------------------------------------------------
+    # Intent-aware crop specificity
+    # --------------------------------------------------
+    # If a crop-specific record exists for the detected
+    # intent, prioritize those records exclusively.
+    #
+    # Otherwise, retain the existing candidate pool so
+    # General records remain available as a fallback.
+    # --------------------------------------------------
 
+    if crop and sub_intent and sub_intent != "GENERAL":
+
+        crop_intent_matches = []
+
+        for record in candidates:
+
+            if record.get("crop") != crop:
+                continue
+
+            language_data = record.get(
+                language_key,
+                {},
+            )
+
+            question = language_data.get(
+                "question"
+            )
+
+            if not question:
+                continue
+
+            candidate_intent = detect_candidate_intent(
+                question
+            )
+
+            if candidate_intent == sub_intent:
+
+                crop_intent_matches.append(
+                    record
+                )
+
+        if crop_intent_matches:
+
+            candidates = crop_intent_matches
     # --------------------------------------------------
     # Normalize query
     # --------------------------------------------------
