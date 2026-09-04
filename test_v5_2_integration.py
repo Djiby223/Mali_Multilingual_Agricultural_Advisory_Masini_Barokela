@@ -84,7 +84,7 @@ TESTS = [
         "language": "Français",
         "question": "Quelle est la meilleure période pour planter le mil ?",
         "expected_id": "1",
-        "expected_intent": "GENERAL",
+        "expected_intent": "PLANTING_TIME",
         "expected_crop": "Millet",
     },
     {
@@ -92,7 +92,7 @@ TESTS = [
         "language": "Français",
         "question": "Quelle est la meilleure période pour planter le maïs ?",
         "expected_id": "2",
-        "expected_intent": "GENERAL",
+        "expected_intent": "PLANTING_TIME",
         "expected_crop": "Maize",
     },
     {
@@ -100,7 +100,7 @@ TESTS = [
         "language": "Français",
         "question": "Quelle est la profondeur recommandée pour semer les graines de mil ?",
         "expected_id": "3",
-        "expected_intent": "GENERAL",
+        "expected_intent": "PLANTING_DEPTH",
         "expected_crop": "Millet",
     },
     {
@@ -108,7 +108,7 @@ TESTS = [
         "language": "Français",
         "question": "Quel espacement faut-il entre les plants de maïs ?",
         "expected_id": "4",
-        "expected_intent": "GENERAL",
+        "expected_intent": "PLANTING_SPACING",
         "expected_crop": "Maize",
     },
 
