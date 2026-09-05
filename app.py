@@ -47,35 +47,40 @@ TEXT = {
         "subtitle": "Multilingual Agricultural Advisory Chatbot for Mali",
         "crop": "Select a crop",
         "question": "Ask your agricultural question",
-        "button": "Get advice"
+        "button": "Get advice",
+        "messages": {
+            "enter_question": "Please enter an agricultural question.",
+            "welcome": "Welcome to Masini Barokela!",
+            "non_agriculture": "Please ask an agricultural question."
+        }
     },
+
     "Français": {
         "title": "🌾 Masini Barokela",
         "subtitle": "Assistant agricole multilingue pour le Mali",
         "crop": "Choisissez une culture",
         "question": "Posez votre question agricole",
-        "button": "Obtenir un conseil"
+        "button": "Obtenir un conseil",
+        "messages": {
+            "enter_question": "Veuillez saisir une question agricole.",
+            "welcome": "Bienvenue sur Masini Barokela !",
+            "non_agriculture": "Veuillez poser une question agricole."
+        }
     },
+
     "Bamanankan": {
         "title": "🌾 Masini Barokela",
         "subtitle": "Mali ka senekɛlaw ka barokɛla",
         "crop": "Bii min sugandi",
         "question": "I ka senekɛlɛla kumakan don",
-        "button": "Baro sɔrɔ"
-    },
-    "messages": {
-        "enter_question": "Please enter an agricultural question.",
-        "welcome": "Welcome to Masini Barokela!",
-        "non_agriculture": "Please ask an agricultural question."
-},
-    "messages": {
-        "enter_question": "Veuillez saisir une question agricole.",
-        "welcome": "Bienvenue sur Masini Barokela !",
-        "non_agriculture": "Veuillez poser une question agricole."
+        "button": "Baro sɔrɔ",
+        "messages": {
+            "enter_question": "Agriculture kumakan dɔn.",
+            "welcome": "Aw ni ce! Masini Barokela.",
+            "non_agriculture": "Aw ye agriculture kumakan dɔn."
+        }
+    }
 }
-}
-
-t = TEXT[language]
 
 # ---------------------------
 # Simple Agricultural Knowledge Base
