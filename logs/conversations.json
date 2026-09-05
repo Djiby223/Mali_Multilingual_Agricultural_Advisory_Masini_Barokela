@@ -264,5 +264,12 @@
         "score": 71.5,
         "language": "English",
         "time": "2026-08-12 11:59:50"
+    },
+    {
+        "question": "What is the best time to plant millet?",
+        "answer": "Millet should be planted at the beginning of the rainy season when adequate rainfall is expected.",
+        "score": 100,
+        "language": "English",
+        "time": "2026-09-05 23:26:37"
     }
 ]
