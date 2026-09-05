@@ -129,10 +129,9 @@ if st.button(t["button"]):
         st.warning(t["messages"]["non_agriculture"])
 
     else:
-        intent = detect_intent(question)
-
+        
         start_time = time.perf_counter()
-        result, score = search_question_v5(question, language)
+        result, score = search_question_v5_2(question, language)
         elapsed_ms = (time.perf_counter() - start_time) * 1000
 
         if result:
