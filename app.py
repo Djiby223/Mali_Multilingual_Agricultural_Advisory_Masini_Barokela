@@ -4,8 +4,7 @@ from utils.search_v5_2 import search_question_v5_2
 
 from utils.classifier import (
     is_greeting,
-    is_agriculture_question,
-)
+    )
 
 from datetime import datetime
 
