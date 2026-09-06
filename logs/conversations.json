@@ -278,5 +278,33 @@
         "score": 100,
         "language": "English",
         "time": "2026-09-06 00:14:04"
+    },
+    {
+        "question": "What is the best time to plant millet?",
+        "answer": "Millet should be planted at the beginning of the rainy season when adequate rainfall is expected.",
+        "score": 100,
+        "language": "English",
+        "time": "2026-09-06 00:42:01"
+    },
+    {
+        "question": "Quel est le meilleur moment pour semer le mil ?",
+        "answer": "Le mil doit être planté au début de la saison des pluies lorsque les précipitations sont suffisantes.",
+        "score": 74.4,
+        "language": "Français",
+        "time": "2026-09-06 00:42:52"
+    },
+    {
+        "question": "What is the best time to plant millet?",
+        "answer": "Millet should be planted at the beginning of the rainy season when adequate rainfall is expected.",
+        "score": 100,
+        "language": "English",
+        "time": "2026-09-06 00:45:03"
+    },
+    {
+        "question": "Ɲɔ ka kan ka dan tuma jumɛn?",
+        "answer": "Ɲɔ ka kan ka dan samiyɛ daminɛ tuma la, sanjiba fɔlɔw mana na.",
+        "score": 100,
+        "language": "Bamanankan",
+        "time": "2026-09-06 00:46:42"
     }
 ]
