@@ -306,5 +306,40 @@
         "score": 100,
         "language": "Bamanankan",
         "time": "2026-09-06 00:46:42"
+    },
+    {
+        "question": "Quel est le meilleur moment pour semer le mil ?",
+        "answer": "Le mil doit être planté au début de la saison des pluies lorsque les précipitations sont suffisantes.",
+        "score": 74.4,
+        "language": "Français",
+        "time": "2026-09-06 17:36:24"
+    },
+    {
+        "question": "Ɲɔ ka kan ka dan tuma jumɛn?",
+        "answer": "Ɲɔ ka kan ka dan samiyɛ daminɛ tuma la, sanjiba fɔlɔw mana na.",
+        "score": 100,
+        "language": "Bamanankan",
+        "time": "2026-09-06 17:37:01"
+    },
+    {
+        "question": "Quel est le meilleur moment pour semer le mil ?",
+        "answer": "Le mil doit être planté au début de la saison des pluies lorsque les précipitations sont suffisantes.",
+        "score": 74.4,
+        "language": "Français",
+        "time": "2026-09-06 17:40:45"
+    },
+    {
+        "question": "Ɲɔ ka kan ka dan tuma jumɛn?",
+        "answer": "Ɲɔ ka kan ka dan samiyɛ daminɛ tuma la, sanjiba fɔlɔw mana na.",
+        "score": 100,
+        "language": "Bamanankan",
+        "time": "2026-09-06 17:44:24"
+    },
+    {
+        "question": "Quel est le meilleur moment pour semer le mil ?",
+        "answer": "Le mil doit être planté au début de la saison des pluies lorsque les précipitations sont suffisantes.",
+        "score": 74.4,
+        "language": "Français",
+        "time": "2026-09-06 17:45:50"
     }
 ]
