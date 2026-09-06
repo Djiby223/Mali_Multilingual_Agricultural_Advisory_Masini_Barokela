@@ -116,6 +116,7 @@ ADVICE = {
 # ---------------------------
 # Interface
 # ---------------------------
+t = TEXT[language]
 st.title(t["title"])
 st.write(t["subtitle"])
 
