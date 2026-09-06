@@ -131,13 +131,11 @@ if st.button(t["button"]):
     elif is_greeting(question):
         st.success(t["messages"]["welcome"])
 
-    elif not is_agriculture_question(question):
-        st.warning(t["messages"]["non_agriculture"])
 
     else:
 
-
         start_time = time.perf_counter()
+
         result, score = search_question_v5_2(question, language)
         elapsed_ms = (time.perf_counter() - start_time) * 1000
 
@@ -173,7 +171,7 @@ if st.button(t["button"]):
             if developer_mode:
 
                 st.divider()
-                st.subheader("🛠 Developer Mode")
+                st.subheader("🛠️ Developer Mode")
 
                 st.markdown(f"""
 **Language:** {language}
