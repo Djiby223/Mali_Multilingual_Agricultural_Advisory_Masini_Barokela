@@ -1,0 +1,4 @@
+Concept_ID	Domain	English	French	Bambara	NKo	Latin_Transliteration	Source	Source_Type	Validation_Status	Validator	Notes
+NKO-001	GENERAL	name	nom		togo / tooh		Unicode	Mandatory reference	PENDING		
+NKO-002	AGRICULTURE	soil	sol / terre		banku / duukolo		Malidaba	Dictionary	PENDING		
+NKO-003	AGRICULTURE	land	terre / pays		banku / duukolo		Malidaba	Dictionary	PENDING		
