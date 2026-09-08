@@ -1,9 +1,14 @@
 from utils.nko_inspector import inspect_text
 
 
+NKO_A = "\u07CA"
+NKO_BA = "\u07D3"
+NKO_HIGH_TONE = "\u07EB"
+
+
 def test_basic_inspection():
 
-    results = inspect_text("ߊߓߊ")
+    results = inspect_text(NKO_A + NKO_BA + NKO_A)
 
     assert len(results) == 3
 
@@ -19,7 +24,7 @@ def test_basic_inspection():
 
 def test_combining_mark():
 
-    results = inspect_text("ߊ߫")
+    results = inspect_text(NKO_A + NKO_HIGH_TONE)
 
     assert len(results) == 2
 
@@ -35,17 +40,18 @@ def test_combining_mark():
 
 def test_bidirectional_classes():
 
-    results = inspect_text("ߊ߫")
+    results = inspect_text(NKO_A + NKO_HIGH_TONE)
 
     assert results[0]["bidirectional"] == "R"
 
-    # Combining marks use the Unicode NSM class.
     assert results[1]["bidirectional"] == "NSM"
 
 
 def test_nko_detection():
 
-    results = inspect_text("ߊߓߊ߫")
+    results = inspect_text(
+        NKO_A + NKO_BA + NKO_A + NKO_HIGH_TONE
+    )
 
     assert all(
         item["is_nko"] is True
