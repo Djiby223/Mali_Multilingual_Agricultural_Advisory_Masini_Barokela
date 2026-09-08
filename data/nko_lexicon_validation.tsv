@@ -1,4 +1,6 @@
-Concept_ID	Domain	English	French	Bambara	NKo	Latin_Transliteration	Source	Source_Type	Validation_Status	Validator	Notes
-NKO-001	GENERAL	name	nom		togo / tooh		Unicode	Mandatory reference	PENDING		
-NKO-002	AGRICULTURE	soil	sol / terre		banku / duukolo		Malidaba	Dictionary	PENDING		
-NKO-003	AGRICULTURE	land	terre / pays		banku / duukolo		Malidaba	Dictionary	PENDING		
+﻿Concept_ID    Domain    English    French    Bambara    NKo    Latin_Transliteration    Source    Source_Type    Validation_Status    Validator    Notes
+NKO-001    AGRICULTURE    soil    sol / terre    ߓߊ߲߬ߞߎ?    ߓߊ߲߬ߞߎ    bànku    Malidaba    Dictionary    SOURCE_ATTESTED        Maninka dictionary entry; agricultural concept requires later Mali/Bambara validation
+NKO-002    AGRICULTURE    land / earth    terre / sol        ߘߎ߰ߞߟߏ    dùukolo    Malidaba    Dictionary    SOURCE_ATTESTED        Semantic distinction from bànku must be investigated
+NKO-003    AGRICULTURE    water    eau        ߖߌ    jí    Malidaba    Dictionary    SOURCE_ATTESTED        Maninka dictionary evidence; agricultural usage to be validated separately
+NKO-004    AGRICULTURE    seed    semence / graine        ߛߌ    sí    Malidaba    Dictionary    SOURCE_ATTESTED        Dictionary explicitly gives seed; same form has other meanings
+NKO-005    AGRICULTURE    agricultural work    travail agricole        ߡߊ߬ߗߋ    màce    Malidaba    Dictionary    SOURCE_ATTESTED        Dictionary explicitly defines agricultural work
