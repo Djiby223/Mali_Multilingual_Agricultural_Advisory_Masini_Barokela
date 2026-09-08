@@ -1,0 +1,7 @@
+Concept_ID	Domain	English_Concept	French_Concept	Language	Script	NKo	Latin_Transliteration	Validation_Status	Source	Notes
+AGRI-SOIL-EARTH	AGRICULTURE	soil / earth	sol / terre	Maninka	NKo	ߓߊ߲߬ߞߎ	bànku	SOURCE_ATTESTED	Malidaba	Maninka lexical form; Bambara evidence also found
+AGRI-SOIL-EARTH	AGRICULTURE	soil / earth	sol / terre	Maninka	NKo	ߘߎ߰ߞߟߏ	dùukolo	SOURCE_ATTESTED	Malidaba	Related lexical form; semantic distinction from bànku requires further study
+AGRI-WATER	AGRICULTURE	water	eau	Maninka	NKo	ߖߌ	jí	SOURCE_ATTESTED	Malidaba	Bambara evidence also found; agricultural compounds documented
+AGRI-SEED	AGRICULTURE	seed	semence / graine	Maninka	NKo	ߛߌ	sí	SOURCE_ATTESTED	Malidaba	Bambara evidence also found; multiple lexical meanings require concept disambiguation
+AGRI-WORK	AGRICULTURE	agricultural work	travail agricole	Maninka	NKo	ߡߊ߬ߗߋ	màce	SOURCE_ATTESTED	Malidaba	Agriculture-specific lexical meaning
+AGRI-FARM-WORK	AGRICULTURE	farm work / agriculture	travail agricole / agriculture	Maninka	NKo	ߛߍ߬ߣߍ	sɛ̀nɛ	SOURCE_ATTESTED	Malidaba	Agriculture-specific term; potentially related to cultivation
