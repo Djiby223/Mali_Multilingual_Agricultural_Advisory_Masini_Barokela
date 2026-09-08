@@ -32,5 +32,4 @@ if __name__ == "__main__":
     test_mixed()
     test_empty()
     test_whitespace()
-
     print("NKO-01 ALL TESTS PASSED")
