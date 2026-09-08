@@ -66,20 +66,30 @@ def recognize_nko_query(text):
     recognized_forms = []
     possible_concepts = []
 
+    seen_lexical_forms = set()
+
     for _, row in df.iterrows():
         nko_form = row["NKo"]
 
         if nko_form in text:
-            recognized_forms.append(
-                {
-                    "Lexical_Form_ID": row["Lexical_Form_ID"],
-                    "NKo": nko_form,
-                    "Latin_Transliteration": row[
-                        "Latin_Transliteration"
-                    ],
-                }
-            )
 
+            lexical_form_id = row["Lexical_Form_ID"]
+
+            # Record each lexical form only once.
+            if lexical_form_id not in seen_lexical_forms:
+                recognized_forms.append(
+                    {
+                        "Lexical_Form_ID": lexical_form_id,
+                        "NKo": nko_form,
+                        "Latin_Transliteration": row[
+                            "Latin_Transliteration"
+                        ],
+                    }
+                )
+
+                seen_lexical_forms.add(lexical_form_id)
+
+            # Keep every sense.
             possible_concepts.append(
                 {
                     "Sense_ID": row["Sense_ID"],
