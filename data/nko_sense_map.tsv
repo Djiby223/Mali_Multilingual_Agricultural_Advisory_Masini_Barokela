@@ -1,12 +1,8 @@
-Lexical_Form_ID
-Sense_ID
-NKo
-Latin_Transliteration
-Language
-Meaning
-French_Meaning
-Domain
-Concept_ID
-Validation_Status
-Source
-Notes
+Lexical_Form_ID	Sense_ID	NKo	Latin_Transliteration	Language	Meaning	French_Meaning	Domain	Concept_ID	Validation_Status	Source	Notes
+NKO-LF-001	NKO-S-001	ߓߊ߲߬ߞߎ	bànku	Maninka	soil / earth / land	sol / terre / pays	AGRICULTURE	AGRI-SOIL-EARTH	SOURCE_ATTESTED	Malidaba	Agricultural sense; exact semantic boundaries require further study
+NKO-LF-002	NKO-S-002	ߘߎ߰ߞߟߏ	dùukolo	Maninka	earth / soil	terre / sol	AGRICULTURE	AGRI-SOIL-EARTH	SOURCE_ATTESTED	Malidaba	Related lexical form; distinction from bànku requires further semantic study
+NKO-LF-003	NKO-S-003	ߖߌ	jí	Maninka	water	eau	AGRICULTURE	AGRI-WATER	SOURCE_ATTESTED	Malidaba	General water sense; agricultural compounds also documented
+NKO-LF-004	NKO-S-004	ߛߌ	sí	Maninka	seed / grain	semence / graine	AGRICULTURE	AGRI-SEED	SOURCE_ATTESTED	Malidaba	Agricultural sense
+NKO-LF-004	NKO-S-005	ߛߌ	sí	Maninka	hair / fleece / feather	cheveu / toison / plume	NON_AGRICULTURE	NOT_MAPPED	SOURCE_ATTESTED	Malidaba	Non-agricultural sense; demonstrates lexical ambiguity
+NKO-LF-005	NKO-S-006	ߡߊ߬ߗߋ	màce	Maninka	agricultural work / work / activity	travail agricole / travail / activité	AGRICULTURE	AGRI-WORK	SOURCE_ATTESTED	Malidaba	Agriculture-specific sense documented
+NKO-LF-006	NKO-S-007	ߛߍ߬ߣߍ	sɛ̀nɛ	Maninka	farm work / agriculture / cultivation	travail agricole / agriculture / culture	AGRICULTURE	AGRI-FARM-WORK	SOURCE_ATTESTED	Malidaba	Agricultural sense; relationship to màce requires further study
