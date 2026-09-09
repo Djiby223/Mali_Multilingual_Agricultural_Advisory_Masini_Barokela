@@ -39,6 +39,16 @@ def recognize_nko_query(text):
     """
     Analyze a query at the script and lexical levels.
 
+    An N’Ko lexical form may occur inside a mixed-script query,
+    for example:
+
+        ߛߌ
+        ߛߌ seed
+        ߛߌ hair
+
+    The script classification remains the responsibility of
+    detect_script().
+
     Returns a dictionary containing:
         script
         recognized_forms
@@ -54,7 +64,9 @@ def recognize_nko_query(text):
 
     script = detect_script(text)
 
-    if script != "NKO":
+    # Only queries containing N’Ko should be searched
+    # against the N’Ko lexical database.
+    if script not in {"NKO", "MIXED"}:
         return {
             "script": script,
             "recognized_forms": [],
@@ -104,7 +116,6 @@ def recognize_nko_query(text):
         "recognized_forms": recognized_forms,
         "possible_concepts": possible_concepts,
     }
-
 
 if __name__ == "__main__":
     print("NKO-06 — N’Ko Query Recognition Prototype")
