@@ -1,0 +1,12 @@
+[33m27ad357[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/nko-challenge-nko01[m[33m, [m[1;31morigin/feature/nko-challenge-nko01[m[33m)[m Created test_nko_v5_adapter.py file
+[33m6c433a7[m Created nko_v5_adapter.py file
+[33m26baeea[m PowerShelled python -m pytest .\tests\test_nko_sense_resolver.py -v
+[33m19e3743[m Replaced result = resolve_senses("\u07d3\u07ca\u07f2\u07ec\u07ca") with result = resolve_senses("\u07d8\u07ce\u07f0\u07de\u07df\u07cf")
+[33mfe91aa6[m Commit pop up
+[33mc216369[m Filled test_nko_sense_resolver.py with code
+[33m1f72cba[m Commit pop up
+[33m8ae0ed6[m Created test_nko_sense_resolver.py
+[33mf9a1b75[m Commit pop up
+[33m6b10c67[m Replaced if script != "NKO": with if script not in {"NKO", "MIXED"}:
+[33m75290a8[m Commit pop up
+[33md15cc35[m Made change to nko_query.py
