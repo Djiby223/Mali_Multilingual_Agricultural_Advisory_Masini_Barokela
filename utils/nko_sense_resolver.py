@@ -93,7 +93,7 @@ def resolve_senses(query):
 
     script = result["script"]
 
-    if script != "NKO":
+    if script not in {"NKO", "MIXED"}:
         return {
             "script": script,
             "status": "NOT_NKO",
