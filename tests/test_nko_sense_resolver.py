@@ -88,7 +88,7 @@ def test_water_is_unambiguous():
 
 
 def test_banku_is_unambiguous():
-    result = resolve_senses("\u07d3\u07ca\u07f2\u07ec\u07ca")
+    result = resolve_senses("\u07d8\u07ce\u07f0\u07de\u07df\u07cf")
 
     assert result["script"] == "NKO"
     assert result["status"] == "UNAMBIGUOUS"
