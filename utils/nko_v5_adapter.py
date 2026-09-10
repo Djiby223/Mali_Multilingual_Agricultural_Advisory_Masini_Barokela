@@ -94,4 +94,3 @@ if __name__ == "__main__":
         print("=" * 60)
         print(f"Query: {query}")
         print(adapt_nko_query(query))
-     Set-Content -Encoding UTF8 .\utils\nko_v5_adapter.py
