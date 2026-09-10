@@ -1,4 +1,5 @@
-﻿"""
+﻿@'
+"""
 Masini Barokɛla
 N’Ko Challenge — NKO-V5
 
@@ -50,6 +51,23 @@ def adapt_nko_query(query):
         ):
             concept_ids.append(concept_id)
 
+    # --------------------------------------------------
+    # V5-facing status normalization
+    # --------------------------------------------------
+    #
+    # The semantic resolver distinguishes:
+    #
+    #   UNAMBIGUOUS = one lexical sense exists
+    #   RESOLVED    = contextual evidence selected one sense
+    #
+    # For the V5 adapter, both represent a successfully
+    # identified agricultural concept.
+    #
+    if status == "UNAMBIGUOUS" and concept_ids:
+        status = "RESOLVED"
+
+    # A resolver result marked RESOLVED but containing no
+    # usable agricultural concept must not be passed to V5.
     if status == "RESOLVED" and not concept_ids:
         status = "NON_AGRICULTURE"
 
@@ -77,3 +95,4 @@ if __name__ == "__main__":
         print("=" * 60)
         print(f"Query: {query}")
         print(adapt_nko_query(query))
+'@ | Set-Content -Encoding UTF8 .\utils\nko_v5_adapter.py
