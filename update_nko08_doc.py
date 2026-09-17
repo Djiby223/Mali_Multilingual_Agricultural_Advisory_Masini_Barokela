@@ -6,6 +6,16 @@ path = Path(
 
 text = path.read_text(encoding="utf-8")
 
+text = text.replace(
+    "**Current checkpoint:** NKO-V5 adapter validation",
+    "**Current checkpoint:** NKO-08 controlled concept mapping",
+)
+
+text = text.replace(
+    "**Status:** Experimental N’Ko subsystem validated through NKO-V5",
+    "**Status:** Experimental N’Ko subsystem validated through NKO-08",
+)
+
 marker = "## 5. Current Experimental Boundary"
 
 if marker not in text:
