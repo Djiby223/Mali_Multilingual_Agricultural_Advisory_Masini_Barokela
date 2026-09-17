@@ -122,15 +122,15 @@ The following experimental resources were created:
 * `utils/nko_v5_concept_mapper.py`
 * `tests/test_nko_v5_concept_mapper.py`
 
-The initial validated concept mappings are:
+The validated experimental concept mappings are:
 
-| N’Ko Concept_ID   | KB Category     | KB Crop | Evidence         |
-| ----------------- | --------------- | ------- | ---------------- |
-| `AGRI-WATER`      | Irrigation      | General | KB records 7–10  |
-| `AGRI-SOIL-EARTH` | Soil Management | General | KB records 36–40 |
-| `AGRI-SEED`       | Seed Selection  | General | KB records 51–55 |
+| N’Ko Concept_ID | KB Category | KB Crop | Status | Evidence |
+| --- | --- | --- | --- | --- |
+| `AGRI-WATER` | Irrigation | General | CANDIDATE_VALIDATED | KB records 6–10 |
+| `AGRI-SOIL-EARTH` | Soil Management | General | CANDIDATE_VALIDATED | KB records 36–40 |
+| `AGRI-SEED` | Seed Selection | General | CANDIDATE_VALIDATED | KB records 51–55 |
 
-These mappings represent experimental semantic links to existing Masini Barokɛla knowledge-base concepts. They are not yet production retrieval rules.
+These mappings represent controlled semantic links to existing Masini Barokɛla knowledge-base categories. They are not production retrieval rules.
 
 ### NKO-08 Validation
 
@@ -148,19 +148,83 @@ The tests validate:
 * multiple Concept_ID values → multiple mappings
 * duplicate Concept_ID values → deduplicated mappings
 
-The complete N’Ko experimental test group subsequently passed:
-
-**78/78 tests passed**
-
-The complete Masini Barokɛla project regression suite also passed:
-
-**78/78 tests passed**
+The NKO-08 mapper stops at controlled semantic mapping. It does **not** retrieve answers from the knowledge base.
 
 ---
 
-## 6. Current Experimental Boundary
+## 6. NKO-09 Controlled KB Support Evaluation
 
-The current architecture remains intentionally isolated:
+NKO-09 introduces a separate controlled evaluation layer to determine whether the validated N’Ko Concept_ID mappings are supported by actual records in the Masini Barokɛla knowledge base.
+
+The evaluation is evidence-based: it checks whether the KB category produced by NKO-08 has real knowledge-base records. It does not retrieve an answer for an N’Ko question.
+
+### NKO-09 Evaluation Architecture
+
+```text
+Validated Concept_ID
+    |
+    v
+NKO-08 Concept Mapper
+    |
+    v
+KB Category / Crop Mapping
+    |
+    v
+NKO-09 Controlled KB Support Evaluation
+    |
+    v
+Actual KB Records
+```
+
+### NKO-09 Controlled Results
+
+The validated mappings were evaluated against the current Masini Barokɛla knowledge base:
+
+| Concept_ID | KB Category | KB Record Count | Supporting KB Records | Result |
+| --- | --- | ---: | --- | --- |
+| `AGRI-WATER` | Irrigation | 5 | 6, 7, 8, 9, 10 | **SUPPORTED** |
+| `AGRI-SOIL-EARTH` | Soil Management | 5 | 36, 37, 38, 39, 40 | **SUPPORTED** |
+| `AGRI-SEED` | Seed Selection | 5 | 51, 52, 53, 54, 55 | **SUPPORTED** |
+
+The dedicated NKO-09 controlled evaluator test suite passed:
+
+**7/7 tests passed**
+
+The NKO-09 evaluator establishes **knowledge-base support evidence** for the validated concept mappings. It does **not** establish end-to-end N’Ko question answering through the production retrieval engine.
+
+### NKO-09 Experimental Boundary
+
+NKO-09 does **not**:
+
+* retrieve answers from the knowledge base
+* call the production V5.3/V5.4 search engine
+* modify `search_question_v5_2`
+* modify `app.py`
+* introduce fuzzy matching
+* perform new linguistic interpretation
+* change production retrieval logic
+
+The NKO-09 stage is therefore an evaluation layer, not a production retrieval layer.
+
+---
+
+## 7. Current Experimental Boundary and Checkpoint
+
+At this stage, the N’Ko experimental subsystem has progressed through controlled KB support evaluation.
+
+Current validation status:
+
+* NKO-01 through NKO-07A: validated
+* NKO-V5 adapter: **8/8 tests passed**
+* NKO-08 concept mapper: **7/7 tests passed**
+* NKO-09 controlled KB evaluator: **7/7 tests passed**
+* Complete N’Ko experimental test group: **85/85 tests passed**
+* Full project regression: **85/85 tests passed**
+* Production V5.3/V5.4: **preserved and isolated**
+* Working tree: **clean**
+* Experimental branch: **synchronized with origin**
+
+### Current Experimental Architecture
 
 ```text
 N’Ko Input
@@ -184,40 +248,15 @@ NKO-08 Concept Mapper
 Experimental KB Category / Crop Mapping
     |
     v
-Future controlled V5 integration
+NKO-09 Controlled KB Support Evaluation
+    |
+    v
+Verified Supporting KB Records
+    |
+    v
+Future controlled retrieval experiment
 ```
-
-The NKO-08 mapper stops at controlled semantic mapping.
-
-It does **not**:
-
-* retrieve answers from the knowledge base
-* call the production V5.3/V5.4 search engine
-* modify `search_question_v5_2`
-* modify `app.py`
-* introduce fuzzy matching
-* perform new linguistic interpretation
-* change the production knowledge-base retrieval logic
 
 No direct connection to the production V5.3/V5.4 retrieval engine has been activated.
 
-Any future integration should be introduced as a separately tested, reversible, and explicitly controlled stage.
-
----
-
-## 7. Current Checkpoint
-
-At this stage, the N’Ko experimental subsystem has progressed through NKO-08 controlled concept mapping.
-
-Current validation status:
-
-* NKO-01 through NKO-07A: validated
-* NKO-V5 adapter: **8/8 tests passed**
-* NKO-08 concept mapper: **7/7 tests passed**
-* Complete N’Ko experimental test group: **78/78 tests passed**
-* Full project regression: **78/78 tests passed**
-* Production V5.3/V5.4: **preserved and isolated**
-* Working tree: **clean**
-* Experimental branch: **synchronized with origin**
-
-The next development stage should focus on controlled evaluation of whether and how the validated N’Ko concept mappings could eventually participate in knowledge-base retrieval, while preserving the current experimental boundary and keeping production integration reversible.
+Any future retrieval experiment should be introduced as a separately tested, reversible, and explicitly controlled stage, while preserving the current production boundary.
