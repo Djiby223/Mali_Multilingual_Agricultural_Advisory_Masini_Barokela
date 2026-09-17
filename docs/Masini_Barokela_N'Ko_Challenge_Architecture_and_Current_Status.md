@@ -108,7 +108,57 @@ This confirms that the experimental N’Ko adapter currently operates without re
 
 ---
 
-## 5. Current Experimental Boundary
+## 5. NKO-08 Controlled Concept Mapping
+
+NKO-08 introduces a controlled experimental mapping layer between validated N’Ko `Concept_ID` values and existing Masini Barokɛla knowledge-base categories.
+
+The mapping is deliberately semantic and controlled. It does **not** perform knowledge-base retrieval and does **not** modify the production V5.3/V5.4 search engine.
+
+### NKO-08 Mapping Resources
+
+The following experimental resources were created:
+
+* `data/nko_v5_concept_map.tsv`
+* `utils/nko_v5_concept_mapper.py`
+* `tests/test_nko_v5_concept_mapper.py`
+
+The initial validated concept mappings are:
+
+| N’Ko Concept_ID   | KB Category     | KB Crop | Evidence         |
+| ----------------- | --------------- | ------- | ---------------- |
+| `AGRI-WATER`      | Irrigation      | General | KB records 7–10  |
+| `AGRI-SOIL-EARTH` | Soil Management | General | KB records 36–40 |
+| `AGRI-SEED`       | Seed Selection  | General | KB records 51–55 |
+
+These mappings represent experimental semantic links to existing Masini Barokɛla knowledge-base concepts. They are not yet production retrieval rules.
+
+### NKO-08 Validation
+
+The dedicated NKO-08 concept-mapper test suite passed:
+
+**7/7 tests passed**
+
+The tests validate:
+
+* water → `Irrigation`
+* soil/earth → `Soil Management`
+* seed → `Seed Selection`
+* unknown Concept_ID → no mapping
+* empty Concept_ID list → no mapping
+* multiple Concept_ID values → multiple mappings
+* duplicate Concept_ID values → deduplicated mappings
+
+The complete N’Ko experimental test group subsequently passed:
+
+**78/78 tests passed**
+
+The complete Masini Barokɛla project regression suite also passed:
+
+**78/78 tests passed**
+
+---
+
+## 6. Current Experimental Boundary
 
 The current architecture remains intentionally isolated:
 
@@ -122,31 +172,52 @@ NKO Detection / Recognition
 Sense Resolution
     |
     v
+Validated Concept_ID
+    |
+    v
 NKO-V5 Adapter
     |
     v
-Validated Concept_ID
+NKO-08 Concept Mapper
+    |
+    v
+Experimental KB Category / Crop Mapping
     |
     v
 Future controlled V5 integration
 ```
 
-No direct connection to the production V5.3/V5.4 retrieval engine has yet been activated.
+The NKO-08 mapper stops at controlled semantic mapping.
 
-Any future integration should be introduced as a separately tested and reversible stage.
+It does **not**:
+
+* retrieve answers from the knowledge base
+* call the production V5.3/V5.4 search engine
+* modify `search_question_v5_2`
+* modify `app.py`
+* introduce fuzzy matching
+* perform new linguistic interpretation
+* change the production knowledge-base retrieval logic
+
+No direct connection to the production V5.3/V5.4 retrieval engine has been activated.
+
+Any future integration should be introduced as a separately tested, reversible, and explicitly controlled stage.
 
 ---
 
-## 6. Current Checkpoint
+## 7. Current Checkpoint
 
-At this stage, the N’Ko experimental subsystem has been validated through the NKO-V5 adapter boundary.
+At this stage, the N’Ko experimental subsystem has progressed through NKO-08 controlled concept mapping.
 
 Current validation status:
 
-- NKO-01 through NKO-07A: validated
-- NKO-V5 adapter: **8/8 tests passed**
-- Full project regression: **71/71 tests passed**
-- Production V5.3/V5.4: **preserved and isolated**
-- Working tree after validation: **clean**
+* NKO-01 through NKO-07A: validated
+* NKO-V5 adapter: **8/8 tests passed**
+* NKO-08 concept mapper: **7/7 tests passed**
+* Complete N’Ko experimental test group: **78/78 tests passed**
+* Full project regression: **78/78 tests passed**
+* Production V5.3/V5.4: **preserved and isolated**
+* Working tree: **clean**
+* Experimental branch: **synchronized with origin**
 
-The next development stage should focus on controlled evaluation of how validated N’Ko agricultural concepts could be mapped to existing Masini Barokɛla knowledge-base concepts, without directly modifying the production search engine.
+The next development stage should focus on controlled evaluation of whether and how the validated N’Ko concept mappings could eventually participate in knowledge-base retrieval, while preserving the current experimental boundary and keeping production integration reversible.
