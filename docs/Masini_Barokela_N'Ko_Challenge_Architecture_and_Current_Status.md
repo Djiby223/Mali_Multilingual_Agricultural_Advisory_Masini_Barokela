@@ -37,7 +37,7 @@ This distinction is important because script detection, lexical recognition, lan
 
 The N’Ko subsystem follows a layered experimental architecture:
 
-```text
+``	ext
 N’Ko Input
     |
     v
@@ -208,9 +208,74 @@ The NKO-09 stage is therefore an evaluation layer, not a production retrieval la
 
 ---
 
-## 7. Current Experimental Boundary and Checkpoint
+## 7. NKO-10 Controlled KB Retrieval
 
-At this stage, the N’Ko experimental subsystem has progressed through controlled KB support evaluation.
+NKO-10 introduces a separate controlled retrieval layer that retrieves complete Masini Barokɛla knowledge-base records for validated N’Ko Concept_ID mappings.
+
+The retrieval layer accepts only validated Concept_ID values produced by the experimental NKO-V5 pipeline. It does not accept arbitrary N’Ko text and does not perform linguistic interpretation, fuzzy matching, or answer generation.
+
+### NKO-10 Retrieval Architecture
+
+````text
+Validated Concept_ID
+    |
+    v
+NKO-08 Concept Mapper
+    |
+    v
+KB Category / Crop Mapping
+    |
+    v
+NKO-10 Controlled KB Retrieval
+    |
+    v
+Complete KB Records
+``
+
+### NKO-10 Controlled Results
+
+The validated mappings were used to retrieve complete records from the current Masini Barokɛla Master Knowledge Base:
+
+| Concept_ID | KB Category | Retrieved Records | Record Count | Result |
+| --- | --- | --- | ---: | --- |
+| AGRI-WATER | Irrigation | 6, 7, 8, 9, 10 | 5 | **RETRIEVED** |
+| AGRI-SOIL-EARTH | Soil Management | 36, 37, 38, 39, 40 | 5 | **RETRIEVED** |
+| AGRI-SEED | Seed Selection | 51, 52, 53, 54, 55 | 5 | **RETRIEVED** |
+
+A combined retrieval using the three validated concepts returned all 15 supporting records.
+
+The retrieved records preserve the complete 11-column Master Knowledge Base schema:
+
+ID, Category, English Question, English Answer, French Question, French Answer, Bambara Question, Bambara Answer, Crop, Region, Season
+
+The dedicated NKO-10 controlled retrieval test suite passed:
+
+**7/7 tests passed**
+
+The complete N’Ko experimental test group subsequently passed:
+
+**92/92 tests passed in 1.82 seconds**
+
+### NKO-10 Experimental Boundary
+
+NKO-10 does **not**:
+
+* accept arbitrary N’Ko text
+* perform linguistic interpretation
+* perform fuzzy matching
+* call the production V5.3/V5.4 search engine
+* modify search_question_v5_2
+* modify app.py
+* generate final answers
+* change production retrieval logic
+
+NKO-10 is therefore a controlled experimental retrieval layer and not a production retrieval layer.
+
+---
+
+## 8. Current Experimental Boundary and Checkpoint
+
+At this stage, the N’Ko experimental subsystem has progressed through controlled KB support evaluation and controlled KB retrieval.
 
 Current validation status:
 
@@ -218,10 +283,11 @@ Current validation status:
 * NKO-V5 adapter: **8/8 tests passed**
 * NKO-08 concept mapper: **7/7 tests passed**
 * NKO-09 controlled KB evaluator: **7/7 tests passed**
-* Complete N’Ko experimental test group: **85/85 tests passed**
-* Full project regression: **85/85 tests passed**
+* NKO-10 controlled KB retrieval: **7/7 tests passed**
+* Complete N’Ko experimental test group: **92/92 tests passed**
+* Full project regression: **92/92 tests passed**
 * Production V5.3/V5.4: **preserved and isolated**
-* Working tree: **clean**
+* Working tree: documentation update pending commit
 * Experimental branch: **synchronized with origin**
 
 ### NKO-V5 Controlled End-to-End Validation
@@ -248,7 +314,7 @@ Each validated agricultural concept reached the controlled KB evaluator and was 
 
 These control cases confirm that non-agricultural, unknown, and unresolved ambiguous inputs do not produce agricultural concept mappings or KB support.
 
-This validation is strictly experimental and controlled. It does not activate direct production retrieval, does not modify search_question_v5_2, and does not modify pp.py or the production V5.3/V5.4 retrieval path.
+This validation is strictly experimental and controlled. It does not activate direct production retrieval, does not modify search_question_v5_2, and does not modify app.py or the production V5.3/V5.4 retrieval path.
 
 ### Current Experimental Architecture
 
@@ -285,4 +351,4 @@ Future controlled retrieval experiment
 
 No direct connection to the production V5.3/V5.4 retrieval engine has been activated.
 
-Any future retrieval experiment should be introduced as a separately tested, reversible, and explicitly controlled stage, while preserving the current production boundary.
+Any future production integration should be introduced as a separately tested, reversible, and explicitly controlled stage, while preserving the current production boundary.
