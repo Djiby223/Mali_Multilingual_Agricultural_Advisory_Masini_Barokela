@@ -224,6 +224,32 @@ Current validation status:
 * Working tree: **clean**
 * Experimental branch: **synchronized with origin**
 
+### NKO-V5 Controlled End-to-End Validation
+
+A controlled end-to-end evaluation was performed across the experimental N’Ko pipeline, from N’Ko query recognition and sense resolution through the NKO-V5 adapter, concept mapping, and controlled Knowledge Base support evaluation.
+
+#### Positive agricultural cases
+
+| N’Ko Input | Concept_ID | KB Category | Supporting KB Records | Result |
+|---|---|---|---|---|
+| ߖߌ́ water | AGRI-WATER | Irrigation | 6–10 | SUPPORTED |
+| ߓߊ߲߬ߞߎ́ soil | AGRI-SOIL-EARTH | Soil Management | 36–40 | SUPPORTED |
+| ߛߌ́ seed | AGRI-SEED | Seed Selection | 51–55 | SUPPORTED |
+
+Each validated agricultural concept reached the controlled KB evaluator and was associated with five supporting records in the current experimental Knowledge Base.
+
+#### Negative and control cases
+
+| N’Ko Input | Experimental Result | Concept_IDs | KB Support |
+|---|---|---|---|
+| ߛߌ́ hair | NON_AGRICULTURE | [] | NO_SUPPORT |
+| Unknown N’Ko | NO_LEXICAL_MATCH | [] | NO_SUPPORT |
+| Bare ߛߌ́ | AMBIGUOUS | [] | NO_SUPPORT |
+
+These control cases confirm that non-agricultural, unknown, and unresolved ambiguous inputs do not produce agricultural concept mappings or KB support.
+
+This validation is strictly experimental and controlled. It does not activate direct production retrieval, does not modify search_question_v5_2, and does not modify pp.py or the production V5.3/V5.4 retrieval path.
+
 ### Current Experimental Architecture
 
 ```text
