@@ -117,3 +117,28 @@ def test_invalid_language_produces_no_answer_package():
     assert result["status"] == "NO_ANSWER_PACKAGE"
     assert result["record_count"] == 0
     assert result["answers"] == []
+
+def test_answer_package_preserves_metadata():
+    retrieval = retrieve_concept_records(["AGRI-WATER"])
+
+    result = assemble_answer_package(
+        retrieval,
+        language="English",
+    )
+
+    assert result["answers"][0]["Crop"] == retrieval["records"][0]["Crop"]
+    assert result["answers"][0]["Region"] == retrieval["records"][0]["Region"]
+    assert result["answers"][0]["Season"] == retrieval["records"][0]["Season"]
+
+
+def test_answer_assembly_does_not_mutate_retrieval_result():
+    retrieval = retrieve_concept_records(["AGRI-WATER"])
+
+    original_records = [record.copy() for record in retrieval["records"]]
+
+    assemble_answer_package(
+        retrieval,
+        language="English",
+    )
+
+    assert retrieval["records"] == original_records
