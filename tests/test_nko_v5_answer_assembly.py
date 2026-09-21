@@ -18,7 +18,7 @@ It does NOT:
 """
 
 from utils.nko_v5_controlled_retrieval import retrieve_concept_records
-from utils.nko_v5_answer_assembler import assemble_answer_package
+from utils.nko_v5_answer_assembler import assemble_answer_package`r`nfrom test_nko_v5_end_to_end import run_controlled_pipeline
 
 
 def test_water_english_answer_package():
@@ -142,3 +142,41 @@ def test_answer_assembly_does_not_mutate_retrieval_result():
     )
 
     assert retrieval["records"] == original_records
+
+def test_nko11_to_nko12_water_answer_package():
+    pipeline = run_controlled_pipeline("\u07d6\u07cc")
+
+    assert pipeline["status"] == "RETRIEVED"
+    assert pipeline["stage"] == "RETRIEVAL"
+
+    result = assemble_answer_package(
+        pipeline["retrieved"],
+        language="English",
+    )
+
+    assert result["status"] == "ANSWER_PACKAGE_READY"
+    assert result["language"] == "English"
+    assert result["record_count"] == 5
+
+    assert [answer["ID"] for answer in result["answers"]] == [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+    ]
+
+    assert result["answers"][0]["answer"] == (
+        "Tomato plants should be watered regularly, especially during "
+        "dry periods, while avoiding waterlogging."
+    )
+
+    assert result["answers"][0]["Crop"] == (
+        pipeline["retrieved"]["records"][0]["Crop"]
+    )
+    assert result["answers"][0]["Region"] == (
+        pipeline["retrieved"]["records"][0]["Region"]
+    )
+    assert result["answers"][0]["Season"] == (
+        pipeline["retrieved"]["records"][0]["Season"]
+    )
