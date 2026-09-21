@@ -18,7 +18,8 @@ It does NOT:
 """
 
 from utils.nko_v5_controlled_retrieval import retrieve_concept_records
-from utils.nko_v5_answer_assembler import assemble_answer_package`r`nfrom test_nko_v5_end_to_end import run_controlled_pipeline
+from utils.nko_v5_answer_assembler import assemble_answer_package
+from test_nko_v5_end_to_end import run_controlled_pipeline
 
 
 def test_water_english_answer_package():
