@@ -273,9 +273,76 @@ NKO-10 is therefore a controlled experimental retrieval layer and not a producti
 
 ---
 
-## 8. Current Experimental Boundary and Checkpoint
+## 8. NKO-11 End-to-End Experimental Validation
 
-At this stage, the N’Ko experimental subsystem has progressed through controlled KB support evaluation and controlled KB retrieval.
+NKO-11 validates the complete isolated experimental N’Ko pipeline from an N’Ko query through controlled retrieval of supporting Master Knowledge Base records.
+
+The validated path is:
+
+```text
+N’Ko Query
+    |
+    v
+NKO-V5 Adapter
+    |
+    v
+Validated Concept_ID
+    |
+    v
+NKO-08 Concept Mapper
+    |
+    v
+KB Category / Concept Mapping
+    |
+    v
+NKO-09 Controlled KB Support Evaluation
+    |
+    v
+NKO-10 Controlled KB Retrieval
+    |
+    v
+Complete Supporting KB Records
+```
+
+### NKO-11 Validation Results
+
+The dedicated NKO-11 test module validates seven controlled cases:
+
+* Water: N’Ko input resolves to **AGRI-WATER**, maps to **Irrigation**, passes controlled KB evaluation, and retrieves records **6–10**.
+* Soil: N’Ko input resolves to **AGRI-SOIL-EARTH**, maps to **Soil Management**, and retrieves records **36–40**.
+* Seed with context: N’Ko input plus the English context `seed` resolves to **AGRI-SEED**, maps to **Seed Selection**, and retrieves records **51–55**.
+* Bare seed expression: remains **AMBIGUOUS** and stops at the adapter.
+* Non-agricultural seed sense: resolves to **NON_AGRICULTURE** and stops at the adapter.
+* Unknown N’Ko input: produces **NO_LEXICAL_MATCH** and stops at the adapter.
+* Combined controlled retrieval: the three validated Concept_IDs retrieve all **15** supporting records.
+
+The dedicated NKO-11 test suite passed:
+
+**7/7 tests passed**
+
+The combined Concept_ID retrieval test is a downstream integration/control test. It deliberately does not invent an unsupported multi-concept N’Ko sentence; the validated Concept_IDs are supplied directly to the mapper, evaluator, and retrieval layers.
+
+### NKO-11 End-to-End Boundary
+
+NKO-11 remains strictly experimental and isolated.
+
+It does **not**:
+
+* modify `app.py`
+* modify `search_question_v5_2`
+* activate direct production V5.3/V5.4 retrieval
+* replace the production search engine
+* perform unrestricted fuzzy retrieval from arbitrary N’Ko text
+* generate production chatbot answers
+* change the production retrieval logic
+
+The end-to-end pipeline therefore demonstrates controlled technical feasibility without changing the production architecture.
+
+---
+
+## 9. Current Experimental Boundary and Checkpoint
+
+At this stage, the N’Ko experimental subsystem has progressed through controlled KB support evaluation, controlled KB retrieval, and isolated end-to-end pipeline validation.
 
 Current validation status:
 
@@ -284,37 +351,12 @@ Current validation status:
 * NKO-08 concept mapper: **7/7 tests passed**
 * NKO-09 controlled KB evaluator: **7/7 tests passed**
 * NKO-10 controlled KB retrieval: **7/7 tests passed**
-* Complete N’Ko experimental test group: **92/92 tests passed**
-* Full project regression: **92/92 tests passed**
+* NKO-11 end-to-end validation: **7/7 tests passed**
+* Complete N’Ko experimental test group: **99/99 tests passed**
+* Full project regression: **99/99 tests passed**
 * Production V5.3/V5.4: **preserved and isolated**
-* Working tree: documentation update pending commit
+* Working tree: **clean before this documentation update**
 * Experimental branch: **synchronized with origin**
-
-### NKO-V5 Controlled End-to-End Validation
-
-A controlled end-to-end evaluation was performed across the experimental N’Ko pipeline, from N’Ko query recognition and sense resolution through the NKO-V5 adapter, concept mapping, and controlled Knowledge Base support evaluation.
-
-#### Positive agricultural cases
-
-| N’Ko Input | Concept_ID | KB Category | Supporting KB Records | Result |
-|---|---|---|---|---|
-| ߖߌ́ water | AGRI-WATER | Irrigation | 6–10 | SUPPORTED |
-| ߓߊ߲߬ߞߎ́ soil | AGRI-SOIL-EARTH | Soil Management | 36–40 | SUPPORTED |
-| ߛߌ́ seed | AGRI-SEED | Seed Selection | 51–55 | SUPPORTED |
-
-Each validated agricultural concept reached the controlled KB evaluator and was associated with five supporting records in the current experimental Knowledge Base.
-
-#### Negative and control cases
-
-| N’Ko Input | Experimental Result | Concept_IDs | KB Support |
-|---|---|---|---|
-| ߛߌ́ hair | NON_AGRICULTURE | [] | NO_SUPPORT |
-| Unknown N’Ko | NO_LEXICAL_MATCH | [] | NO_SUPPORT |
-| Bare ߛߌ́ | AMBIGUOUS | [] | NO_SUPPORT |
-
-These control cases confirm that non-agricultural, unknown, and unresolved ambiguous inputs do not produce agricultural concept mappings or KB support.
-
-This validation is strictly experimental and controlled. It does not activate direct production retrieval, does not modify search_question_v5_2, and does not modify app.py or the production V5.3/V5.4 retrieval path.
 
 ### Current Experimental Architecture
 
@@ -328,25 +370,25 @@ NKO Detection / Recognition
 Sense Resolution
     |
     v
-Validated Concept_ID
+NKO-V5 Adapter
     |
     v
-NKO-V5 Adapter
+Validated Concept_ID
     |
     v
 NKO-08 Concept Mapper
     |
     v
-Experimental KB Category / Crop Mapping
+Experimental KB Category / Concept Mapping
     |
     v
 NKO-09 Controlled KB Support Evaluation
     |
     v
-Verified Supporting KB Records
+NKO-10 Controlled KB Retrieval
     |
     v
-Future controlled retrieval experiment
+Complete Supporting KB Records
 ```
 
 No direct connection to the production V5.3/V5.4 retrieval engine has been activated.
