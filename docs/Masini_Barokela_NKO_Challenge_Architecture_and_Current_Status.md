@@ -339,6 +339,62 @@ It does **not**:
 The end-to-end pipeline therefore demonstrates controlled technical feasibility without changing the production architecture.
 
 ---
+---
+
+## 9. NKO-12 Controlled Answer Assembly
+
+NKO-12 introduces a controlled answer-assembly layer that consumes records already retrieved by the isolated NKO-11 pipeline and prepares a language-specific, auditable answer package.
+
+NKO-12 does not independently retrieve knowledge, resolve N’Ko senses, perform fuzzy matching, or generate new agricultural advice.
+
+### NKO-12 Answer Assembly Architecture
+
+The NKO-12 assembler receives the retrieved result from NKO-11 and assembles the selected language’s question and answer while preserving supporting record metadata.
+
+The supported answer-package languages are:
+
+* English
+* Français
+* Bamanankan
+
+The assembled package preserves the source record’s ID, question, answer, Crop, Region, and Season fields.
+
+### NKO-12 Validation Results
+
+The dedicated NKO-12 test module validates eight controlled cases:
+
+* Water answer package in English
+* Water answer package in French
+* Water answer package in Bamanankan
+* No retrieval result produces no answer package
+* Invalid language produces no answer package
+* Retrieved-record metadata is preserved
+* Retrieval input is not mutated
+* NKO-11 → NKO-12 water answer-package integration
+
+The integration test runs the actual NKO-11 controlled pipeline for the validated N’Ko water input, passes its retrieved output to NKO-12, and verifies the resulting package and preserved metadata.
+
+The dedicated NKO-12 test suite passed:
+
+**8/8 tests passed**
+
+### NKO-12 Experimental Boundary
+
+NKO-12 remains strictly experimental and isolated.
+
+It does **not**:
+
+* modify `app.py`
+* modify `search_question_v5_2`
+* activate direct production V5.3/V5.4 retrieval
+* replace the production search engine
+* retrieve records independently
+* generate new or unsupported agricultural advice
+
+NKO-12 demonstrates controlled, localized answer-package assembly from retrieved knowledge while preserving the production architecture boundary.
+
+---
+
 
 ## 9. Current Experimental Boundary and Checkpoint
 
