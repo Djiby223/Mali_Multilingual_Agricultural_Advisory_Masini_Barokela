@@ -302,6 +302,12 @@ NKO-10 Controlled KB Retrieval
     |
     v
 Complete Supporting KB Records
+    |
+    v
+NKO-12 Controlled Answer Assembly
+    |
+    v
+Localized, Auditable Answer Package
 ```
 
 ### NKO-11 Validation Results
@@ -396,7 +402,7 @@ NKO-12 demonstrates controlled, localized answer-package assembly from retrieved
 ---
 
 
-## 9. Current Experimental Boundary and Checkpoint
+## 10. Current Experimental Boundary and Checkpoint
 
 At this stage, the N’Ko experimental subsystem has progressed through controlled KB support evaluation, controlled KB retrieval, and isolated end-to-end pipeline validation.
 
