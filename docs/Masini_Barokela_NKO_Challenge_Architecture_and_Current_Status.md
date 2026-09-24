@@ -312,6 +312,8 @@ Localized, Auditable Answer Package
 
 ### NKO-11 Validation Results
 
+* NKO-12 controlled answer assembly: **8/8 tests passed**
+
 The dedicated NKO-11 test module validates seven controlled cases:
 
 * Water: N’Ko input resolves to **AGRI-WATER**, maps to **Irrigation**, passes controlled KB evaluation, and retrieves records **6–10**.
@@ -404,7 +406,7 @@ NKO-12 demonstrates controlled, localized answer-package assembly from retrieved
 
 ## 10. Current Experimental Boundary and Checkpoint
 
-At this stage, the N’Ko experimental subsystem has progressed through controlled KB support evaluation, controlled KB retrieval, and isolated end-to-end pipeline validation.
+At this stage, the N’Ko experimental subsystem has progressed through controlled KB support evaluation, controlled KB retrieval, isolated end-to-end pipeline validation, and controlled localized answer assembly.
 
 Current validation status:
 
@@ -414,8 +416,9 @@ Current validation status:
 * NKO-09 controlled KB evaluator: **7/7 tests passed**
 * NKO-10 controlled KB retrieval: **7/7 tests passed**
 * NKO-11 end-to-end validation: **7/7 tests passed**
+* NKO-12 controlled answer assembly: **8/8 tests passed**
 * Complete N’Ko experimental test group: **99/99 tests passed**
-* Full project regression: **99/99 tests passed**
+* Full project regression: **107/107 tests passed**
 * Production V5.3/V5.4: **preserved and isolated**
 * Working tree: **clean before this documentation update**
 * Experimental branch: **synchronized with origin**
@@ -451,6 +454,12 @@ NKO-10 Controlled KB Retrieval
     |
     v
 Complete Supporting KB Records
+    |
+    v
+NKO-12 Controlled Answer Assembly
+    |
+    v
+Localized, Auditable Answer Package
 ```
 
 No direct connection to the production V5.3/V5.4 retrieval engine has been activated.
