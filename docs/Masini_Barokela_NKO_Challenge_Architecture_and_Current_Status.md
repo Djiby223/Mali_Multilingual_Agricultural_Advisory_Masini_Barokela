@@ -417,8 +417,9 @@ Current validation status:
 * NKO-10 controlled KB retrieval: **7/7 tests passed**
 * NKO-11 end-to-end validation: **7/7 tests passed**
 * NKO-12 controlled answer assembly: **8/8 tests passed**
-* Complete N’Ko experimental test group: **99/99 tests passed**
-* Full project regression: **107/107 tests passed**
+* Complete N’Ko experimental test group: **107/107 tests passed**
+* NKO test collection: **107 tests collected**
+* Full project regression: **not re-established by this checkpoint**
 * Production V5.3/V5.4: **preserved and isolated**
 * Working tree: **clean before this documentation update**
 * Experimental branch: **synchronized with origin**
